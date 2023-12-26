@@ -3,7 +3,7 @@
 👍🎉 First off, thanks for taking the time to contribute! 🎉👍
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
-Please note we have a [code of conduct](https://github.com/dataswap/message-server/blob/master/.github/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
+Please note we have a [code of conduct](https://github.com/dataswap/messagehub/blob/master/.github/CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
 
 ## Table of Contents
 
@@ -22,10 +22,10 @@ To install the project you need to have `node` and `npm`
 
     ```sh
     # Clone your fork
-    git clone https://github.com/<your-username>/message-server.git
+    git clone https://github.com/<your-username>/messagehub.git
 
     # Navigate to the newly cloned directory
-    cd message-server
+    cd messagehub
     ```
 
 2.  Your environment needs to be running `node` version >= 18.17.0 and `npm` version >= 10.2.0.
@@ -36,8 +36,8 @@ To install the project you need to have `node` and `npm`
 
 4.  from the root of the project: `npm run build` to build.
 
-5.  Your local test environment need to be setted refer to  [.evn.example](https://github.com/dataswap/message-server/blob/master/.env.example),
-    - copy [.evn.example](https://github.com/dataswap/message-server/blob/master/.env.example) to .env in root directory.
+5.  Your local test environment need to be setted refer to  [.evn.example](https://github.com/dataswap/messagehub/blob/master/.env.example),
+    - copy [.evn.example](https://github.com/dataswap/messagehub/blob/master/.env.example) to .env in root directory.
     - modify the environment meet to your own test evnironment.
 
 ## Git Commit

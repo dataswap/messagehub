@@ -1,5 +1,5 @@
 {
-  "name": "@dataswap/message-server",
+  "name": "@dataswap/messagehub",
   "version": "0.0.1",
   "description": "",
   "private": true,
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dataswap/message-server.git"
+    "url": "git+https://github.com/dataswap/messagehub.git"
   },
   "keywords": [
     "dataswap",
@@ -33,9 +33,9 @@
   "author": "waynewyang",
   "license": "MIT and Apache",
   "bugs": {
-    "url": "https://github.com/dataswap/message-server/issues"
+    "url": "https://github.com/dataswap/messagehub/issues"
   },
-  "homepage": "https://github.com/dataswap/message-server#readme",
+  "homepage": "https://github.com/dataswap/messagehub#readme",
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
