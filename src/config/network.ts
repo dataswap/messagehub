@@ -18,81 +18,24 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import {
-  TipsetMongoDatastore,
-  BlockMongoDatastore,
-  MessageMongoDatastore,
-  ChainService,
-  ChainFilecoinRPC,
-  AddressesFilterReplayStrategy,
-} from '@unipackage/filecoin';
-
-/**
- * Configuration for a Filecoin network.
- */
-export interface NetworkConfig {
-  apiAddress: string;
-  token: string;
-  mongoUrl: string;
-  dataswapStartHeight: number;
-  contractAddress?: {
-    dataset: string;
-  };
-}
-
-/**
- * Represents a connection to a Filecoin network.
- */
-export class ChainNetwork {
-  rpc: ChainFilecoinRPC;
-  messageDatastore: MessageMongoDatastore;
-  blockDatastore: BlockMongoDatastore;
-  tipsetDatastore: TipsetMongoDatastore;
-  dataswapStartHeight: number;
-  chainService: ChainService;
-
-  /**
-   * Creates an instance of ChainNetwork.
-   * @param config - The network configuration.
-   */
-  constructor(config: NetworkConfig) {
-    this.dataswapStartHeight = config.dataswapStartHeight;
-    this.rpc = new ChainFilecoinRPC({
-      apiAddress: config.apiAddress,
-      token: config.token,
-    });
-    this.messageDatastore = new MessageMongoDatastore(config.mongoUrl);
-    this.blockDatastore = new BlockMongoDatastore(config.mongoUrl);
-    this.tipsetDatastore = new TipsetMongoDatastore(config.mongoUrl);
-    this.chainService = new ChainService({
-      rpc: this.rpc,
-      messageDs: this.messageDatastore,
-      blockMessagesDs: this.blockDatastore,
-      tipsetDs: this.tipsetDatastore,
-      replayStrategyOptions: {
-        replay: false,
-        replayStrategy: new AddressesFilterReplayStrategy([]),
-      },
-    });
-  }
-}
+import { Chain } from '../lib/chain';
 
 /**
  * Calibration network configuration
  */
-export const chainNetworkCalibration = new ChainNetwork({
+export const chainNetworkCalibration = new Chain({
   apiAddress: process.env.CALIBRATION_LOTUS_API_ENDPOINT as string,
   token: process.env.CALIBRATION_LOTUS_TOKEN as string,
   mongoUrl: process.env.CALIBRATION_MONGO_URL as string,
-  dataswapStartHeight: 1,
+  dataswapStartHeight: 1210900,
 });
 
 /**
  * Main network configuration
  */
-export const chainNetwork = new ChainNetwork({
+export const chainNetwork = new Chain({
   apiAddress: process.env.MAIN_LOTUS_API_ENDPOINT as string,
   token: process.env.MAIN_LOTUS_TOKEN as string,
   mongoUrl: process.env.MAIN_MONGO_URL as string,
-  dataswapStartHeight: 1,
+  dataswapStartHeight: 3511591,
 });
