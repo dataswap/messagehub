@@ -19,6 +19,7 @@
  ********************************************************************************/
 
 import { Injectable, OnModuleInit } from '@nestjs/common';
+import { chainNetwork, chainNetworkCalibration } from '../config/network';
 
 /**
  * Service responsible for synchronizing with the blockchain.
@@ -36,23 +37,12 @@ export class ChainsyncService implements OnModuleInit {
    * Start the background task for continuous synchronization.
    */
   private async startBackgroundTask() {
-    while (true) {
-      try {
-        console.log(
-          'Always crawl the latest tipset, blockMessages, and messages.',
-        );
-        await this.delay(1000);
-      } catch (error) {
-        console.error('Error in the background task:', error);
-      }
+    try {
+      const mainnetSync = chainNetwork.startSyncBackgroundTask();
+      const calibrationSync = chainNetworkCalibration.startSyncBackgroundTask();
+      await Promise.all([mainnetSync, calibrationSync]);
+    } catch (error) {
+      console.error('Error in the background task:', error);
     }
-  }
-
-  /**
-   * Utility function to introduce a delay.
-   * @param ms - The delay time in milliseconds.
-   */
-  private async delay(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
