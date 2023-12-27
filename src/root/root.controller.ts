@@ -21,10 +21,22 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { RootService } from './root.service';
 
+/**
+ * Controller responsible for handling root-level requests.
+ */
 @Controller()
 export class RootController {
+  /**
+   * Creates an instance of RootController.
+   * @param rootService - The RootService instance.
+   */
   constructor(private readonly rootService: RootService) {}
 
+  /**
+   * Handles GET requests for root-level resources with an identifier.
+   * @param param - Request parameters.
+   * @returns A string representing the response.
+   */
   @Get(':id')
   getHello(@Param() param): string {
     console.log(param.id);

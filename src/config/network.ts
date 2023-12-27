@@ -27,6 +27,9 @@ import {
   AddressesFilterReplayStrategy,
 } from '@unipackage/filecoin';
 
+/**
+ * Configuration for a Filecoin network.
+ */
 export interface NetworkConfig {
   apiAddress: string;
   token: string;
@@ -37,6 +40,9 @@ export interface NetworkConfig {
   };
 }
 
+/**
+ * Represents a connection to a Filecoin network.
+ */
 export class ChainNetwork {
   rpc: ChainFilecoinRPC;
   messageDatastore: MessageMongoDatastore;
@@ -45,6 +51,10 @@ export class ChainNetwork {
   dataswapStartHeight: number;
   chainService: ChainService;
 
+  /**
+   * Creates an instance of ChainNetwork.
+   * @param config - The network configuration.
+   */
   constructor(config: NetworkConfig) {
     this.dataswapStartHeight = config.dataswapStartHeight;
     this.rpc = new ChainFilecoinRPC({
@@ -67,6 +77,9 @@ export class ChainNetwork {
   }
 }
 
+/**
+ * Calibration network configuration
+ */
 export const chainNetworkCalibration = new ChainNetwork({
   apiAddress: process.env.CALIBRATION_LOTUS_API_ENDPOINT as string,
   token: process.env.CALIBRATION_LOTUS_TOKEN as string,
@@ -74,6 +87,9 @@ export const chainNetworkCalibration = new ChainNetwork({
   dataswapStartHeight: 1,
 });
 
+/**
+ * Main network configuration
+ */
 export const chainNetwork = new ChainNetwork({
   apiAddress: process.env.MAIN_LOTUS_API_ENDPOINT as string,
   token: process.env.MAIN_LOTUS_TOKEN as string,

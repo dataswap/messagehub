@@ -20,25 +20,38 @@
 
 import { Injectable, OnModuleInit } from '@nestjs/common';
 
+/**
+ * Service responsible for synchronizing with the blockchain.
+ */
 @Injectable()
 export class ChainsyncService implements OnModuleInit {
+  /**
+   * Lifecycle hook, called once the module has been initialized.
+   */
   async onModuleInit() {
     await this.startBackgroundTask();
   }
 
+  /**
+   * Start the background task for continuous synchronization.
+   */
   private async startBackgroundTask() {
     while (true) {
       try {
         console.log(
-          'Always craw the lastest tipset ,blockMessages and messages ',
+          'Always crawl the latest tipset, blockMessages, and messages.',
         );
         await this.delay(1000);
       } catch (error) {
-        console.error('Error in background task:', error);
+        console.error('Error in the background task:', error);
       }
     }
   }
 
+  /**
+   * Utility function to introduce a delay.
+   * @param ms - The delay time in milliseconds.
+   */
   private async delay(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }

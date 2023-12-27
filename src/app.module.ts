@@ -23,6 +23,9 @@ import { RootController } from './root/root.controller';
 import { RootService } from './root/root.service';
 import { ChainsyncService } from './chainsync/chainsync.service';
 
+/**
+ * Root module for the application.
+ */
 @Module({
   imports: [],
   controllers: [RootController],

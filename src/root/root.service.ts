@@ -20,8 +20,15 @@
 
 import { Injectable } from '@nestjs/common';
 
+/**
+ * Service responsible for providing root-level functionality.
+ */
 @Injectable()
 export class RootService {
+  /**
+   * Gets a greeting message.
+   * @returns A string representing a greeting message.
+   */
   getHello(): string {
     return 'Hello World!';
   }

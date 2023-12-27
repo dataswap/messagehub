@@ -21,8 +21,16 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
+/**
+ * Application bootstrap function.
+ */
 async function bootstrap() {
+  // Create a NestJS application instance
   const app = await NestFactory.create(AppModule);
+
+  // Start the application, listening on port 3000
   await app.listen(3000);
 }
+
+// Call the bootstrap function to start the application
 bootstrap();
