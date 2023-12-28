@@ -18,17 +18,18 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Module } from '@nestjs/common';
-import { RootController } from './root/root.controller';
-import { RootService } from './root/root.service';
-import { BackgroundTaskService } from './backgroundTask/provider/backgroundTask.service';
+import { Context } from '../context';
 
 /**
- * Root module for the application.
+ * Represents a connection to a Filecoin network.
  */
-@Module({
-  imports: [],
-  controllers: [RootController],
-  providers: [RootService, BackgroundTaskService],
-})
-export class AppModule {}
+export class Decoder {
+  context: Context;
+  /**
+   * Creates an instance of ChainNetwork.
+   * @param config - The network configuration.
+   */
+  constructor(context: Context) {
+    this.context = context;
+  }
+}

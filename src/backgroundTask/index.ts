@@ -18,24 +18,18 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Chain } from '../lib/chain';
+import { Context, Config } from './context';
+import { Syncer } from './sync';
 
-/**
- * Calibration network configuration
- */
-export const chainNetworkCalibration = new Chain({
-  apiAddress: process.env.CALIBRATION_LOTUS_API_ENDPOINT as string,
-  token: process.env.CALIBRATION_LOTUS_TOKEN as string,
-  mongoUrl: process.env.CALIBRATION_MONGO_URL as string,
-  dataswapStartHeight: 1210900,
-});
+export class BackgroundTask {
+  private syncer: Syncer;
+  private context: Context;
+  constructor(config: Config) {
+    this.context = new Context(config);
+    this.syncer = new Syncer(this.context);
+  }
 
-/**
- * Main network configuration
- */
-export const chainNetwork = new Chain({
-  apiAddress: process.env.MAIN_LOTUS_API_ENDPOINT as string,
-  token: process.env.MAIN_LOTUS_TOKEN as string,
-  mongoUrl: process.env.MAIN_MONGO_URL as string,
-  dataswapStartHeight: 3511591,
-});
+  async start() {
+    await this.syncer.startSyncBackgroundTask();
+  }
+}

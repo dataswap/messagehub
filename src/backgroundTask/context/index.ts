@@ -1,0 +1,132 @@
+/*******************************************************************************
+ *   (c) 2023 dataswap
+ *
+ *  Licensed under either the MIT License (the "MIT License") or the Apache License, Version 2.0
+ *  (the "Apache License"). You may not use this file except in compliance with one of these
+ *  licenses. You may obtain a copy of the MIT License at
+ *
+ *      https://opensource.org/licenses/MIT
+ *
+ *  Or the Apache License, Version 2.0 at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the MIT License or the Apache License for the specific language governing permissions and
+ *  limitations under the respective licenses.
+ ********************************************************************************/
+
+import {
+  TipsetMongoDatastore,
+  BlockMongoDatastore,
+  MessageMongoDatastore,
+  ChainService,
+  ChainFilecoinRPC,
+  AddressesFilterReplayStrategy,
+} from '@unipackage/filecoin';
+import {
+  DatasetMetadataEvm,
+  DatasetProofEvm,
+  DatasetRequirementEvm,
+  DatasetChallengeEvm,
+  MatchingBidsEvm,
+  MatchingMetadataEvm,
+  MatchingTargetEvm,
+  StoragesEvm,
+  DatacapsEvm,
+  EscrowEvm,
+  RolesEvm,
+  FilplusEvm,
+} from '@dataswapjs/dataswapjs';
+
+/**
+ * Configuration for Evm set.
+ */
+export interface EvmContext {
+  escrow: EscrowEvm;
+  filplus: FilplusEvm;
+  roles: RolesEvm;
+  dataset: {
+    metadata: DatasetMetadataEvm;
+    requirement: DatasetRequirementEvm;
+    proof: DatasetProofEvm;
+    challenge: DatasetChallengeEvm;
+  };
+  matching: {
+    target: MatchingTargetEvm;
+    metadata: MatchingMetadataEvm;
+    bids: MatchingBidsEvm;
+  };
+  storages: StoragesEvm;
+  datacaps: DatacapsEvm;
+}
+
+/**
+ * Configuration for Datastore set.
+ */
+export interface DatastoreContext {
+  message: MessageMongoDatastore;
+  block: BlockMongoDatastore;
+  tipset: TipsetMongoDatastore;
+}
+
+/**
+ * Configuration for a Filecoin network.
+ */
+export interface Config {
+  apiAddress: string;
+  token: string;
+  mongoUrl: string;
+  startHeight: number;
+  evm: EvmContext;
+}
+
+/**
+ * Represents a connection to a Filecoin network.
+ */
+export class Context {
+  rpc: ChainFilecoinRPC;
+  datastore: DatastoreContext;
+  chainService: ChainService;
+  startHeight: number;
+  evm: EvmContext;
+
+  /**
+   * Creates an instance of ChainNetwork.
+   * @param config - The network configuration.
+   */
+  constructor(config: Config) {
+    this.startHeight = config.startHeight;
+    this.rpc = new ChainFilecoinRPC({
+      apiAddress: config.apiAddress,
+      token: config.token,
+    });
+    this.datastore.message = new MessageMongoDatastore(config.mongoUrl);
+    this.datastore.block = new BlockMongoDatastore(config.mongoUrl);
+    this.datastore.tipset = new TipsetMongoDatastore(config.mongoUrl);
+    this.chainService = new ChainService({
+      rpc: this.rpc,
+      messageDs: this.datastore.message,
+      blockMessagesDs: this.datastore.block,
+      tipsetDs: this.datastore.tipset,
+      replayStrategyOptions: {
+        replay: false,
+        replayStrategy: new AddressesFilterReplayStrategy([]),
+      },
+    });
+    this.evm.roles = config.evm.roles;
+    this.evm.filplus = config.evm.filplus;
+    this.evm.escrow = config.evm.escrow;
+    this.evm.dataset.metadata = config.evm.dataset.metadata;
+    this.evm.dataset.requirement = config.evm.dataset.requirement;
+    this.evm.dataset.proof = config.evm.dataset.proof;
+    this.evm.dataset.challenge = config.evm.dataset.challenge;
+    this.evm.matching.metadata = config.evm.matching.metadata;
+    this.evm.matching.target = config.evm.matching.target;
+    this.evm.matching.bids = config.evm.matching.bids;
+    this.evm.storages = config.evm.storages;
+    this.evm.datacaps = config.evm.datacaps;
+  }
+}

@@ -18,62 +18,19 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import {
-  TipsetMongoDatastore,
-  BlockMongoDatastore,
-  MessageMongoDatastore,
-  ChainService,
-  ChainFilecoinRPC,
-  AddressesFilterReplayStrategy,
-} from '@unipackage/filecoin';
-
-/**
- * Configuration for a Filecoin network.
- */
-export interface NetworkConfig {
-  apiAddress: string;
-  token: string;
-  mongoUrl: string;
-  dataswapStartHeight: number;
-  contractAddress?: {
-    dataset: string;
-  };
-}
+import { Context } from '../context';
 
 /**
  * Represents a connection to a Filecoin network.
  */
-export class Chain {
-  rpc: ChainFilecoinRPC;
-  messageDatastore: MessageMongoDatastore;
-  blockDatastore: BlockMongoDatastore;
-  tipsetDatastore: TipsetMongoDatastore;
-  dataswapStartHeight: number;
-  chainService: ChainService;
-
+export class Syncer {
+  context: Context;
   /**
    * Creates an instance of ChainNetwork.
    * @param config - The network configuration.
    */
-  constructor(config: NetworkConfig) {
-    this.dataswapStartHeight = config.dataswapStartHeight;
-    this.rpc = new ChainFilecoinRPC({
-      apiAddress: config.apiAddress,
-      token: config.token,
-    });
-    this.messageDatastore = new MessageMongoDatastore(config.mongoUrl);
-    this.blockDatastore = new BlockMongoDatastore(config.mongoUrl);
-    this.tipsetDatastore = new TipsetMongoDatastore(config.mongoUrl);
-    this.chainService = new ChainService({
-      rpc: this.rpc,
-      messageDs: this.messageDatastore,
-      blockMessagesDs: this.blockDatastore,
-      tipsetDs: this.tipsetDatastore,
-      replayStrategyOptions: {
-        replay: false,
-        replayStrategy: new AddressesFilterReplayStrategy([]),
-      },
-    });
+  constructor(context: Context) {
+    this.context = context;
   }
 
   /**
@@ -90,7 +47,7 @@ export class Chain {
    * @throws {Error} If there is an error fetching the chain head height.
    */
   async getChainHeadHeight(): Promise<number> {
-    const res = await this.rpc.ChainHead();
+    const res = await this.context.rpc.ChainHead();
     if (!res.ok) {
       throw new Error(`getChainHeadHeight error:${res.error}`);
     }
@@ -104,7 +61,7 @@ export class Chain {
    * @throws {Error} If there is an error checking the synchronization status.
    */
   async isHeightAlreadySynced(height: number): Promise<boolean> {
-    const syncedTipsetsRes = await this.tipsetDatastore.find({
+    const syncedTipsetsRes = await this.context.datastore.tipset.find({
       conditions: [{ Height: height }],
     });
     if (!syncedTipsetsRes.ok) {
@@ -123,13 +80,13 @@ export class Chain {
    * @throws {Error} If there is an error during the synchronization process.
    */
   async startSyncBackgroundTask() {
-    let syncHeight = this.dataswapStartHeight;
+    let syncHeight = this.context.startHeight;
 
     while (true) {
       const chainHeadHeight = await this.getChainHeadHeight();
       const isSynced = await this.isHeightAlreadySynced(syncHeight);
       if (!isSynced) {
-        await this.chainService.GetAndSaveChainInfoByHeight(syncHeight);
+        await this.context.chainService.GetAndSaveChainInfoByHeight(syncHeight);
       } else if (syncHeight < chainHeadHeight) {
         syncHeight++;
       } else {

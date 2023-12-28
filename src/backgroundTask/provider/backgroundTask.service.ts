@@ -19,13 +19,13 @@
  ********************************************************************************/
 
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { chainNetwork, chainNetworkCalibration } from '../config/network';
+import { bgTask, bgTaskCalibration } from '../../config/backgroundTask';
 
 /**
  * Service responsible for synchronizing with the blockchain.
  */
 @Injectable()
-export class ChainsyncService implements OnModuleInit {
+export class BackgroundTaskService implements OnModuleInit {
   /**
    * Lifecycle hook, called once the module has been initialized.
    */
@@ -38,8 +38,8 @@ export class ChainsyncService implements OnModuleInit {
    */
   private async startBackgroundTask() {
     try {
-      const mainnetSync = chainNetwork.startSyncBackgroundTask();
-      const calibrationSync = chainNetworkCalibration.startSyncBackgroundTask();
+      const mainnetSync = bgTask.start();
+      const calibrationSync = bgTaskCalibration.start();
       await Promise.all([mainnetSync, calibrationSync]);
     } catch (error) {
       console.error('Error in the background task:', error);

@@ -18,17 +18,27 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Module } from '@nestjs/common';
-import { RootController } from './root/root.controller';
-import { RootService } from './root/root.service';
-import { BackgroundTaskService } from './backgroundTask/provider/backgroundTask.service';
+import { BackgroundTask } from '../backgroundTask';
+import { EvmContext } from '../backgroundTask/context';
 
 /**
- * Root module for the application.
+ * Calibration network configuration
  */
-@Module({
-  imports: [],
-  controllers: [RootController],
-  providers: [RootService, BackgroundTaskService],
-})
-export class AppModule {}
+export const bgTaskCalibration = new BackgroundTask({
+  apiAddress: process.env.CALIBRATION_LOTUS_API_ENDPOINT as string,
+  token: process.env.CALIBRATION_LOTUS_TOKEN as string,
+  mongoUrl: process.env.CALIBRATION_MONGO_URL as string,
+  startHeight: 1210900,
+  evm: {} as EvmContext,
+});
+
+/**
+ * Main network configuration
+ */
+export const bgTask = new BackgroundTask({
+  apiAddress: process.env.MAIN_LOTUS_API_ENDPOINT as string,
+  token: process.env.MAIN_LOTUS_TOKEN as string,
+  mongoUrl: process.env.MAIN_MONGO_URL as string,
+  startHeight: 3511591,
+  evm: {} as EvmContext,
+});
