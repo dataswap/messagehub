@@ -21,7 +21,7 @@
 import { Context } from '../context';
 import { IStorager, SelectedParams } from '../interface';
 import { Chain } from '@unipackage/filecoin';
-import { DataswapMessage } from '@dataswapjs/dataswapjs';
+import { DatasetMetadata, DataswapMessage } from '@dataswapjs/dataswapjs';
 
 /**
  * Represents a connection to a Filecoin network.
@@ -73,11 +73,10 @@ export class Storager implements IStorager {
     dataswapMessages: Array<DataswapMessage>,
   ): Promise<void> {
     try {
-      const doStores = dataswapMessages.map(
-        async (msg) =>
-          await this.context.datastore.dataswapMessage.CreateOrupdateByUniqueIndexes(
-            msg,
-          ),
+      const doStores = dataswapMessages.map(async (msg) =>
+        this.context.datastore.dataswapMessage.CreateOrupdateByUniqueIndexes(
+          msg,
+        ),
       );
       const res = await Promise.all(doStores);
       res.map((result) => {
@@ -94,7 +93,24 @@ export class Storager implements IStorager {
   async storeSelectedParams(
     selectedParams: Array<SelectedParams>,
   ): Promise<void> {
-    console.log(selectedParams);
-    throw new Error('not implement');
+    try {
+      const doStores = selectedParams.map(async (selected) => {
+        switch (selected.method) {
+          case 'submitDatasetMetadata':
+            return this.context.datastore.datasetMetadata.CreateOrupdateByUniqueIndexes(
+              selected.params as DatasetMetadata,
+            );
+          case 'submitDatasetReplicaRequirements':
+            throw new Error('not implement');
+          //Note: add other methods
+          default:
+            throw new Error('Error selected method and params');
+        }
+      });
+      const results = await Promise.all(doStores);
+      results.forEach((res) => {
+        if (!res.ok) throw new Error(res.error);
+      });
+    } catch (error) {}
   }
 }
