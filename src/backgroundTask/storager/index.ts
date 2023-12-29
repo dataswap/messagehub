@@ -102,7 +102,7 @@ export class Storager implements IStorager {
             );
           case 'submitDatasetReplicaRequirements':
             throw new Error('not implement');
-          //Note: add other methods
+          //TODO: add other methods
           default:
             throw new Error('Error selected method and params');
         }

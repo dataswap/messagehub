@@ -27,6 +27,7 @@ import { DatasetMetadata, DatasetRequirement } from '@dataswapjs/dataswapjs';
 export const selectedMethods = [
   'submitDatasetMetadata',
   'submitDatasetReplicaRequirements',
+  //TODO: add other methods
 ];
 
 /**
@@ -36,4 +37,5 @@ export const selectedMethods = [
 export type InternalSelectedParamsMap = {
   submitDatasetMetadata: { params: DatasetMetadata };
   submitDatasetReplicaRequirements: { params: Array<DatasetRequirement> };
+  //TODO: add other selected params
 };
