@@ -111,6 +111,8 @@ export class Storager implements IStorager {
       results.forEach((res) => {
         if (!res.ok) throw new Error(res.error);
       });
-    } catch (error) {}
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

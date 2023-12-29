@@ -42,8 +42,73 @@ export class Decoder implements IDecoder {
    * Gets pending dataswap messages based on the provided chain information.
    */
   getPendingDataswapMessages(pendingChainInfo: Chain): DataswapMessage[] {
-    console.log(pendingChainInfo);
-    throw new Error('not implement');
+    try {
+      let res: DataswapMessage[];
+      pendingChainInfo.messages.forEach((msg) => {
+        //TODO:To check address format ,add toEthaddress function
+        switch (msg.Msg.To) {
+          case this.context.evm.dataset.metadata.getContractAddress():
+            res.push(this.context.evm.dataset.metadata.decodeMessage(msg).data);
+            break;
+
+          case this.context.evm.dataset.requirement.getContractAddress():
+            res.push(
+              this.context.evm.dataset.requirement.decodeMessage(msg).data,
+            );
+            break;
+
+          case this.context.evm.dataset.proof.getContractAddress():
+            res.push(this.context.evm.dataset.proof.decodeMessage(msg).data);
+            break;
+
+          case this.context.evm.dataset.challenge.getContractAddress():
+            res.push(
+              this.context.evm.dataset.challenge.decodeMessage(msg).data,
+            );
+            break;
+
+          case this.context.evm.matching.target.getContractAddress():
+            res.push(this.context.evm.matching.target.decodeMessage(msg).data);
+            break;
+
+          case this.context.evm.matching.metadata.getContractAddress():
+            res.push(
+              this.context.evm.matching.metadata.decodeMessage(msg).data,
+            );
+            break;
+
+          case this.context.evm.matching.bids.getContractAddress():
+            res.push(this.context.evm.matching.bids.decodeMessage(msg).data);
+            break;
+
+          case this.context.evm.storages.getContractAddress():
+            res.push(this.context.evm.storages.decodeMessage(msg).data);
+            break;
+
+          case this.context.evm.datacaps.getContractAddress():
+            res.push(this.context.evm.datacaps.decodeMessage(msg).data);
+            break;
+
+          case this.context.evm.escrow.getContractAddress():
+            res.push(this.context.evm.escrow.decodeMessage(msg).data);
+            break;
+
+          case this.context.evm.filplus.getContractAddress():
+            res.push(this.context.evm.filplus.decodeMessage(msg).data);
+            break;
+
+          case this.context.evm.roles.getContractAddress():
+            res.push(this.context.evm.roles.decodeMessage(msg).data);
+            break;
+
+          default:
+            break;
+        }
+      });
+      return res;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   /**
