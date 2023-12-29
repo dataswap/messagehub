@@ -32,6 +32,10 @@ import {
   EvmContext,
   DatastoreContext,
 } from '../interface';
+import {
+  DataswapMessageMongoDatastore,
+  DatasetMetadataMongoDatastore,
+} from '@dataswapjs/dataswapjs';
 
 /**
  * Configuration for a Context config.
@@ -65,6 +69,12 @@ export class Context implements IContext {
     this.datastore.message = new MessageMongoDatastore(config.mongoUrl);
     this.datastore.block = new BlockMongoDatastore(config.mongoUrl);
     this.datastore.tipset = new TipsetMongoDatastore(config.mongoUrl);
+    this.datastore.dataswapMessage = new DataswapMessageMongoDatastore(
+      config.mongoUrl,
+    );
+    this.datastore.datasetMetadata = new DatasetMetadataMongoDatastore(
+      config.mongoUrl,
+    );
     this.chain.service = new ChainService({
       rpc: this.chain.rpc,
       messageDs: this.datastore.message,

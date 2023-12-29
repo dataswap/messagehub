@@ -72,8 +72,20 @@ export class Storager implements IStorager {
   async storeDataswapMessages(
     dataswapMessages: Array<DataswapMessage>,
   ): Promise<void> {
-    console.log(dataswapMessages);
-    throw new Error('not implement');
+    try {
+      const doStores = dataswapMessages.map(
+        async (msg) =>
+          await this.context.datastore.dataswapMessage.CreateOrupdateByUniqueIndexes(
+            msg,
+          ),
+      );
+      const res = await Promise.all(doStores);
+      res.map((result) => {
+        if (!result.ok) throw new Error(result.error);
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   /**

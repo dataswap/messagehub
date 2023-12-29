@@ -40,6 +40,8 @@ import {
   RolesEvm,
   FilplusEvm,
   DataswapMessage,
+  DataswapMessageMongoDatastore,
+  DatasetMetadataMongoDatastore,
 } from '@dataswapjs/dataswapjs';
 import { InternalSelectedParamsMap } from './config';
 
@@ -81,6 +83,8 @@ export interface DatastoreContext {
   message: MessageMongoDatastore;
   block: BlockMongoDatastore;
   tipset: TipsetMongoDatastore;
+  dataswapMessage: DataswapMessageMongoDatastore;
+  datasetMetadata: DatasetMetadataMongoDatastore;
 }
 
 /**
