@@ -19,26 +19,60 @@
  ********************************************************************************/
 
 import { BackgroundTask } from '../backgroundTask';
-import { EvmContext } from '../backgroundTask/context';
+import { Config, Context } from '../backgroundTask/context';
+import { EvmContext } from '../backgroundTask/interface';
+import { Syncer } from '../backgroundTask/syncer';
+import { Decoder } from '../backgroundTask/decoder';
+import { Storager } from '../backgroundTask/storager';
 
 /**
  * Calibration network configuration
  */
-export const bgTaskCalibration = new BackgroundTask({
+export const calibrationConfig: Config = {
   apiAddress: process.env.CALIBRATION_LOTUS_API_ENDPOINT as string,
   token: process.env.CALIBRATION_LOTUS_TOKEN as string,
   mongoUrl: process.env.CALIBRATION_MONGO_URL as string,
   startHeight: 1210900,
   evm: {} as EvmContext,
-});
+};
 
 /**
  * Main network configuration
  */
-export const bgTask = new BackgroundTask({
+export const mainConfig: Config = {
   apiAddress: process.env.MAIN_LOTUS_API_ENDPOINT as string,
   token: process.env.MAIN_LOTUS_TOKEN as string,
   mongoUrl: process.env.MAIN_MONGO_URL as string,
   startHeight: 3511591,
   evm: {} as EvmContext,
+};
+
+/**
+ * Calibration context instance created with the calibration configuration.
+ */
+export const calibrationContext = new Context(calibrationConfig);
+
+/**
+ * Main context instance created with the main configuration.
+ */
+export const mainContext = new Context(mainConfig);
+
+/**
+ * Main background task instance configured with the main context and its dependencies.
+ */
+export const mainBgTask = new BackgroundTask({
+  context: mainContext,
+  syncer: new Syncer(mainContext),
+  decoder: new Decoder(mainContext),
+  storager: new Storager(mainContext),
+});
+
+/**
+ * Calibration background task instance configured with the calibration context and its dependencies.
+ */
+export const calibrationBgTask = new BackgroundTask({
+  context: calibrationContext,
+  syncer: new Syncer(calibrationContext),
+  decoder: new Decoder(calibrationContext),
+  storager: new Storager(calibrationContext),
 });

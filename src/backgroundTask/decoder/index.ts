@@ -18,31 +18,40 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { mainBgTask, calibrationBgTask } from '../../config/backgroundTask';
+import { Chain } from '@unipackage/filecoin';
+import { Context } from '../context';
+import { IDecoder, SelectedParams } from '../interface';
+// import { Chain } from '@unipackage/filecoin';
+import { DataswapMessage } from '@dataswapjs/dataswapjs';
 
 /**
- * Service responsible for synchronizing with the blockchain.
+ * Represents a connection to a Filecoin network.
  */
-@Injectable()
-export class BackgroundTaskService implements OnModuleInit {
+export class Decoder implements IDecoder {
+  context: Context;
   /**
-   * Lifecycle hook, called once the module has been initialized.
+   * Creates an instance of ChainNetwork.
+   * @param config - The network configuration.
    */
-  async onModuleInit() {
-    await this.startBackgroundTask();
+  constructor(context: Context) {
+    this.context = context;
   }
 
   /**
-   * Start the background task for continuous synchronization.
+   * Gets pending dataswap messages based on the provided chain information.
    */
-  private async startBackgroundTask() {
-    try {
-      const mainBgTaskPromise = mainBgTask.start();
-      const calibrationBgTaskPromise = calibrationBgTask.start();
-      await Promise.all([mainBgTaskPromise, calibrationBgTaskPromise]);
-    } catch (error) {
-      console.error('Error in the background task:', error);
-    }
+  getPendingDataswapMessages(pendingChainInfo: Chain): DataswapMessage[] {
+    console.log(pendingChainInfo);
+    throw new Error('not implement');
+  }
+
+  /**
+   * Gets pending selected parameters from a list of dataswap messages.
+   */
+  getPendingSelectedParams(
+    dataswapMessages: DataswapMessage[],
+  ): SelectedParams[] {
+    console.log(dataswapMessages);
+    throw new Error('not implement');
   }
 }

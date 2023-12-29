@@ -19,11 +19,14 @@
  ********************************************************************************/
 
 import { Context } from '../context';
+import { IStorager, SelectedParams } from '../interface';
+import { Chain } from '@unipackage/filecoin';
+import { DataswapMessage } from '@dataswapjs/dataswapjs';
 
 /**
  * Represents a connection to a Filecoin network.
  */
-export class Syncer {
+export class Storager implements IStorager {
   context: Context;
   /**
    * Creates an instance of ChainNetwork.
@@ -34,33 +37,12 @@ export class Syncer {
   }
 
   /**
-   * Utility function to introduce a delay.
-   * @param ms - The delay time in milliseconds.
-   */
-  private async delay(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  /**
-   * Retrieves the current height of the Filecoin chain from the network.
-   * @returns {Promise<number>} The height of the chain.
-   * @throws {Error} If there is an error fetching the chain head height.
-   */
-  async getChainHeadHeight(): Promise<number> {
-    const res = await this.context.rpc.ChainHead();
-    if (!res.ok) {
-      throw new Error(`getChainHeadHeight error:${res.error}`);
-    }
-    return res.data.Height;
-  }
-
-  /**
    * Checks if a given height has already been synchronized.
    * @param {number} height - The height to check for synchronization.
    * @returns {Promise<boolean>} True if the height is already synchronized, false otherwise.
    * @throws {Error} If there is an error checking the synchronization status.
    */
-  async isHeightAlreadySynced(height: number): Promise<boolean> {
+  async isThisHeightStored(height: number): Promise<boolean> {
     const syncedTipsetsRes = await this.context.datastore.tipset.find({
       conditions: [{ Height: height }],
     });
@@ -75,23 +57,32 @@ export class Syncer {
   }
 
   /**
-   * Initiates a background task to synchronize the chain starting from the configured height.
-   * This task runs indefinitely, periodically fetching and saving chain information.
-   * @throws {Error} If there is an error during the synchronization process.
+   * Stores chain information.
    */
-  async startSyncBackgroundTask() {
-    let syncHeight = this.context.startHeight;
-
-    while (true) {
-      const chainHeadHeight = await this.getChainHeadHeight();
-      const isSynced = await this.isHeightAlreadySynced(syncHeight);
-      if (!isSynced) {
-        await this.context.chainService.GetAndSaveChainInfoByHeight(syncHeight);
-      } else if (syncHeight < chainHeadHeight) {
-        syncHeight++;
-      } else {
-        await this.delay(3000);
-      }
+  async storeChainInfo(chain: Chain): Promise<void> {
+    const res = await this.context.chain.service.SaveChainInfo(chain);
+    if (!res.ok) {
+      throw new Error(res.error);
     }
+  }
+
+  /**
+   * Stores an array of dataswap messages.
+   */
+  async storeDataswapMessages(
+    dataswapMessages: Array<DataswapMessage>,
+  ): Promise<void> {
+    console.log(dataswapMessages);
+    throw new Error('not implement');
+  }
+
+  /**
+   * Stores an array of selected parameters.
+   */
+  async storeSelectedParams(
+    selectedParams: Array<SelectedParams>,
+  ): Promise<void> {
+    console.log(selectedParams);
+    throw new Error('not implement');
   }
 }

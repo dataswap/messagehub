@@ -27,53 +27,14 @@ import {
   AddressesFilterReplayStrategy,
 } from '@unipackage/filecoin';
 import {
-  DatasetMetadataEvm,
-  DatasetProofEvm,
-  DatasetRequirementEvm,
-  DatasetChallengeEvm,
-  MatchingBidsEvm,
-  MatchingMetadataEvm,
-  MatchingTargetEvm,
-  StoragesEvm,
-  DatacapsEvm,
-  EscrowEvm,
-  RolesEvm,
-  FilplusEvm,
-} from '@dataswapjs/dataswapjs';
+  IContext,
+  ChainContext,
+  EvmContext,
+  DatastoreContext,
+} from '../interface';
 
 /**
- * Configuration for Evm set.
- */
-export interface EvmContext {
-  escrow: EscrowEvm;
-  filplus: FilplusEvm;
-  roles: RolesEvm;
-  dataset: {
-    metadata: DatasetMetadataEvm;
-    requirement: DatasetRequirementEvm;
-    proof: DatasetProofEvm;
-    challenge: DatasetChallengeEvm;
-  };
-  matching: {
-    target: MatchingTargetEvm;
-    metadata: MatchingMetadataEvm;
-    bids: MatchingBidsEvm;
-  };
-  storages: StoragesEvm;
-  datacaps: DatacapsEvm;
-}
-
-/**
- * Configuration for Datastore set.
- */
-export interface DatastoreContext {
-  message: MessageMongoDatastore;
-  block: BlockMongoDatastore;
-  tipset: TipsetMongoDatastore;
-}
-
-/**
- * Configuration for a Filecoin network.
+ * Configuration for a Context config.
  */
 export interface Config {
   apiAddress: string;
@@ -86,36 +47,36 @@ export interface Config {
 /**
  * Represents a connection to a Filecoin network.
  */
-export class Context {
-  rpc: ChainFilecoinRPC;
-  datastore: DatastoreContext;
-  chainService: ChainService;
-  startHeight: number;
+export class Context implements IContext {
+  chain: ChainContext;
   evm: EvmContext;
+  datastore: DatastoreContext;
 
   /**
    * Creates an instance of ChainNetwork.
    * @param config - The network configuration.
    */
   constructor(config: Config) {
-    this.startHeight = config.startHeight;
-    this.rpc = new ChainFilecoinRPC({
+    this.chain.startHeight = config.startHeight;
+    this.chain.rpc = new ChainFilecoinRPC({
       apiAddress: config.apiAddress,
       token: config.token,
     });
     this.datastore.message = new MessageMongoDatastore(config.mongoUrl);
     this.datastore.block = new BlockMongoDatastore(config.mongoUrl);
     this.datastore.tipset = new TipsetMongoDatastore(config.mongoUrl);
-    this.chainService = new ChainService({
-      rpc: this.rpc,
+    this.chain.service = new ChainService({
+      rpc: this.chain.rpc,
       messageDs: this.datastore.message,
       blockMessagesDs: this.datastore.block,
       tipsetDs: this.datastore.tipset,
       replayStrategyOptions: {
-        replay: false,
+        replay: true,
+        //TODO:add all evm address
         replayStrategy: new AddressesFilterReplayStrategy([]),
       },
     });
+
     this.evm.roles = config.evm.roles;
     this.evm.filplus = config.evm.filplus;
     this.evm.escrow = config.evm.escrow;

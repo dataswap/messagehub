@@ -18,18 +18,22 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Context } from '../context';
+import { DatasetMetadata, DatasetRequirement } from '@dataswapjs/dataswapjs';
 
 /**
- * Represents a connection to a Filecoin network.
+ * Selected methods available for processing.
+ * @Note: you can add new method names.
  */
-export class Decoder {
-  context: Context;
-  /**
-   * Creates an instance of ChainNetwork.
-   * @param config - The network configuration.
-   */
-  constructor(context: Context) {
-    this.context = context;
-  }
-}
+export const SelectedMethods = [
+  'submitDatasetMetadata',
+  'submitDatasetReplicaRequirements',
+] as const;
+
+/**
+ * Map of selected methods to their corresponding parameter types.
+ * @Note: you can add new prop,but the key of this object must be element of SelectedMethods.
+ */
+export type InternalSelectedParamsMap = {
+  submitDatasetMetadata: { params: DatasetMetadata };
+  submitDatasetReplicaRequirements: { params: Array<DatasetRequirement> };
+};
