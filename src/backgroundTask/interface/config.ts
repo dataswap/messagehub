@@ -24,10 +24,10 @@ import { DatasetMetadata, DatasetRequirement } from '@dataswapjs/dataswapjs';
  * Selected methods available for processing.
  * @Note: you can add new method names.
  */
-export const SelectedMethods = [
+export const selectedMethods = [
   'submitDatasetMetadata',
   'submitDatasetReplicaRequirements',
-] as const;
+];
 
 /**
  * Map of selected methods to their corresponding parameter types.

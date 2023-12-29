@@ -23,6 +23,7 @@ import { Context } from '../context';
 import { IDecoder, SelectedParams } from '../interface';
 // import { Chain } from '@unipackage/filecoin';
 import { DataswapMessage } from '@dataswapjs/dataswapjs';
+import { selectedMethods } from '../interface/config';
 
 /**
  * Represents a connection to a Filecoin network.
@@ -51,7 +52,21 @@ export class Decoder implements IDecoder {
   getPendingSelectedParams(
     dataswapMessages: DataswapMessage[],
   ): SelectedParams[] {
-    console.log(dataswapMessages);
-    throw new Error('not implement');
+    try {
+      const selectedMsgs = dataswapMessages.filter((msg) =>
+        selectedMethods.includes(msg.method),
+      );
+
+      const res = selectedMsgs.map((msg) => {
+        return {
+          method: msg.method,
+          params: msg.params,
+        } as SelectedParams;
+      });
+
+      return res;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
