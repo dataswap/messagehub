@@ -19,24 +19,24 @@
  ********************************************************************************/
 
 import { Test, TestingModule } from '@nestjs/testing';
-import { RootController } from '../../src/root/root.controller';
-import { RootService } from '../../src/root/root.service';
+import { SampleController } from '../../src/sample/sample.controller';
+import { SampleService } from '../../src/sample/sample.service';
 
-describe('RootController', () => {
-  let rootController: RootController;
+describe('SampleController', () => {
+  let sampleController: SampleController;
 
   beforeEach(async () => {
     const root: TestingModule = await Test.createTestingModule({
-      controllers: [RootController],
-      providers: [RootService],
+      controllers: [SampleController],
+      providers: [SampleService],
     }).compile();
 
-    rootController = root.get<RootController>(RootController);
+    sampleController = root.get<SampleController>(SampleController);
   });
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(rootController.getHello(1)).toBe('Hello World!');
+      expect(sampleController.getHello(1)).toBe('Hello World!');
     });
   });
 });

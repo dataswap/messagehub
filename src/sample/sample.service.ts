@@ -18,28 +18,18 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Controller, Get, Param } from '@nestjs/common';
-import { RootService } from './root.service';
+import { Injectable } from '@nestjs/common';
 
 /**
- * Controller responsible for handling root-level requests.
+ * Service responsible for providing root-level functionality.
  */
-@Controller()
-export class RootController {
+@Injectable()
+export class SampleService {
   /**
-   * Creates an instance of RootController.
-   * @param rootService - The RootService instance.
+   * Gets a greeting message.
+   * @returns A string representing a greeting message.
    */
-  constructor(private readonly rootService: RootService) {}
-
-  /**
-   * Handles GET requests for root-level resources with an identifier.
-   * @param param - Request parameters.
-   * @returns A string representing the response.
-   */
-  @Get(':id')
-  getHello(@Param() param): string {
-    console.log(param.id);
-    return this.rootService.getHello();
+  getHello(): string {
+    return 'Hello World!';
   }
 }
