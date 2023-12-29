@@ -42,7 +42,7 @@ export class BackgroundTaskService implements OnModuleInit {
       const calibrationBgTaskPromise = calibrationBgTask.start();
       await Promise.all([mainBgTaskPromise, calibrationBgTaskPromise]);
     } catch (error) {
-      console.error('Error in the background task:', error);
+      throw new Error(`Error in the background task:${error}`);
     }
   }
 }
