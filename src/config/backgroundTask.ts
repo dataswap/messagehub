@@ -20,11 +20,10 @@
 
 import { BackgroundTask } from '../backgroundTask';
 import { Config, Context } from '../backgroundTask/context';
-import { EvmContext } from '../backgroundTask/interface';
 import { Syncer } from '../backgroundTask/syncer';
 import { Decoder } from '../backgroundTask/decoder';
 import { Storager } from '../backgroundTask/storager';
-import { datasetMetadataEvm_Calibration } from './evm';
+import { datasetMetadataEvm_Calibration, datasetMetadataEvm_Main } from './evm';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -49,7 +48,9 @@ export const mainConfig: Config = {
   token: process.env.MAIN_LOTUS_TOKEN as string,
   mongoUrl: process.env.MAIN_MONGO_URL as string,
   startHeight: Number(process.env.MAIN_START_HEIGHT as string),
-  evm: {} as EvmContext,
+  evm: {
+    datasetMetadata: datasetMetadataEvm_Main,
+  },
 };
 
 /**

@@ -36,6 +36,7 @@ import {
   DataswapMessageMongoDatastore,
   DatasetMetadataMongoDatastore,
 } from '@dataswapjs/dataswapjs';
+import { getFilecoinAddress } from '../../shared/address';
 
 /**
  * Configuration for a Context config.
@@ -84,7 +85,7 @@ export class Context implements IContext {
         replay: true,
         //TODO:add all evm address
         replayStrategy: new AddressesFilterReplayStrategy([
-          'f410fai7exftlsq6igc35jsxij7twcza3feadlmtrjla',
+          getFilecoinAddress(config.evm.datasetMetadata),
         ]),
       },
     });

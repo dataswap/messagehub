@@ -1,5 +1,5 @@
 /*******************************************************************************
- *   (c) 2024 dataswap
+ *   (c) 2024 unipackage
  *
  *  Licensed under either the MIT License (the "MIT License") or the Apache License, Version 2.0
  *  (the "Apache License"). You may not use this file except in compliance with one of these
@@ -17,19 +17,12 @@
  *  See the MIT License or the Apache License for the specific language governing permissions and
  *  limitations under the respective licenses.
  ********************************************************************************/
-import { DatasetMetadataEvm } from '@dataswapjs/dataswapjs';
-import datasetMetaAbi from '@dataswapcore/contracts/abi/v0.8/Datasets.json';
-import * as dotenv from 'dotenv';
-dotenv.config();
+import { delegatedFromEthAddress } from '@glif/filecoin-address';
+import { EvmEx } from '@dataswapjs/dataswapjs';
 
-export const datasetMetadataEvm_Calibration = new DatasetMetadataEvm(
-  datasetMetaAbi,
-  '0x023e4b966b943c830b7d4cae84fe761641b29003',
-  process.env.CALIBRATION_LOTUS_PROVIDER_URL,
-);
-
-export const datasetMetadataEvm_Main = new DatasetMetadataEvm(
-  datasetMetaAbi,
-  '0x023e4b966b943c830b7d4cae84fe761641b29003',
-  process.env.CALIBRATION_LOTUS_PROVIDER_URL,
-);
+/*
+ * Get filecoin address from Evm
+ */
+export function getFilecoinAddress(evm: EvmEx): string {
+  return 'f' + delegatedFromEthAddress(evm.getContractAddress()).slice(1);
+}
