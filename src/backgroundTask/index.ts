@@ -25,6 +25,7 @@ import {
   IStorager,
   IContext,
 } from './interface';
+import { delay } from '@unipackage/utils';
 
 /**
  * BackgroundTask class implementing the IBackgroundTask interface.
@@ -55,14 +56,6 @@ export class BackgroundTask implements IBackgroundTask {
 
     // Initialize syncHeight using the startHeight from the chain configuration
     this.syncHeight = this.context.chain.startHeight;
-  }
-
-  /**
-   * Utility function to introduce a delay.
-   * @param ms - The delay time in milliseconds.
-   */
-  private async delay(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   /**
@@ -103,7 +96,7 @@ export class BackgroundTask implements IBackgroundTask {
         } else if (this.syncHeight < chainHeadHeight) {
           this.syncHeight++;
         } else {
-          await this.delay(3000);
+          delay(3000);
         }
       } catch (error) {
         throw new Error(error);
@@ -114,7 +107,28 @@ export class BackgroundTask implements IBackgroundTask {
   /**
    * stop the bg task.
    */
-  async stop() {
+  stop() {
     this.needRunning = false;
+  }
+
+  /**
+   * Check if the bgTask is running.
+   */
+  isRunning(): boolean {
+    return this.needRunning;
+  }
+
+  /**
+   * get the current sync height
+   */
+  getCurrentSyncHeight(): number {
+    return this.syncHeight;
+  }
+
+  /**
+   * get the start height
+   */
+  getStartHeight(): number {
+    return this.context.chain.startHeight;
   }
 }

@@ -181,4 +181,19 @@ export interface IBackgroundTask {
    * Stops the background task.
    */
   stop(): void;
+
+  /**
+   * Check if the bgTask is running.
+   */
+  isRunning(): boolean;
+
+  /**
+   * get the current sync height
+   */
+  getCurrentSyncHeight(): number;
+
+  /**
+   * get the start height
+   */
+  getStartHeight(): number;
 }
