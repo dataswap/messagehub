@@ -18,28 +18,30 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Controller, Get, Param } from '@nestjs/common';
-import { SampleService } from './sample.service';
+import { Controller, Get } from '@nestjs/common';
+import { TipsetService } from './tipset.service';
+// import { QueryFilter } from '@unipackage/datastore';
+import { Tipset } from '@unipackage/filecoin';
+import { ValueFields, Result } from '@unipackage/utils';
 
 /**
  * Controller responsible for handling root-level requests.
  */
-@Controller('sample')
-export class SampleController {
+@Controller('tipset')
+export class TipsetController {
   /**
    * Creates an instance of RootController.
    * @param rootService - The RootService instance.
    */
-  constructor(private readonly sampleService: SampleService) {}
+  constructor(private readonly tipsetService: TipsetService) {}
 
   /**
    * Handles GET requests for root-level resources with an identifier.
    * @param param - Request parameters.
    * @returns A string representing the response.
    */
-  @Get(':id')
-  getHello(@Param() param): string {
-    console.log(param.id);
-    return this.sampleService.getHello();
+  @Get()
+  async find(): Promise<Result<ValueFields<Tipset>[]>> {
+    return await this.tipsetService.find({});
   }
 }

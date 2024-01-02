@@ -18,28 +18,24 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Controller, Get, Param } from '@nestjs/common';
-import { SampleService } from './sample.service';
+import { Injectable } from '@nestjs/common';
+import { QueryFilter } from '@unipackage/datastore';
+import { Tipset } from '@unipackage/filecoin';
+import { ValueFields, Result } from '@unipackage/utils';
+import { calibrationBgTask } from '../config/backgroundTask';
 
 /**
- * Controller responsible for handling root-level requests.
+ * Service responsible for providing root-level functionality.
  */
-@Controller('sample')
-export class SampleController {
+@Injectable()
+export class TipsetService {
   /**
-   * Creates an instance of RootController.
-   * @param rootService - The RootService instance.
+   * Gets a greeting message.
+   * @returns A string representing a greeting message.
    */
-  constructor(private readonly sampleService: SampleService) {}
-
-  /**
-   * Handles GET requests for root-level resources with an identifier.
-   * @param param - Request parameters.
-   * @returns A string representing the response.
-   */
-  @Get(':id')
-  getHello(@Param() param): string {
-    console.log(param.id);
-    return this.sampleService.getHello();
+  async find(
+    queryFilter: QueryFilter<ValueFields<Tipset>>,
+  ): Promise<Result<ValueFields<Tipset>[]>> {
+    return await calibrationBgTask.context.datastore.tipset.find(queryFilter);
   }
 }

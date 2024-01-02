@@ -21,6 +21,8 @@
 import { Module } from '@nestjs/common';
 import { SampleController } from './sample/sample.controller';
 import { SampleService } from './sample/sample.service';
+import { TipsetController } from './tipset/tipset.controller';
+import { TipsetService } from './tipset/tipset.service';
 import { BackgroundTaskService } from './backgroundTask/provider/backgroundTask.service';
 
 /**
@@ -28,7 +30,7 @@ import { BackgroundTaskService } from './backgroundTask/provider/backgroundTask.
  */
 @Module({
   imports: [],
-  controllers: [SampleController],
-  providers: [SampleService, BackgroundTaskService],
+  controllers: [SampleController, TipsetController],
+  providers: [SampleService, TipsetService, BackgroundTaskService],
 })
 export class AppModule {}
