@@ -1,5 +1,7 @@
 import { calibrationBgTask } from '../../src/config/backgroundTask';
 import { delay } from '@unipackage/utils';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 describe('BackgroundTask', () => {
   beforeAll(() => {
@@ -14,7 +16,7 @@ describe('BackgroundTask', () => {
     expect(calibrationBgTask.isRunning()).toBe(true);
 
     const startHeight = calibrationBgTask.getStartHeight();
-    expect(startHeight).toBe(1213437);
+    expect(startHeight).toBe(Number(process.env.CALIBRATION_START_HEIGHT));
 
     const startSyncHeight = calibrationBgTask.getCurrentSyncHeight();
     await delay(20000);
