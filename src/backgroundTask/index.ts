@@ -31,7 +31,7 @@ import { delay } from '@unipackage/utils';
  * BackgroundTask class implementing the IBackgroundTask interface.
  */
 export class BackgroundTask implements IBackgroundTask {
-  private context: IContext;
+  context: IContext;
   private syncer: ISyncer;
   private decoder: IDecoder;
   private storager: IStorager;

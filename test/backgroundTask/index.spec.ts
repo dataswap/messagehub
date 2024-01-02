@@ -1,4 +1,5 @@
 import { calibrationBgTask } from '../../src/config/backgroundTask';
+import { delay } from '@unipackage/utils';
 
 describe('BackgroundTask', () => {
   beforeAll(() => {
@@ -9,9 +10,29 @@ describe('BackgroundTask', () => {
     calibrationBgTask.stop();
   });
 
-  it('should stop the background task', () => {
+  it('background task test', async () => {
     expect(calibrationBgTask.isRunning()).toBe(true);
-    calibrationBgTask.stop();
-    expect(calibrationBgTask.isRunning()).toBe(false);
-  });
+
+    const startHeight = calibrationBgTask.getStartHeight();
+    expect(startHeight).toBe(1213437);
+
+    const startSyncHeight = calibrationBgTask.getCurrentSyncHeight();
+    await delay(20000);
+    const endSyncHeight = calibrationBgTask.getCurrentSyncHeight();
+    expect(endSyncHeight - startSyncHeight > 0).toBe(true);
+
+    const tipsets = await calibrationBgTask.context.datastore.tipset.find({});
+    const blocks = await calibrationBgTask.context.datastore.block.find({});
+    const messages = await calibrationBgTask.context.datastore.message.find({});
+    const dataswapMessages =
+      await calibrationBgTask.context.datastore.dataswapMessage.find({});
+    const datasetMetadata =
+      await calibrationBgTask.context.datastore.datasetMetadata.find({});
+
+    expect(tipsets.data.length > 0).toBe(true);
+    expect(blocks.data.length > 0).toBe(true);
+    expect(messages.data.length > 0).toBe(true);
+    expect(dataswapMessages.data.length > 0).toBe(true);
+    expect(datasetMetadata.data.length > 0).toBe(true);
+  }, 100000);
 });
