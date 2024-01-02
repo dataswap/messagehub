@@ -83,9 +83,9 @@ export class Context implements IContext {
       tipsetDs: this.datastore.tipset,
       replayStrategyOptions: {
         replay: true,
-        //TODO:add all evm address
         replayStrategy: new AddressesFilterReplayStrategy([
           getFilecoinAddress(config.evm.datasetMetadata),
+          //TODO:add all evm address
         ]),
       },
     });

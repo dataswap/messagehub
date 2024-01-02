@@ -46,7 +46,6 @@ export class Decoder implements IDecoder {
     try {
       const res: DataswapMessage[] = [];
       pendingChainInfo.messages.forEach((msg) => {
-        //TODO:To check address format ,add toEthaddress function
         switch (msg.Msg.To) {
           case getFilecoinAddress(this.context.evm.datasetMetadata):
             res.push(this.context.evm.datasetMetadata.decodeMessage(msg).data);
