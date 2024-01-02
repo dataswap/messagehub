@@ -24,6 +24,9 @@ import { EvmContext } from '../backgroundTask/interface';
 import { Syncer } from '../backgroundTask/syncer';
 import { Decoder } from '../backgroundTask/decoder';
 import { Storager } from '../backgroundTask/storager';
+import { datasetMetadataEvm_Calibration } from './evm';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 /**
  * Calibration network configuration
@@ -33,7 +36,9 @@ export const calibrationConfig: Config = {
   token: process.env.CALIBRATION_LOTUS_TOKEN as string,
   mongoUrl: process.env.CALIBRATION_MONGO_URL as string,
   startHeight: 1210900,
-  evm: {} as EvmContext,
+  evm: {
+    datasetMetadata: datasetMetadataEvm_Calibration,
+  },
 };
 
 /**

@@ -28,17 +28,17 @@ import {
 } from '@unipackage/filecoin';
 import {
   DatasetMetadataEvm,
-  DatasetProofEvm,
-  DatasetRequirementEvm,
-  DatasetChallengeEvm,
-  MatchingBidsEvm,
-  MatchingMetadataEvm,
-  MatchingTargetEvm,
-  StoragesEvm,
-  DatacapsEvm,
-  EscrowEvm,
-  RolesEvm,
-  FilplusEvm,
+  // DatasetProofEvm,
+  // DatasetRequirementEvm,
+  // DatasetChallengeEvm,
+  // MatchingBidsEvm,
+  // MatchingMetadataEvm,
+  // MatchingTargetEvm,
+  // StoragesEvm,
+  // DatacapsEvm,
+  // EscrowEvm,
+  // RolesEvm,
+  // FilplusEvm,
   DataswapMessage,
   DataswapMessageMongoDatastore,
   DatasetMetadataMongoDatastore,
@@ -58,22 +58,20 @@ export interface ChainContext {
  * Configuration for Evm context.
  */
 export interface EvmContext {
-  escrow: EscrowEvm;
-  filplus: FilplusEvm;
-  roles: RolesEvm;
-  dataset: {
-    metadata: DatasetMetadataEvm;
-    requirement: DatasetRequirementEvm;
-    proof: DatasetProofEvm;
-    challenge: DatasetChallengeEvm;
-  };
-  matching: {
-    target: MatchingTargetEvm;
-    metadata: MatchingMetadataEvm;
-    bids: MatchingBidsEvm;
-  };
-  storages: StoragesEvm;
-  datacaps: DatacapsEvm;
+  // escrow: EscrowEvm;
+  // filplus: FilplusEvm;
+  // roles: RolesEvm;
+  datasetMetadata: DatasetMetadataEvm;
+  // requirement: DatasetRequirementEvm;
+  // proof: DatasetProofEvm;
+  // challenge: DatasetChallengeEvm;
+  // matching: {
+  //   target: MatchingTargetEvm;
+  //   metadata: MatchingMetadataEvm;
+  //   bids: MatchingBidsEvm;
+  // };
+  // storages: StoragesEvm;
+  // datacaps: DatacapsEvm;
 }
 
 /**

@@ -52,9 +52,9 @@ export interface Config {
  * Represents a connection to a Filecoin network.
  */
 export class Context implements IContext {
-  chain: ChainContext;
-  evm: EvmContext;
-  datastore: DatastoreContext;
+  chain: ChainContext = {} as ChainContext;
+  evm: EvmContext = {} as EvmContext;
+  datastore: DatastoreContext = {} as DatastoreContext;
 
   /**
    * Creates an instance of ChainNetwork.
@@ -87,17 +87,17 @@ export class Context implements IContext {
       },
     });
 
-    this.evm.roles = config.evm.roles;
-    this.evm.filplus = config.evm.filplus;
-    this.evm.escrow = config.evm.escrow;
-    this.evm.dataset.metadata = config.evm.dataset.metadata;
-    this.evm.dataset.requirement = config.evm.dataset.requirement;
-    this.evm.dataset.proof = config.evm.dataset.proof;
-    this.evm.dataset.challenge = config.evm.dataset.challenge;
-    this.evm.matching.metadata = config.evm.matching.metadata;
-    this.evm.matching.target = config.evm.matching.target;
-    this.evm.matching.bids = config.evm.matching.bids;
-    this.evm.storages = config.evm.storages;
-    this.evm.datacaps = config.evm.datacaps;
+    // this.evm.roles = config.evm.roles;
+    // this.evm.filplus = config.evm.filplus;
+    // this.evm.escrow = config.evm.escrow;
+    this.evm.datasetMetadata = config.evm.datasetMetadata;
+    // this.evm.dataset.requirement = config.evm.dataset.requirement;
+    // this.evm.dataset.proof = config.evm.dataset.proof;
+    // this.evm.dataset.challenge = config.evm.dataset.challenge;
+    // this.evm.matching.metadata = config.evm.matching.metadata;
+    // this.evm.matching.target = config.evm.matching.target;
+    // this.evm.matching.bids = config.evm.matching.bids;
+    // this.evm.storages = config.evm.storages;
+    // this.evm.datacaps = config.evm.datacaps;
   }
 }
