@@ -30,8 +30,8 @@ export class BackgroundTaskService implements OnModuleInit {
   /**
    * Lifecycle hook, called once the module has been initialized.
    */
-  async onModuleInit() {
-    await this.startBackgroundTask();
+  onModuleInit() {
+    this.startBackgroundTask();
   }
 
   /**

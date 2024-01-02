@@ -96,12 +96,12 @@ export class BackgroundTask implements IBackgroundTask {
           } else if (this.syncHeight < chainHeadHeight) {
             this.syncHeight++;
           } else {
-            delay(3000);
+            await delay(3000);
           }
         } else if (this.syncHeight < chainHeadHeight) {
           this.syncHeight++;
         } else {
-          delay(3000);
+          await delay(3000);
         }
       } catch (error) {
         throw new Error(error);
