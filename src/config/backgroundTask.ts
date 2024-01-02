@@ -35,7 +35,7 @@ export const calibrationConfig: Config = {
   apiAddress: process.env.CALIBRATION_LOTUS_API_ENDPOINT as string,
   token: process.env.CALIBRATION_LOTUS_TOKEN as string,
   mongoUrl: process.env.CALIBRATION_MONGO_URL as string,
-  startHeight: 1213437,
+  startHeight: Number(process.env.CALIBRATION_START_HEIGHT as string),
   evm: {
     datasetMetadata: datasetMetadataEvm_Calibration,
   },
@@ -48,7 +48,7 @@ export const mainConfig: Config = {
   apiAddress: process.env.MAIN_LOTUS_API_ENDPOINT as string,
   token: process.env.MAIN_LOTUS_TOKEN as string,
   mongoUrl: process.env.MAIN_MONGO_URL as string,
-  startHeight: 3511591,
+  startHeight: Number(process.env.MAIN_START_HEIGHT as string),
   evm: {} as EvmContext,
 };
 
