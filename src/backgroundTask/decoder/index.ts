@@ -43,11 +43,11 @@ export class Decoder implements IDecoder {
    */
   getPendingDataswapMessages(pendingChainInfo: Chain): DataswapMessage[] {
     try {
-      let res: DataswapMessage[];
+      const res: DataswapMessage[] = [];
       pendingChainInfo.messages.forEach((msg) => {
         //TODO:To check address format ,add toEthaddress function
         switch (msg.Msg.To) {
-          case this.context.evm.datasetMetadata.getContractAddress():
+          case 'f410fai7exftlsq6igc35jsxij7twcza3feadlmtrjla':
             res.push(this.context.evm.datasetMetadata.decodeMessage(msg).data);
             break;
 

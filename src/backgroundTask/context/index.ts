@@ -83,7 +83,9 @@ export class Context implements IContext {
       replayStrategyOptions: {
         replay: true,
         //TODO:add all evm address
-        replayStrategy: new AddressesFilterReplayStrategy([]),
+        replayStrategy: new AddressesFilterReplayStrategy([
+          'f410fai7exftlsq6igc35jsxij7twcza3feadlmtrjla',
+        ]),
       },
     });
 

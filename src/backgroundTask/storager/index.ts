@@ -47,7 +47,9 @@ export class Storager implements IStorager {
       conditions: [{ Height: height }],
     });
     if (!syncedTipsetsRes.ok) {
-      throw new Error(`isHeightAlreadySynced error:${syncedTipsetsRes.error}`);
+      return false;
+      //TODO
+      // throw new Error(`isHeightAlreadySynced error:${syncedTipsetsRes.error}`);
     }
     if (syncedTipsetsRes.data.length === 0) {
       return false;

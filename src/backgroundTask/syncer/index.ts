@@ -56,6 +56,9 @@ export class Syncer implements ISyncer {
     if (!res.ok) {
       throw new Error(res.error);
     }
+    if (res.data.tipset.Height < height) {
+      res.data = null as Chain;
+    }
     return res.data;
   }
 }

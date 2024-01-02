@@ -75,24 +75,29 @@ export class BackgroundTask implements IBackgroundTask {
           const chainInfo = await this.syncer.getPendingChainInfo(
             this.syncHeight,
           );
+          if (chainInfo !== null) {
+            //step 2.1: decode the dataswapMessages from the chainInfo
+            const dataswapMessages =
+              this.decoder.getPendingDataswapMessages(chainInfo);
 
-          //step 2.1: decode the dataswapMessages from the chainInfo
-          const dataswapMessages =
-            this.decoder.getPendingDataswapMessages(chainInfo);
+            if (dataswapMessages) {
+              //step 2.2: select the special params from the dataswapMessages
+              const selectedParams =
+                this.decoder.getPendingSelectedParams(dataswapMessages);
 
-          //step 2.2: select the special params from the dataswapMessages
-          const selectedParams =
-            this.decoder.getPendingSelectedParams(dataswapMessages);
-          console.log(selectedParams);
+              //step 3.1 store selectedParams
+              await this.storager.storeSelectedParams(selectedParams);
 
-          //step 3.1 store selectedParams
-          await this.storager.storeSelectedParams(selectedParams);
-
-          //step 3.2 store dataswapMessages
-          await this.storager.storeDataswapMessages(dataswapMessages);
-
-          //step 3.3 store chainInfo
-          await this.storager.storeChainInfo(chainInfo);
+              //step 3.2 store dataswapMessages
+              await this.storager.storeDataswapMessages(dataswapMessages);
+            }
+            //step 3.3 store chainInfo
+            await this.storager.storeChainInfo(chainInfo);
+          } else if (this.syncHeight < chainHeadHeight) {
+            this.syncHeight++;
+          } else {
+            delay(3000);
+          }
         } else if (this.syncHeight < chainHeadHeight) {
           this.syncHeight++;
         } else {
