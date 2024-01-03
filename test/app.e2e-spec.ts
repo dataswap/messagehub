@@ -27,9 +27,10 @@ import { AppModule } from './../src/app.module';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
-  beforeAll(() => {
+  beforeAll(async () => {
     calibrationBgTask.start();
-  });
+    await delay(20000);
+  }, 30000);
 
   afterAll(() => {
     calibrationBgTask.stop();
@@ -49,9 +50,22 @@ describe('AppController (e2e)', () => {
   });
 
   it('/tipset/query (POST)', async () => {
-    await delay(20000);
     return request(app.getHttpServer())
       .post('/tipset/query')
+      .send({ conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }] })
+      .expect(201);
+  }, 30000);
+
+  it('/block/query (POST)', async () => {
+    return request(app.getHttpServer())
+      .post('/block/query')
+      .send({ conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }] })
+      .expect(201);
+  }, 30000);
+
+  it('/message/query (POST)', async () => {
+    return request(app.getHttpServer())
+      .post('/message/query')
       .send({ conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }] })
       .expect(201);
   }, 30000);

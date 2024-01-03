@@ -18,26 +18,24 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Module } from '@nestjs/common';
-import { TipsetController } from './tipset/tipset.controller';
-import { TipsetService } from './tipset/tipset.service';
-import { BlockController } from './block/block.controller';
-import { BlockService } from './block/block.service';
-import { MessageController } from './message/message.controller';
-import { MessageService } from './message/message.service';
-import { BackgroundTaskService } from './backgroundTask/provider/backgroundTask.service';
+import { Injectable } from '@nestjs/common';
+import { QueryFilter } from '@unipackage/datastore';
+import { BlockMessages } from '@unipackage/filecoin';
+import { ValueFields, Result } from '@unipackage/utils';
+import { calibrationBgTask } from '../config/backgroundTask';
 
 /**
- * Root module for the application.
+ * Service responsible for providing root-level functionality.
  */
-@Module({
-  imports: [],
-  controllers: [TipsetController, BlockController, MessageController],
-  providers: [
-    TipsetService,
-    BlockService,
-    MessageService,
-    BackgroundTaskService,
-  ],
-})
-export class AppModule {}
+@Injectable()
+export class BlockService {
+  /**
+   * Gets a greeting message.
+   * @returns A string representing a greeting message.
+   */
+  async find(
+    queryFilter: QueryFilter<ValueFields<BlockMessages>>,
+  ): Promise<Result<ValueFields<BlockMessages>[]>> {
+    return await calibrationBgTask.context.datastore.block.find(queryFilter);
+  }
+}

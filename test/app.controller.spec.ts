@@ -23,13 +23,20 @@ import { delay } from '@unipackage/utils';
 import { Test, TestingModule } from '@nestjs/testing';
 import { TipsetController } from '../src/tipset/tipset.controller';
 import { TipsetService } from '../src/tipset/tipset.service';
+import { BlockController } from '../src/block/block.controller';
+import { BlockService } from '../src/block/block.service';
+import { MessageController } from '../src/message/message.controller';
+import { MessageService } from '../src/message/message.service';
 
 describe('AppController Test', () => {
   let tipsetController: TipsetController;
+  let blockController: BlockController;
+  let messageController: MessageController;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     calibrationBgTask.start();
-  });
+    await delay(20000);
+  }, 30000);
 
   afterAll(() => {
     calibrationBgTask.stop();
@@ -37,20 +44,39 @@ describe('AppController Test', () => {
 
   beforeEach(async () => {
     const root: TestingModule = await Test.createTestingModule({
-      controllers: [TipsetController],
-      providers: [TipsetService],
+      controllers: [TipsetController, BlockController, MessageController],
+      providers: [TipsetService, BlockService, MessageService],
     }).compile();
 
     tipsetController = root.get<TipsetController>(TipsetController);
+    blockController = root.get<BlockController>(BlockController);
+    messageController = root.get<MessageController>(MessageController);
   });
 
   describe('tipset query', () => {
     it('should ok', async () => {
-      await delay(20000);
       const res = await tipsetController.find({
         conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
       });
       expect(res.ok).toBe(true);
-    }, 500000);
+    }, 300000);
+  });
+
+  describe('block query', () => {
+    it('should ok', async () => {
+      const res = await blockController.find({
+        conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+      });
+      expect(res.ok).toBe(true);
+    }, 300000);
+  });
+
+  describe('message query', () => {
+    it('should ok', async () => {
+      const res = await messageController.find({
+        conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+      });
+      expect(res.ok).toBe(true);
+    }, 300000);
   });
 });
