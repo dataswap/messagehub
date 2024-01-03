@@ -27,11 +27,17 @@ import { BlockController } from '../src/block/block.controller';
 import { BlockService } from '../src/block/block.service';
 import { MessageController } from '../src/message/message.controller';
 import { MessageService } from '../src/message/message.service';
+import { DataswapMessageController } from '../src/dataswapMessage/dataswapMessage.controller';
+import { DataswapMessageService } from '../src/dataswapMessage/dataswapMessage.service';
+import { DatasetMetadataController } from '../src/datasetMetadata/datasetMetadata.controller';
+import { DatasetMetadataService } from '../src/datasetMetadata/datasetMetadata.service';
 
 describe('AppController Test', () => {
   let tipsetController: TipsetController;
   let blockController: BlockController;
   let messageController: MessageController;
+  let dataswapMessageController: DataswapMessageController;
+  let datasetMetadataController: DatasetMetadataController;
 
   beforeAll(async () => {
     calibrationBgTask.start();
@@ -44,13 +50,31 @@ describe('AppController Test', () => {
 
   beforeEach(async () => {
     const root: TestingModule = await Test.createTestingModule({
-      controllers: [TipsetController, BlockController, MessageController],
-      providers: [TipsetService, BlockService, MessageService],
+      controllers: [
+        TipsetController,
+        BlockController,
+        MessageController,
+        DataswapMessageController,
+        DatasetMetadataController,
+      ],
+      providers: [
+        TipsetService,
+        BlockService,
+        MessageService,
+        DataswapMessageService,
+        DatasetMetadataService,
+      ],
     }).compile();
 
     tipsetController = root.get<TipsetController>(TipsetController);
     blockController = root.get<BlockController>(BlockController);
     messageController = root.get<MessageController>(MessageController);
+    dataswapMessageController = root.get<DataswapMessageController>(
+      DataswapMessageController,
+    );
+    datasetMetadataController = root.get<DatasetMetadataController>(
+      DatasetMetadataController,
+    );
   });
 
   describe('tipset query', () => {
@@ -75,6 +99,24 @@ describe('AppController Test', () => {
     it('should ok', async () => {
       const res = await messageController.find({
         conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+      });
+      expect(res.ok).toBe(true);
+    }, 300000);
+  });
+
+  describe('dataswapmessage query', () => {
+    it('should ok', async () => {
+      const res = await dataswapMessageController.find({
+        conditions: [{ height: { $gt: 1213437, $lt: 1213439 } }],
+      });
+      expect(res.ok).toBe(true);
+    }, 300000);
+  });
+
+  describe('datasetmetadata query', () => {
+    it('should ok', async () => {
+      const res = await datasetMetadataController.find({
+        conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
       });
       expect(res.ok).toBe(true);
     }, 300000);

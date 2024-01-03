@@ -25,6 +25,10 @@ import { BlockController } from './block/block.controller';
 import { BlockService } from './block/block.service';
 import { MessageController } from './message/message.controller';
 import { MessageService } from './message/message.service';
+import { DataswapMessageController } from './dataswapMessage/dataswapMessage.controller';
+import { DataswapMessageService } from './dataswapMessage/dataswapMessage.service';
+import { DatasetMetadataController } from './datasetMetadata/datasetMetadata.controller';
+import { DatasetMetadataService } from './datasetMetadata/datasetMetadata.service';
 import { BackgroundTaskService } from './backgroundTask/provider/backgroundTask.service';
 
 /**
@@ -32,12 +36,20 @@ import { BackgroundTaskService } from './backgroundTask/provider/backgroundTask.
  */
 @Module({
   imports: [],
-  controllers: [TipsetController, BlockController, MessageController],
+  controllers: [
+    TipsetController,
+    BlockController,
+    MessageController,
+    DataswapMessageController,
+    DatasetMetadataController,
+  ],
   providers: [
     TipsetService,
     BlockService,
     MessageService,
     BackgroundTaskService,
+    DataswapMessageService,
+    DatasetMetadataService,
   ],
 })
 export class AppModule {}

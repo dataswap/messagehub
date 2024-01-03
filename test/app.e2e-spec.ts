@@ -69,4 +69,18 @@ describe('AppController (e2e)', () => {
       .send({ conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }] })
       .expect(201);
   }, 30000);
+
+  it('/dataswapmessage/query (POST)', async () => {
+    return request(app.getHttpServer())
+      .post('/dataswapmessage/query')
+      .send({ conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }] })
+      .expect(201);
+  }, 30000);
+
+  it('/datasetmetadata/query (POST)', async () => {
+    return request(app.getHttpServer())
+      .post('/datasetmetadata/query')
+      .send({ conditions: [{ datasetId: { $gt: 0, $lt: 3 } }] })
+      .expect(201);
+  }, 30000);
 });
