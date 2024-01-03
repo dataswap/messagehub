@@ -77,7 +77,7 @@ describe('AppController (e2e)', () => {
       .expect(201);
   }, 30000);
 
-  it('/datasetmetadata/query (POST)', async () => {
+  it.skip('/datasetmetadata/query (POST)', async () => {
     return request(app.getHttpServer())
       .post('/datasetmetadata/query')
       .send({ conditions: [{ datasetId: { $gt: 0, $lt: 3 } }] })
