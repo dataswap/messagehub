@@ -17,26 +17,40 @@
  *  See the MIT License or the Apache License for the specific language governing permissions and
  *  limitations under the respective licenses.
  ********************************************************************************/
+import { calibrationBgTask } from '../../src/config/backgroundTask';
+import { delay } from '@unipackage/utils';
 
 import { Test, TestingModule } from '@nestjs/testing';
-import { SampleController } from '../../src/sample/sample.controller';
-import { SampleService } from '../../src/sample/sample.service';
+import { TipsetController } from '../../src/tipset/tipset.controller';
+import { TipsetService } from '../../src/tipset/tipset.service';
 
 describe('SampleController', () => {
-  let sampleController: SampleController;
+  let tipsetController: TipsetController;
+
+  beforeAll(() => {
+    calibrationBgTask.start();
+  });
+
+  afterAll(() => {
+    calibrationBgTask.stop();
+  });
 
   beforeEach(async () => {
     const root: TestingModule = await Test.createTestingModule({
-      controllers: [SampleController],
-      providers: [SampleService],
+      controllers: [TipsetController],
+      providers: [TipsetService],
     }).compile();
 
-    sampleController = root.get<SampleController>(SampleController);
+    tipsetController = root.get<TipsetController>(TipsetController);
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(sampleController.getHello(1)).toBe('Hello World!');
-    });
+  describe('tipset query', () => {
+    it('should ok', async () => {
+      await delay(20000);
+      const res = await tipsetController.find({
+        conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+      });
+      expect(res.ok).toBe(true);
+    }, 500000);
   });
 });

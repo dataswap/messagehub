@@ -39,10 +39,10 @@ describe('AppController (e2e)', () => {
     await app.close();
   });
 
-  it('/ (GET)', () => {
+  it('/tipset (POST)', () => {
     return request(app.getHttpServer())
-      .get('/:4')
-      .expect(200)
-      .expect('Hello World!');
-  });
+      .post('/tipset')
+      .send({ conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }] })
+      .expect(201);
+  }, 30000);
 });

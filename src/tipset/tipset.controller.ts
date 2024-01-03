@@ -18,9 +18,9 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { TipsetService } from './tipset.service';
-// import { QueryFilter } from '@unipackage/datastore';
+import { QueryFilter } from '@unipackage/datastore';
 import { Tipset } from '@unipackage/filecoin';
 import { ValueFields, Result } from '@unipackage/utils';
 
@@ -37,11 +37,21 @@ export class TipsetController {
 
   /**
    * Handles GET requests for root-level resources with an identifier.
-   * @param param - Request parameters.
+   * @param queryFilter - Request parameters.
    * @returns A string representing the response.
+   * @example
+   * {
+   * "conditions": [
+   *   {
+   *    "Height": { "$gt": 1213437, "$lt": 1213439 }
+   *   }
+   *  ]
+   * }
    */
-  @Get()
-  async find(): Promise<Result<ValueFields<Tipset>[]>> {
-    return await this.tipsetService.find({});
+  @Post()
+  async find(
+    @Body() queryFilter: QueryFilter<ValueFields<Tipset>>,
+  ): Promise<Result<ValueFields<Tipset>[]>> {
+    return await this.tipsetService.find(queryFilter);
   }
 }
