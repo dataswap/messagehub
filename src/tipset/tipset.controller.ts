@@ -48,7 +48,7 @@ export class TipsetController {
    *  ]
    * }
    */
-  @Post()
+  @Post('query')
   async find(
     @Body() queryFilter: QueryFilter<ValueFields<Tipset>>,
   ): Promise<Result<ValueFields<Tipset>[]>> {

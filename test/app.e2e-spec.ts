@@ -18,6 +18,8 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
+import { calibrationBgTask } from '../src/config/backgroundTask';
+import { delay } from '@unipackage/utils';
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
@@ -25,6 +27,13 @@ import { AppModule } from './../src/app.module';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
+  beforeAll(() => {
+    calibrationBgTask.start();
+  });
+
+  afterAll(() => {
+    calibrationBgTask.stop();
+  });
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -39,9 +48,10 @@ describe('AppController (e2e)', () => {
     await app.close();
   });
 
-  it('/tipset (POST)', () => {
+  it('/tipset/query (POST)', async () => {
+    await delay(20000);
     return request(app.getHttpServer())
-      .post('/tipset')
+      .post('/tipset/query')
       .send({ conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }] })
       .expect(201);
   }, 30000);

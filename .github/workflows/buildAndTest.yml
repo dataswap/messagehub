@@ -28,6 +28,15 @@ jobs:
         run: |
           npm run build
 
-      - name: Test
+      - name: Setup
         run: |
-          npm run test
+          npm run setup:mongo
+          docker ps
+
+      - name: Test:main
+        run: |
+          npm run test:main;
+
+      - name: Test:e2e
+        run: |
+          npm run test:e2e

@@ -17,14 +17,14 @@
  *  See the MIT License or the Apache License for the specific language governing permissions and
  *  limitations under the respective licenses.
  ********************************************************************************/
-import { calibrationBgTask } from '../../src/config/backgroundTask';
+import { calibrationBgTask } from '../src/config/backgroundTask';
 import { delay } from '@unipackage/utils';
 
 import { Test, TestingModule } from '@nestjs/testing';
-import { TipsetController } from '../../src/tipset/tipset.controller';
-import { TipsetService } from '../../src/tipset/tipset.service';
+import { TipsetController } from '../src/tipset/tipset.controller';
+import { TipsetService } from '../src/tipset/tipset.service';
 
-describe('SampleController', () => {
+describe('AppController Test', () => {
   let tipsetController: TipsetController;
 
   beforeAll(() => {
