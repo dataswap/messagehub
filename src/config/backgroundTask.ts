@@ -33,7 +33,10 @@ dotenv.config();
 export const calibrationConfig: Config = {
   apiAddress: process.env.CALIBRATION_LOTUS_API_ENDPOINT as string,
   token: process.env.CALIBRATION_LOTUS_TOKEN as string,
-  mongoUrl: process.env.CALIBRATION_MONGO_URL as string,
+  mongoUrl:
+    process.env.NODE_ENV === 'production'
+      ? (process.env.CALIBRATION_PROD_MONGO_URL as string)
+      : (process.env.CALIBRATION_MONGO_URL as string),
   startHeight: Number(process.env.CALIBRATION_START_HEIGHT as string),
   evm: {
     datasetMetadata: datasetMetadataEvm_Calibration,
@@ -46,7 +49,10 @@ export const calibrationConfig: Config = {
 export const mainConfig: Config = {
   apiAddress: process.env.MAIN_LOTUS_API_ENDPOINT as string,
   token: process.env.MAIN_LOTUS_TOKEN as string,
-  mongoUrl: process.env.MAIN_MONGO_URL as string,
+  mongoUrl:
+    process.env.NODE_ENV === 'production'
+      ? (process.env.MAIN_PROD_MONGO_URL as string)
+      : (process.env.MAIN_MONGO_URL as string),
   startHeight: Number(process.env.MAIN_START_HEIGHT as string),
   evm: {
     datasetMetadata: datasetMetadataEvm_Main,
