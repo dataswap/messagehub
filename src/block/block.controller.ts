@@ -20,9 +20,9 @@
 
 import { Controller, Post, Body } from '@nestjs/common';
 import { BlockService } from './block.service';
-import { QueryFilter } from '@unipackage/datastore';
 import { BlockMessages } from '@unipackage/filecoin';
 import { ValueFields, Result } from '@unipackage/utils';
+import { QueryParam } from 'src/shared/queryParams';
 
 /**
  * Controller responsible for handling root-level requests.
@@ -50,8 +50,8 @@ export class BlockController {
    */
   @Post('query')
   async find(
-    @Body() queryFilter: QueryFilter<ValueFields<BlockMessages>>,
+    @Body() queryParam: QueryParam<BlockMessages>,
   ): Promise<Result<ValueFields<BlockMessages>[]>> {
-    return await this.blockService.find(queryFilter);
+    return await this.blockService.find(queryParam);
   }
 }

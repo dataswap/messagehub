@@ -19,10 +19,11 @@
  ********************************************************************************/
 
 import { Injectable } from '@nestjs/common';
-import { QueryFilter } from '@unipackage/datastore';
 import { BlockMessages } from '@unipackage/filecoin';
 import { ValueFields, Result } from '@unipackage/utils';
-import { calibrationBgTask } from '../config/backgroundTask';
+import { calibrationBgTask, mainBgTask } from '../config/backgroundTask';
+import { BackgroundTask } from 'src/backgroundTask';
+import { QueryParam } from 'src/shared/queryParams';
 
 /**
  * Service responsible for providing root-level functionality.
@@ -34,8 +35,14 @@ export class BlockService {
    * @returns A string representing a greeting message.
    */
   async find(
-    queryFilter: QueryFilter<ValueFields<BlockMessages>>,
+    queryParam: QueryParam<BlockMessages>,
   ): Promise<Result<ValueFields<BlockMessages>[]>> {
-    return await calibrationBgTask.context.datastore.block.find(queryFilter);
+    let bgTask: BackgroundTask;
+    if (queryParam.network === 'calibration') {
+      bgTask = calibrationBgTask;
+    } else {
+      bgTask = mainBgTask;
+    }
+    return await bgTask.context.datastore.block.find(queryParam.queryFilter);
   }
 }

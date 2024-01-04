@@ -19,10 +19,11 @@
  ********************************************************************************/
 
 import { Injectable } from '@nestjs/common';
-import { QueryFilter } from '@unipackage/datastore';
 import { DataswapMessage } from '@dataswapjs/dataswapjs';
 import { ValueFields, Result } from '@unipackage/utils';
-import { calibrationBgTask } from '../config/backgroundTask';
+import { calibrationBgTask, mainBgTask } from '../config/backgroundTask';
+import { BackgroundTask } from 'src/backgroundTask';
+import { QueryParam } from 'src/shared/queryParams';
 
 /**
  * Service responsible for providing root-level functionality.
@@ -34,10 +35,16 @@ export class DataswapMessageService {
    * @returns A string representing a greeting message.
    */
   async find(
-    queryFilter: QueryFilter<ValueFields<DataswapMessage>>,
+    queryParam: QueryParam<DataswapMessage>,
   ): Promise<Result<ValueFields<DataswapMessage>[]>> {
-    return await calibrationBgTask.context.datastore.dataswapMessage.find(
-      queryFilter,
+    let bgTask: BackgroundTask;
+    if (queryParam.network === 'calibration') {
+      bgTask = calibrationBgTask;
+    } else {
+      bgTask = mainBgTask;
+    }
+    return await bgTask.context.datastore.dataswapMessage.find(
+      queryParam.queryFilter,
     );
   }
 }

@@ -20,9 +20,9 @@
 
 import { Controller, Post, Body } from '@nestjs/common';
 import { TipsetService } from './tipset.service';
-import { QueryFilter } from '@unipackage/datastore';
 import { Tipset } from '@unipackage/filecoin';
 import { ValueFields, Result } from '@unipackage/utils';
+import { QueryParam } from 'src/shared/queryParams';
 
 /**
  * Controller responsible for handling root-level requests.
@@ -50,8 +50,8 @@ export class TipsetController {
    */
   @Post('query')
   async find(
-    @Body() queryFilter: QueryFilter<ValueFields<Tipset>>,
+    @Body() queryParam: QueryParam<Tipset>,
   ): Promise<Result<ValueFields<Tipset>[]>> {
-    return await this.tipsetService.find(queryFilter);
+    return await this.tipsetService.find(queryParam);
   }
 }

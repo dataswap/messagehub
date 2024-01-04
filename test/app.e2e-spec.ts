@@ -52,28 +52,48 @@ describe('AppController (e2e)', () => {
   it('/tipset/query (POST)', async () => {
     return request(app.getHttpServer())
       .post('/tipset/query')
-      .send({ conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }] })
+      .send({
+        network: 'calibration',
+        queryFilter: {
+          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+        },
+      })
       .expect(201);
   }, 30000);
 
   it('/block/query (POST)', async () => {
     return request(app.getHttpServer())
       .post('/block/query')
-      .send({ conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }] })
+      .send({
+        network: 'calibration',
+        queryFilter: {
+          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+        },
+      })
       .expect(201);
   }, 30000);
 
   it('/message/query (POST)', async () => {
     return request(app.getHttpServer())
       .post('/message/query')
-      .send({ conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }] })
+      .send({
+        network: 'calibration',
+        queryFilter: {
+          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+        },
+      })
       .expect(201);
   }, 30000);
 
   it('/dataswapmessage/query (POST)', async () => {
     return request(app.getHttpServer())
       .post('/dataswapmessage/query')
-      .send({ conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }] })
+      .send({
+        network: 'calibration',
+        queryFilter: {
+          conditions: [{ height: { $gt: 1213437, $lt: 1213439 } }],
+        },
+      })
       .expect(201);
   }, 30000);
 

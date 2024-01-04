@@ -86,7 +86,10 @@ describe('AppController Test', () => {
   describe('tipset query', () => {
     it('should ok', async () => {
       const res = await tipsetController.find({
-        conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+        network: 'calibration',
+        queryFilter: {
+          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+        },
       });
       expect(res.ok).toBe(true);
     }, 300000);
@@ -95,7 +98,10 @@ describe('AppController Test', () => {
   describe('block query', () => {
     it('should ok', async () => {
       const res = await blockController.find({
-        conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+        network: 'calibration',
+        queryFilter: {
+          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+        },
       });
       expect(res.ok).toBe(true);
     }, 300000);
@@ -104,7 +110,10 @@ describe('AppController Test', () => {
   describe('message query', () => {
     it('should ok', async () => {
       const res = await messageController.find({
-        conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+        network: 'calibration',
+        queryFilter: {
+          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+        },
       });
       expect(res.ok).toBe(true);
     }, 300000);
@@ -113,7 +122,10 @@ describe('AppController Test', () => {
   describe('dataswapmessage query', () => {
     it('should ok', async () => {
       const res = await dataswapMessageController.find({
-        conditions: [{ height: { $gt: 1213437, $lt: 1213439 } }],
+        network: 'calibration',
+        queryFilter: {
+          conditions: [{ height: { $gt: 1213437, $lt: 1213439 } }],
+        },
       });
       expect(res.ok).toBe(true);
     }, 300000);
