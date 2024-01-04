@@ -64,8 +64,6 @@ export class BackgroundTask implements IBackgroundTask {
   async start() {
     this.needRunning = true;
 
-    await this.context.datastore.baseConnection.connect();
-
     while (this.needRunning) {
       try {
         const chainHeadHeight = await this.syncer.getChainHeadHeight();
