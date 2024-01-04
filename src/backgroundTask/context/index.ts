@@ -37,6 +37,7 @@ import {
   DatasetMetadataMongoDatastore,
 } from '@dataswapjs/dataswapjs';
 import { getFilecoinAddress } from '../../shared/address';
+import { DatabaseConnection } from '@unipackage/datastore';
 
 /**
  * Configuration for a Context config.
@@ -67,14 +68,23 @@ export class Context implements IContext {
       apiAddress: config.apiAddress,
       token: config.token,
     });
-    this.datastore.message = new MessageMongoDatastore(config.mongoUrl);
-    this.datastore.block = new BlockMongoDatastore(config.mongoUrl);
-    this.datastore.tipset = new TipsetMongoDatastore(config.mongoUrl);
-    this.datastore.dataswapMessage = new DataswapMessageMongoDatastore(
+    this.datastore.baseConnection = DatabaseConnection.getInstance(
       config.mongoUrl,
     );
+    this.datastore.message = new MessageMongoDatastore(
+      this.datastore.baseConnection,
+    );
+    this.datastore.block = new BlockMongoDatastore(
+      this.datastore.baseConnection,
+    );
+    this.datastore.tipset = new TipsetMongoDatastore(
+      this.datastore.baseConnection,
+    );
+    this.datastore.dataswapMessage = new DataswapMessageMongoDatastore(
+      this.datastore.baseConnection,
+    );
     this.datastore.datasetMetadata = new DatasetMetadataMongoDatastore(
-      config.mongoUrl,
+      this.datastore.baseConnection,
     );
     this.chain.service = new ChainService({
       rpc: this.chain.rpc,

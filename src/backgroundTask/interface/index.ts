@@ -44,6 +44,7 @@ import {
   DatasetMetadataMongoDatastore,
 } from '@dataswapjs/dataswapjs';
 import { InternalSelectedParamsMap } from './config';
+import { DatabaseConnection } from '@unipackage/datastore';
 
 /**
  * Configuration for Chain context.
@@ -78,6 +79,7 @@ export interface EvmContext {
  * Configuration for Datastore context.
  */
 export interface DatastoreContext {
+  baseConnection: DatabaseConnection;
   message: MessageMongoDatastore;
   block: BlockMongoDatastore;
   tipset: TipsetMongoDatastore;

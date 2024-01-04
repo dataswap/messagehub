@@ -19,7 +19,7 @@
  ********************************************************************************/
 
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { calibrationBgTask } from '../../config/backgroundTask';
+import { calibrationBgTask, mainBgTask } from '../../config/backgroundTask';
 // import { mainBgTask, calibrationBgTask } from '../../config/backgroundTask';
 
 /**
@@ -39,10 +39,15 @@ export class BackgroundTaskService implements OnModuleInit {
    */
   private async startBackgroundTask() {
     try {
+      await mainBgTask.context.datastore.baseConnection.connect();
+      await calibrationBgTask.context.datastore.baseConnection.connect();
       // const mainBgTaskPromise = mainBgTask.start();
       const calibrationBgTaskPromise = calibrationBgTask.start();
       await Promise.all([calibrationBgTaskPromise]);
+      // await Promise.all([mainBgTaskPromise,calibrationBgTaskPromise]);
     } catch (error) {
+      await mainBgTask.context.datastore.baseConnection.disconnect();
+      await calibrationBgTask.context.datastore.baseConnection.disconnect();
       throw new Error(`Error in the background task:${error}`);
     }
   }
