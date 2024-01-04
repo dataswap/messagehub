@@ -22,6 +22,7 @@ jobs:
       MAIN_MONGO_URL: ${{ vars.MAIN_MONGO_URL }}
       MAIN_PROD_MONGO_URL: ${{ vars.MAIN_PROD_MONGO_URL }}
       MAIN_START_HEIGHT: ${{ vars.MAIN_START_HEIGHT }}
+      PORT: ${{ vars.PORT}}
     steps:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
