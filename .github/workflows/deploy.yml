@@ -8,13 +8,18 @@ on:
 jobs:
   build_and_push:
    runs-on: ubuntu-latest
+
    steps:
    - name: Checkout
      uses: actions/checkout@v3
 
+   - name: Install jq on GitHub Actions runner
+     run: |
+       sudo apt-get update
+       sudo apt-get install -y jq 
    - name: Build Docker image
      run: |
-       latest_version=$(sudo git describe --tags --abbrev=0 2>/dev/null || echo "0.0.0")
+       latest_version=$(curl -sL https://api.github.com/repos/dataswap/messagehub/releases | jq -r ".[0].tag_name")
        sudo docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/messagehub:${latest_version} .
        sudo docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
        sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/messagehub:${latest_version}
@@ -26,17 +31,28 @@ jobs:
        username: ${{ secrets.SERVER_USERNAME }}
        password: ${{ secrets.SERVER_PRIVATE_KEY }}
        port: ${{ secrets.SERVER_PORT }}
-       script:
-        latest_version=$(sudo git describe --tags --abbrev=0 2>/dev/null || echo "0.0.0") && 
-        sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/messagehub:${latest_version} &&
-        echo "NODE_ENV=production" > env.list &&
-        echo "CALIBRATION_LOTUS_API_ENDPOINT=${{ vars.CALIBRATION_LOTUS_API_ENDPOINT }}" >> env.list &&
-        echo "CALIBRATION_LOTUS_PROVIDER_URL= ${{ vars.CALIBRATION_LOTUS_PROVIDER_URL }}" >> env.list &&
-        echo "CALIBRATION_PROD_MONGO_URL=${{ secrets.CALIBRATION_PROD_MONGO_URL }}" >> env.list &&
-        echo "CALIBRATION_START_HEIGHT=${{ vars.CALIBRATION_START_HEIGHT }}" >> env.list &&
-        echo "MAIN_LOTUS_API_ENDPOINT=${{ vars.MAIN_LOTUS_API_ENDPOINT }}" >> env.list &&
-        echo "MAIN_LOTUS_PROVIDER_URL=${{ vars.MAIN_LOTUS_PROVIDER_URL }}" >> env.list &&
-        echo "MAIN_PROD_MONGO_URL=${{ secrets.MAIN_PROD_MONGO_URL }}" >> env.list &&
-        echo "MAIN_START_HEIGHT=${{ vars.MAIN_START_HEIGHT }}" >> env.list &&
-        echo "PORT=${{ vars.PORT}}" >> env.list &&
-        sudo docker run -d -p ${{ vars.PORT}}:${{ vars.PORT}} --env-file env.list ${{ secrets.DOCKERHUB_USERNAME }}/messagehub:${latest_version}
+       script: |
+         sudo apt-get update
+         sudo apt-get install -y jq
+         latest_version=$(curl -sL https://api.github.com/repos/dataswap/messagehub/releases | jq -r ".[0].tag_name")
+         echo ${latest_version}
+         echo "NODE_ENV=production" > env.list
+         echo "CALIBRATION_LOTUS_API_ENDPOINT=${{ vars.CALIBRATION_LOTUS_API_ENDPOINT }}" >> env.list
+         echo "CALIBRATION_LOTUS_PROVIDER_URL= ${{ vars.CALIBRATION_LOTUS_PROVIDER_URL }}" >> env.list
+         echo "CALIBRATION_PROD_MONGO_URL=${{ secrets.CALIBRATION_PROD_MONGO_URL }}" >> env.list
+         echo "CALIBRATION_START_HEIGHT=${{ vars.CALIBRATION_START_HEIGHT }}" >> env.list
+         echo "MAIN_LOTUS_API_ENDPOINT=${{ vars.MAIN_LOTUS_API_ENDPOINT }}" >> env.list
+         echo "MAIN_LOTUS_PROVIDER_URL=${{ vars.MAIN_LOTUS_PROVIDER_URL }}" >> env.list
+         echo "MAIN_PROD_MONGO_URL=${{ secrets.MAIN_PROD_MONGO_URL }}" >> env.list
+         echo "MAIN_START_HEIGHT=${{ vars.MAIN_START_HEIGHT }}" >> env.list
+         echo "PORT=${{ vars.PORT}}" >> env.list
+     
+         container_id=$(sudo docker ps -a | grep "${{ vars.PORT}}" | awk -F " " '{print $1}')
+     
+         if [ -n "$container_id" ]; then
+           sudo docker stop "$container_id"
+           sudo docker rm "$container_id"
+         fi
+         sudo docker pull "${{ secrets.DOCKERHUB_USERNAME }}/messagehub:${latest_version}"
+         sudo docker run -d -p ${{ vars.PORT}}:${{ vars.PORT}} --env-file env.list "${{ secrets.DOCKERHUB_USERNAME }}/messagehub:${latest_version}"
+     
