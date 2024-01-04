@@ -64,6 +64,9 @@ export class BackgroundTask implements IBackgroundTask {
   async start() {
     this.needRunning = true;
 
+    await this.context.datastore.baseConnection.connect();
+    await this.context.datastore.baseConnection.connect();
+
     while (this.needRunning) {
       try {
         const chainHeadHeight = await this.syncer.getChainHeadHeight();
@@ -104,6 +107,8 @@ export class BackgroundTask implements IBackgroundTask {
           await delay(3000);
         }
       } catch (error) {
+        await this.context.datastore.baseConnection.disconnect();
+        await this.context.datastore.baseConnection.disconnect();
         throw new Error(error);
       }
     }
