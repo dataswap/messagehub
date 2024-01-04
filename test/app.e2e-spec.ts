@@ -83,4 +83,11 @@ describe('AppController (e2e)', () => {
       .send({ conditions: [{ datasetId: { $gt: 0, $lt: 3 } }] })
       .expect(201);
   }, 30000);
+
+  it('/syncstatus/query (POST)', async () => {
+    return request(app.getHttpServer())
+      .post('/syncstatus/query')
+      .send({ network: 'calibration' })
+      .expect(201);
+  }, 30000);
 });

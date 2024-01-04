@@ -31,6 +31,8 @@ import { DataswapMessageController } from '../src/dataswapMessage/dataswapMessag
 import { DataswapMessageService } from '../src/dataswapMessage/dataswapMessage.service';
 import { DatasetMetadataController } from '../src/datasetMetadata/datasetMetadata.controller';
 import { DatasetMetadataService } from '../src/datasetMetadata/datasetMetadata.service';
+import { SyncController } from '../src/sync/sync.controller';
+import { SyncService } from '../src/sync/sync.service';
 
 describe('AppController Test', () => {
   let tipsetController: TipsetController;
@@ -38,6 +40,7 @@ describe('AppController Test', () => {
   let messageController: MessageController;
   let dataswapMessageController: DataswapMessageController;
   let datasetMetadataController: DatasetMetadataController;
+  let syncController: SyncController;
 
   beforeAll(async () => {
     calibrationBgTask.start();
@@ -56,6 +59,7 @@ describe('AppController Test', () => {
         MessageController,
         DataswapMessageController,
         DatasetMetadataController,
+        SyncController,
       ],
       providers: [
         TipsetService,
@@ -63,6 +67,7 @@ describe('AppController Test', () => {
         MessageService,
         DataswapMessageService,
         DatasetMetadataService,
+        SyncService,
       ],
     }).compile();
 
@@ -75,6 +80,7 @@ describe('AppController Test', () => {
     datasetMetadataController = root.get<DatasetMetadataController>(
       DatasetMetadataController,
     );
+    syncController = root.get<SyncController>(SyncController);
   });
 
   describe('tipset query', () => {
@@ -117,6 +123,15 @@ describe('AppController Test', () => {
     it('should ok', async () => {
       const res = await datasetMetadataController.find({
         conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+      });
+      expect(res.ok).toBe(true);
+    }, 300000);
+  });
+
+  describe('syncstatus query', () => {
+    it('should ok', async () => {
+      const res = await syncController.getSyncStatus({
+        network: '1',
       });
       expect(res.ok).toBe(true);
     }, 300000);
