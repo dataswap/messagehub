@@ -1,5 +1,22 @@
 
 
+# [0.2.0](https://github.com/dataswap/messagehub/compare/0.1.0...0.2.0) (2024-01-04)
+
+
+### Bug Fixes
+
+* 🐛 connect issue ([e9db827](https://github.com/dataswap/messagehub/commit/e9db827976d5756ff52f5eb914d5c913f41e5f9a))
+* 🐛 datasetmetadata net issue ([308a4c4](https://github.com/dataswap/messagehub/commit/308a4c475d2a12f37de0f49ca72e797b791bb7cc)), closes [#18](https://github.com/dataswap/messagehub/issues/18)
+* 🐛 delete ([635c2d0](https://github.com/dataswap/messagehub/commit/635c2d09dcc93a2aee33bc8e0392a5b94a2848d3))
+
+
+### Features
+
+* 🎸 add syncstatus api ([b9d62c8](https://github.com/dataswap/messagehub/commit/b9d62c876453d0a25775bc2d1c0f4f064d0f50ab))
+* 🎸 PROD ([39377f5](https://github.com/dataswap/messagehub/commit/39377f57ac4bc834940063daa958918925cb4d77))
+* 🎸 set port by env ([fac118b](https://github.com/dataswap/messagehub/commit/fac118bef5dcec8b7d87b3cd290b35c7d78430b0))
+* 🎸 upgrade datastore version ([8e35fef](https://github.com/dataswap/messagehub/commit/8e35fef20177cfad69b81ff816dedb70353d8c2a))
+
 # 0.1.0 (2024-01-03)
 
 
