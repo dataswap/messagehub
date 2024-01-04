@@ -1,5 +1,20 @@
 
 
+# [0.3.0](https://github.com/dataswap/messagehub/compare/0.2.0...0.3.0) (2024-01-04)
+
+
+### Bug Fixes
+
+* 🐛 [#16](https://github.com/dataswap/messagehub/issues/16) ([e993a0d](https://github.com/dataswap/messagehub/commit/e993a0d62f34bc14c2d2a1a2cb0128b8a53edb92))
+* 🐛 Deployment failed multiple times ([78ddeb2](https://github.com/dataswap/messagehub/commit/78ddeb29bb7062df99c31feae1cf3775cb402d09)), closes [#20](https://github.com/dataswap/messagehub/issues/20)
+
+
+### Features
+
+* 🎸 support dual network for api ([cb8c5b1](https://github.com/dataswap/messagehub/commit/cb8c5b13c0b92737141a3b700e536b7d4b88b085))
+* 🎸 support dual network for datasetmetadata ([a7729f2](https://github.com/dataswap/messagehub/commit/a7729f206a82931980f16401d6f28ef00726d118))
+* 🎸 update datastore->2.0.0 ([87c28de](https://github.com/dataswap/messagehub/commit/87c28de7eb9a621aa06deed7652c8fbd5faa8a34))
+
 # [0.2.0](https://github.com/dataswap/messagehub/compare/0.1.0...0.2.0) (2024-01-04)
 
 
