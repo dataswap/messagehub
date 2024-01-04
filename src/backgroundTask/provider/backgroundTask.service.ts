@@ -19,8 +19,7 @@
  ********************************************************************************/
 
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { calibrationBgTask } from '../../config/backgroundTask';
-// import { mainBgTask, calibrationBgTask } from '../../config/backgroundTask';
+import { mainBgTask, calibrationBgTask } from '../../config/backgroundTask';
 
 /**
  * Service responsible for synchronizing with the blockchain.
@@ -39,10 +38,9 @@ export class BackgroundTaskService implements OnModuleInit {
    */
   private async startBackgroundTask() {
     try {
-      // const mainBgTaskPromise = mainBgTask.start();
+      const mainBgTaskPromise = mainBgTask.start();
       const calibrationBgTaskPromise = calibrationBgTask.start();
-      await Promise.all([calibrationBgTaskPromise]);
-      // await Promise.all([mainBgTaskPromise,calibrationBgTaskPromise]);
+      await Promise.all([mainBgTaskPromise, calibrationBgTaskPromise]);
     } catch (error) {
       throw new Error(`Error in the background task:${error}`);
     }
