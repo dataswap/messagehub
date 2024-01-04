@@ -19,10 +19,11 @@
  ********************************************************************************/
 
 import { Injectable } from '@nestjs/common';
-import { QueryFilter } from '@unipackage/datastore';
 import { DatasetMetadata } from '@dataswapjs/dataswapjs';
 import { ValueFields, Result } from '@unipackage/utils';
-import { calibrationBgTask } from '../config/backgroundTask';
+import { calibrationBgTask, mainBgTask } from '../config/backgroundTask';
+import { BackgroundTask } from 'src/backgroundTask';
+import { QueryParam } from 'src/shared/queryParams';
 
 /**
  * Service responsible for providing root-level functionality.
@@ -34,10 +35,16 @@ export class DatasetMetadataService {
    * @returns A string representing a greeting message.
    */
   async find(
-    queryFilter: QueryFilter<ValueFields<DatasetMetadata>>,
+    queryParam: QueryParam<DatasetMetadata>,
   ): Promise<Result<ValueFields<DatasetMetadata>[]>> {
-    return await calibrationBgTask.context.datastore.datasetMetadata.find(
-      queryFilter,
+    let bgTask: BackgroundTask;
+    if (queryParam.network === 'calibration') {
+      bgTask = calibrationBgTask;
+    } else {
+      bgTask = mainBgTask;
+    }
+    return await bgTask.context.datastore.datasetMetadata.find(
+      queryParam.queryFilter,
     );
   }
 }

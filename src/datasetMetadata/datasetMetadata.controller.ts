@@ -20,10 +20,10 @@
 
 import { Controller, Post, Body, UseInterceptors } from '@nestjs/common';
 import { DatasetMetadataService } from './datasetMetadata.service';
-import { QueryFilter } from '@unipackage/datastore';
 import { DatasetMetadata } from '@dataswapjs/dataswapjs';
 import { ValueFields, Result } from '@unipackage/utils';
 import { BigIntToStringInterceptor } from '../shared/bigIntToStringInterceptor';
+import { QueryParam } from 'src/shared/queryParams';
 
 /**
  * Controller responsible for handling root-level requests.
@@ -54,8 +54,8 @@ export class DatasetMetadataController {
    */
   @Post('query')
   async find(
-    @Body() queryFilter: QueryFilter<ValueFields<DatasetMetadata>>,
+    @Body() queryParam: QueryParam<DatasetMetadata>,
   ): Promise<Result<ValueFields<DatasetMetadata>[]>> {
-    return await this.datasetMetadataService.find(queryFilter);
+    return await this.datasetMetadataService.find(queryParam);
   }
 }

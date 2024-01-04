@@ -80,7 +80,10 @@ describe('AppController (e2e)', () => {
   it('/datasetmetadata/query (POST)', async () => {
     return request(app.getHttpServer())
       .post('/datasetmetadata/query')
-      .send({ conditions: [{ datasetId: { $gt: 0, $lt: 3 } }] })
+      .send({
+        network: 'calibration',
+        queryFilter: { conditions: [{ datasetId: { $gt: 0, $lt: 3 } }] },
+      })
       .expect(201);
   }, 30000);
 

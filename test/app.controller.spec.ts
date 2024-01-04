@@ -122,7 +122,10 @@ describe('AppController Test', () => {
   describe('datasetmetadata query', () => {
     it('should ok', async () => {
       const res = await datasetMetadataController.find({
-        conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+        network: 'calibration',
+        queryFilter: {
+          conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+        },
       });
       expect(res.ok).toBe(true);
     }, 300000);
