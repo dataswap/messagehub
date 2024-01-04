@@ -18,15 +18,17 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, UseInterceptors } from '@nestjs/common';
 import { DatasetMetadataService } from './datasetMetadata.service';
 import { QueryFilter } from '@unipackage/datastore';
 import { DatasetMetadata } from '@dataswapjs/dataswapjs';
 import { ValueFields, Result } from '@unipackage/utils';
+import { BigIntToStringInterceptor } from '../shared/bigIntToStringInterceptor';
 
 /**
  * Controller responsible for handling root-level requests.
  */
+@UseInterceptors(BigIntToStringInterceptor)
 @Controller('datasetmetadata')
 export class DatasetMetadataController {
   /**
