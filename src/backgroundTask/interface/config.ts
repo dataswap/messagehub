@@ -18,7 +18,14 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { DatasetMetadata, DatasetRequirement } from "@dataswapjs/dataswapjs"
+import {
+    DatasetMetadata,
+    DatasetRequirement,
+    MatchingMetadata,
+    MatchingTarget,
+    DatasetProofs,
+    DatasetProofMetadata,
+} from "@dataswapjs/dataswapjs"
 
 /**
  * Selected methods available for processing.
@@ -27,7 +34,11 @@ import { DatasetMetadata, DatasetRequirement } from "@dataswapjs/dataswapjs"
 export const selectedMethods = [
     "submitDatasetMetadata",
     "submitDatasetReplicaRequirements",
-    //TODO: add other methods
+    "submitDatasetProofRoot",
+    "submitDatasetProof",
+    "createMatching",
+    "publishMatching",
+    //"submitStorageClaimIds",
 ]
 
 /**
@@ -35,7 +46,11 @@ export const selectedMethods = [
  * @Note: you can add new prop,but the key of this object must be element of SelectedMethods.
  */
 export type InternalSelectedParamsMap = {
-    submitDatasetMetadata: { params: DatasetMetadata }
-    submitDatasetReplicaRequirements: { params: Array<DatasetRequirement> }
-    //TODO: add other selected params
+    submitDatasetMetadata: { params: DatasetMetadata } //Insert or update DatasetMetadata to datastore
+    submitDatasetReplicaRequirements: { params: Array<DatasetRequirement> } //Insert DatasetRequirment[] to datastore
+    submitDatasetProofRoot: { params: DatasetProofMetadata } //Insert or update DatasetProofMetadata to datastore
+    submitDatasetProof: { params: DatasetProofs } //Insert or update Car[] to datastore
+    createMatching: { params: MatchingMetadata } //Insert or update MatchiangMetadata to datastore
+    publishMatching: { params: MatchingTarget } //Insert or update MatchiangTarget and CarReplica[] to datastore
+    //submitStorageClaimIds: { params: StorageClaimIds } //update datastore for CarReplica
 }
