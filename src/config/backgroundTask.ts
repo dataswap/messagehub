@@ -23,7 +23,32 @@ import { Config, Context } from "../backgroundTask/context"
 import { Syncer } from "../backgroundTask/syncer"
 import { Decoder } from "../backgroundTask/decoder"
 import { Storager } from "../backgroundTask/storager"
-import { datasetMetadataEvm_Calibration, datasetMetadataEvm_Main } from "./evm"
+import {
+    datacapsEvm_Calibration,
+    datacapsEvm_Main,
+    datasetChallengeEvm_Calibration,
+    datasetChallengeEvm_Main,
+    datasetMetadataEvm_Calibration,
+    datasetMetadataEvm_Main,
+    datasetProofEvm_Calibration,
+    datasetProofEvm_Main,
+    datasetRequirementEvm_Calibration,
+    datasetRequirementEvm_Main,
+    escrowEvm_Calibration,
+    escrowEvm_Main,
+    filplusEvm_Calibraion,
+    filplusEvm_Main,
+    matchingBidsEvm_Calibration,
+    matchingBidsEvm_Main,
+    matchingMetadataEvm_Calibration,
+    matchingMetadataEvm_Main,
+    matchingTargetEvm_Calibration,
+    matchingTargetEvm_Main,
+    rolesEvm_Calibration,
+    rolesEvm_Main,
+    storagesEvm_Calibration,
+    storagesEvm_Main,
+} from "./evm"
 import * as dotenv from "dotenv"
 dotenv.config()
 
@@ -40,6 +65,17 @@ export const calibrationConfig: Config = {
     startHeight: Number(process.env.CALIBRATION_START_HEIGHT as string),
     evm: {
         datasetMetadata: datasetMetadataEvm_Calibration,
+        datasetRequirement: datasetRequirementEvm_Calibration,
+        datasetProof: datasetProofEvm_Calibration,
+        datasetChallenge: datasetChallengeEvm_Calibration,
+        matchingMetadata: matchingMetadataEvm_Calibration,
+        matchingTarget: matchingTargetEvm_Calibration,
+        matchingBids: matchingBidsEvm_Calibration,
+        storages: storagesEvm_Calibration,
+        datacaps: datacapsEvm_Calibration,
+        roles: rolesEvm_Calibration,
+        filplus: filplusEvm_Calibraion,
+        escrow: escrowEvm_Calibration,
     },
 }
 
@@ -56,6 +92,17 @@ export const mainConfig: Config = {
     startHeight: Number(process.env.MAIN_START_HEIGHT as string),
     evm: {
         datasetMetadata: datasetMetadataEvm_Main,
+        datasetRequirement: datasetRequirementEvm_Main,
+        datasetProof: datasetProofEvm_Main,
+        datasetChallenge: datasetChallengeEvm_Main,
+        matchingMetadata: matchingMetadataEvm_Main,
+        matchingTarget: matchingTargetEvm_Main,
+        matchingBids: matchingBidsEvm_Main,
+        storages: storagesEvm_Main,
+        datacaps: datacapsEvm_Main,
+        roles: rolesEvm_Main,
+        filplus: filplusEvm_Main,
+        escrow: escrowEvm_Main,
     },
 }
 
