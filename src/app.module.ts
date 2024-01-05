@@ -18,46 +18,46 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Module } from '@nestjs/common';
-import { VersionController } from './version/version.controller';
-import { VersionService } from './version/version.service';
-import { SyncController } from './sync/sync.controller';
-import { SyncService } from './sync/sync.service';
-import { TipsetController } from './tipset/tipset.controller';
-import { TipsetService } from './tipset/tipset.service';
-import { BlockController } from './block/block.controller';
-import { BlockService } from './block/block.service';
-import { MessageController } from './message/message.controller';
-import { MessageService } from './message/message.service';
-import { DataswapMessageController } from './dataswapMessage/dataswapMessage.controller';
-import { DataswapMessageService } from './dataswapMessage/dataswapMessage.service';
-import { DatasetMetadataController } from './datasetMetadata/datasetMetadata.controller';
-import { DatasetMetadataService } from './datasetMetadata/datasetMetadata.service';
-import { BackgroundTaskService } from './backgroundTask/provider/backgroundTask.service';
+import { Module } from "@nestjs/common"
+import { VersionController } from "./version/version.controller"
+import { VersionService } from "./version/version.service"
+import { SyncController } from "./sync/sync.controller"
+import { SyncService } from "./sync/sync.service"
+import { TipsetController } from "./tipset/tipset.controller"
+import { TipsetService } from "./tipset/tipset.service"
+import { BlockController } from "./block/block.controller"
+import { BlockService } from "./block/block.service"
+import { MessageController } from "./message/message.controller"
+import { MessageService } from "./message/message.service"
+import { DataswapMessageController } from "./dataswapMessage/dataswapMessage.controller"
+import { DataswapMessageService } from "./dataswapMessage/dataswapMessage.service"
+import { DatasetMetadataController } from "./datasetMetadata/datasetMetadata.controller"
+import { DatasetMetadataService } from "./datasetMetadata/datasetMetadata.service"
+import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.service"
 
 /**
  * Root module for the application.
  */
 @Module({
-  imports: [],
-  controllers: [
-    VersionController,
-    SyncController,
-    TipsetController,
-    BlockController,
-    MessageController,
-    DataswapMessageController,
-    DatasetMetadataController,
-  ],
-  providers: [
-    VersionService,
-    SyncService,
-    TipsetService,
-    BlockService,
-    MessageService,
-    BackgroundTaskService,
-    DataswapMessageService,
-    DatasetMetadataService,
-  ],
+    imports: [],
+    controllers: [
+        VersionController,
+        SyncController,
+        TipsetController,
+        BlockController,
+        MessageController,
+        DataswapMessageController,
+        DatasetMetadataController,
+    ],
+    providers: [
+        VersionService,
+        SyncService,
+        TipsetService,
+        BlockService,
+        MessageService,
+        BackgroundTaskService,
+        DataswapMessageService,
+        DatasetMetadataService,
+    ],
 })
 export class AppModule {}

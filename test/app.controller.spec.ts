@@ -17,138 +17,138 @@
  *  See the MIT License or the Apache License for the specific language governing permissions and
  *  limitations under the respective licenses.
  ********************************************************************************/
-import { calibrationBgTask } from '../src/config/backgroundTask';
-import { delay } from '@unipackage/utils';
+import { calibrationBgTask } from "../src/config/backgroundTask"
+import { delay } from "@unipackage/utils"
 
-import { Test, TestingModule } from '@nestjs/testing';
-import { TipsetController } from '../src/tipset/tipset.controller';
-import { TipsetService } from '../src/tipset/tipset.service';
-import { BlockController } from '../src/block/block.controller';
-import { BlockService } from '../src/block/block.service';
-import { MessageController } from '../src/message/message.controller';
-import { MessageService } from '../src/message/message.service';
-import { DataswapMessageController } from '../src/dataswapMessage/dataswapMessage.controller';
-import { DataswapMessageService } from '../src/dataswapMessage/dataswapMessage.service';
-import { DatasetMetadataController } from '../src/datasetMetadata/datasetMetadata.controller';
-import { DatasetMetadataService } from '../src/datasetMetadata/datasetMetadata.service';
-import { SyncController } from '../src/sync/sync.controller';
-import { SyncService } from '../src/sync/sync.service';
+import { Test, TestingModule } from "@nestjs/testing"
+import { TipsetController } from "../src/tipset/tipset.controller"
+import { TipsetService } from "../src/tipset/tipset.service"
+import { BlockController } from "../src/block/block.controller"
+import { BlockService } from "../src/block/block.service"
+import { MessageController } from "../src/message/message.controller"
+import { MessageService } from "../src/message/message.service"
+import { DataswapMessageController } from "../src/dataswapMessage/dataswapMessage.controller"
+import { DataswapMessageService } from "../src/dataswapMessage/dataswapMessage.service"
+import { DatasetMetadataController } from "../src/datasetMetadata/datasetMetadata.controller"
+import { DatasetMetadataService } from "../src/datasetMetadata/datasetMetadata.service"
+import { SyncController } from "../src/sync/sync.controller"
+import { SyncService } from "../src/sync/sync.service"
 
-describe('AppController Test', () => {
-  let tipsetController: TipsetController;
-  let blockController: BlockController;
-  let messageController: MessageController;
-  let dataswapMessageController: DataswapMessageController;
-  let datasetMetadataController: DatasetMetadataController;
-  let syncController: SyncController;
+describe("AppController Test", () => {
+    let tipsetController: TipsetController
+    let blockController: BlockController
+    let messageController: MessageController
+    let dataswapMessageController: DataswapMessageController
+    let datasetMetadataController: DatasetMetadataController
+    let syncController: SyncController
 
-  beforeAll(async () => {
-    calibrationBgTask.start();
-    await delay(20000);
-  }, 30000);
+    beforeAll(async () => {
+        calibrationBgTask.start()
+        await delay(20000)
+    }, 30000)
 
-  afterAll(() => {
-    calibrationBgTask.stop();
-  });
+    afterAll(() => {
+        calibrationBgTask.stop()
+    })
 
-  beforeEach(async () => {
-    const root: TestingModule = await Test.createTestingModule({
-      controllers: [
-        TipsetController,
-        BlockController,
-        MessageController,
-        DataswapMessageController,
-        DatasetMetadataController,
-        SyncController,
-      ],
-      providers: [
-        TipsetService,
-        BlockService,
-        MessageService,
-        DataswapMessageService,
-        DatasetMetadataService,
-        SyncService,
-      ],
-    }).compile();
+    beforeEach(async () => {
+        const root: TestingModule = await Test.createTestingModule({
+            controllers: [
+                TipsetController,
+                BlockController,
+                MessageController,
+                DataswapMessageController,
+                DatasetMetadataController,
+                SyncController,
+            ],
+            providers: [
+                TipsetService,
+                BlockService,
+                MessageService,
+                DataswapMessageService,
+                DatasetMetadataService,
+                SyncService,
+            ],
+        }).compile()
 
-    tipsetController = root.get<TipsetController>(TipsetController);
-    blockController = root.get<BlockController>(BlockController);
-    messageController = root.get<MessageController>(MessageController);
-    dataswapMessageController = root.get<DataswapMessageController>(
-      DataswapMessageController,
-    );
-    datasetMetadataController = root.get<DatasetMetadataController>(
-      DatasetMetadataController,
-    );
-    syncController = root.get<SyncController>(SyncController);
-  });
+        tipsetController = root.get<TipsetController>(TipsetController)
+        blockController = root.get<BlockController>(BlockController)
+        messageController = root.get<MessageController>(MessageController)
+        dataswapMessageController = root.get<DataswapMessageController>(
+            DataswapMessageController
+        )
+        datasetMetadataController = root.get<DatasetMetadataController>(
+            DatasetMetadataController
+        )
+        syncController = root.get<SyncController>(SyncController)
+    })
 
-  describe('tipset query', () => {
-    it('should ok', async () => {
-      const res = await tipsetController.find({
-        network: 'calibration',
-        queryFilter: {
-          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
-        },
-      });
-      expect(res.ok).toBe(true);
-    }, 300000);
-  });
+    describe("tipset query", () => {
+        it("should ok", async () => {
+            const res = await tipsetController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
 
-  describe('block query', () => {
-    it('should ok', async () => {
-      const res = await blockController.find({
-        network: 'calibration',
-        queryFilter: {
-          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
-        },
-      });
-      expect(res.ok).toBe(true);
-    }, 300000);
-  });
+    describe("block query", () => {
+        it("should ok", async () => {
+            const res = await blockController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
 
-  describe('message query', () => {
-    it('should ok', async () => {
-      const res = await messageController.find({
-        network: 'calibration',
-        queryFilter: {
-          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
-        },
-      });
-      expect(res.ok).toBe(true);
-    }, 300000);
-  });
+    describe("message query", () => {
+        it("should ok", async () => {
+            const res = await messageController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
 
-  describe('dataswapmessage query', () => {
-    it('should ok', async () => {
-      const res = await dataswapMessageController.find({
-        network: 'calibration',
-        queryFilter: {
-          conditions: [{ height: { $gt: 1213437, $lt: 1213439 } }],
-        },
-      });
-      expect(res.ok).toBe(true);
-    }, 300000);
-  });
+    describe("dataswapmessage query", () => {
+        it("should ok", async () => {
+            const res = await dataswapMessageController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ height: { $gt: 1213437, $lt: 1213439 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
 
-  describe('datasetmetadata query', () => {
-    it('should ok', async () => {
-      const res = await datasetMetadataController.find({
-        network: 'calibration',
-        queryFilter: {
-          conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
-        },
-      });
-      expect(res.ok).toBe(true);
-    }, 300000);
-  });
+    describe("datasetmetadata query", () => {
+        it("should ok", async () => {
+            const res = await datasetMetadataController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
 
-  describe('syncstatus query', () => {
-    it('should ok', async () => {
-      const res = await syncController.getSyncStatus({
-        network: '1',
-      });
-      expect(res.ok).toBe(true);
-    }, 300000);
-  });
-});
+    describe("syncstatus query", () => {
+        it("should ok", async () => {
+            const res = await syncController.getSyncStatus({
+                network: "1",
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
+})

@@ -18,21 +18,21 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
-dotenv.config();
+import { NestFactory } from "@nestjs/core"
+import { AppModule } from "./app.module"
+import * as dotenv from "dotenv"
+dotenv.config()
 
 /**
  * Application bootstrap function.
  */
 async function bootstrap() {
-  // Create a NestJS application instance
-  const app = await NestFactory.create(AppModule);
+    // Create a NestJS application instance
+    const app = await NestFactory.create(AppModule)
 
-  // Start the application, listening on port 3000
-  await app.listen(Number(process.env.PORT));
+    // Start the application, listening on port 3000
+    await app.listen(Number(process.env.PORT))
 }
 
 // Call the bootstrap function to start the application
-bootstrap();
+bootstrap()

@@ -19,13 +19,13 @@
  ********************************************************************************/
 
 import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
-  CallHandler,
-} from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+    Injectable,
+    NestInterceptor,
+    ExecutionContext,
+    CallHandler,
+} from "@nestjs/common"
+import { Observable } from "rxjs"
+import { map } from "rxjs/operators"
 
 /**
  * Interceptor to convert BigInt values in response objects to strings.
@@ -33,40 +33,40 @@ import { map } from 'rxjs/operators';
  */
 @Injectable()
 export class BigIntToStringInterceptor implements NestInterceptor {
-  /**
-   * Intercepts the response and transforms BigInt values to strings.
-   * @param context - The execution context.
-   * @param next - The call handler.
-   * @returns An Observable with the transformed response.
-   */
-  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    return next.handle().pipe(
-      map((data) => {
-        // If the response data is an object, transform BigInt values
-        if (data && typeof data === 'object') {
-          this.transformBigIntToString(data);
-        }
-        return data;
-      }),
-    );
-  }
-
-  /**
-   * Recursively transforms BigInt values in an object to strings.
-   * @param data - The object to transform.
-   */
-  private transformBigIntToString(data: any) {
-    for (const key in data) {
-      if (Object.prototype.hasOwnProperty.call(data, key)) {
-        // If the value is a BigInt, convert it to string
-        if (typeof data[key] === 'bigint') {
-          data[key] = data[key].toString();
-        }
-        // If the value is an object, recursively check for BigInt values
-        else if (typeof data[key] === 'object') {
-          this.transformBigIntToString(data[key]);
-        }
-      }
+    /**
+     * Intercepts the response and transforms BigInt values to strings.
+     * @param context - The execution context.
+     * @param next - The call handler.
+     * @returns An Observable with the transformed response.
+     */
+    intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+        return next.handle().pipe(
+            map((data) => {
+                // If the response data is an object, transform BigInt values
+                if (data && typeof data === "object") {
+                    this.transformBigIntToString(data)
+                }
+                return data
+            })
+        )
     }
-  }
+
+    /**
+     * Recursively transforms BigInt values in an object to strings.
+     * @param data - The object to transform.
+     */
+    private transformBigIntToString(data: any) {
+        for (const key in data) {
+            if (Object.prototype.hasOwnProperty.call(data, key)) {
+                // If the value is a BigInt, convert it to string
+                if (typeof data[key] === "bigint") {
+                    data[key] = data[key].toString()
+                }
+                // If the value is an object, recursively check for BigInt values
+                else if (typeof data[key] === "object") {
+                    this.transformBigIntToString(data[key])
+                }
+            }
+        }
+    }
 }

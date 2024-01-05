@@ -18,47 +18,48 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Chain } from '@unipackage/filecoin';
-import { Context } from '../context';
-import { ISyncer } from '../interface';
+import { Chain } from "@unipackage/filecoin"
+import { Context } from "../context"
+import { ISyncer } from "../interface"
 
 /**
  * Represents a connection to a Filecoin network.
  */
 export class Syncer implements ISyncer {
-  context: Context;
-  /**
-   * Creates an instance of ChainNetwork.
-   * @param config - The network configuration.
-   */
-  constructor(context: Context) {
-    this.context = context;
-  }
+    context: Context
+    /**
+     * Creates an instance of ChainNetwork.
+     * @param config - The network configuration.
+     */
+    constructor(context: Context) {
+        this.context = context
+    }
 
-  /**
-   * Retrieves the current height of the Filecoin chain from the network.
-   * @returns {Promise<number>} The height of the chain.
-   * @throws {Error} If there is an error fetching the chain head height.
-   */
-  async getChainHeadHeight(): Promise<number> {
-    const res = await this.context.chain.rpc.ChainHead();
-    if (!res.ok) {
-      throw new Error(`getChainHeadHeight error:${res.error}`);
+    /**
+     * Retrieves the current height of the Filecoin chain from the network.
+     * @returns {Promise<number>} The height of the chain.
+     * @throws {Error} If there is an error fetching the chain head height.
+     */
+    async getChainHeadHeight(): Promise<number> {
+        const res = await this.context.chain.rpc.ChainHead()
+        if (!res.ok) {
+            throw new Error(`getChainHeadHeight error:${res.error}`)
+        }
+        return res.data.Height
     }
-    return res.data.Height;
-  }
 
-  /**
-   * Gets pending chain information.
-   */
-  async getPendingChainInfo(height: number): Promise<Chain> {
-    const res = await this.context.chain.service.GetChainInfoByHeight(height);
-    if (!res.ok) {
-      throw new Error(res.error);
+    /**
+     * Gets pending chain information.
+     */
+    async getPendingChainInfo(height: number): Promise<Chain> {
+        const res =
+            await this.context.chain.service.GetChainInfoByHeight(height)
+        if (!res.ok) {
+            throw new Error(res.error)
+        }
+        if (res.data.tipset.Height < height) {
+            res.data = null as Chain
+        }
+        return res.data
     }
-    if (res.data.tipset.Height < height) {
-      res.data = null as Chain;
-    }
-    return res.data;
-  }
 }

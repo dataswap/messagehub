@@ -18,19 +18,19 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Injectable } from '@nestjs/common';
-import PackageJson from '../../package.json';
+import { Injectable } from "@nestjs/common"
+import PackageJson from "../../package.json"
 
 /**
  * Service responsible for providing root-level functionality.
  */
 @Injectable()
 export class VersionService {
-  /**
-   * Gets a greeting message.
-   * @returns A string representing a greeting message.
-   */
-  getVersion(): string {
-    return PackageJson.version;
-  }
+    /**
+     * Gets a greeting message.
+     * @returns A string representing a greeting message.
+     */
+    getVersion(): string {
+        return PackageJson.version
+    }
 }

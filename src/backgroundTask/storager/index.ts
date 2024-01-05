@@ -18,120 +18,122 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Context } from '../context';
-import { IStorager, SelectedParams } from '../interface';
-import { Chain } from '@unipackage/filecoin';
-import { DatasetMetadata, DataswapMessage } from '@dataswapjs/dataswapjs';
+import { Context } from "../context"
+import { IStorager, SelectedParams } from "../interface"
+import { Chain } from "@unipackage/filecoin"
+import { DatasetMetadata, DataswapMessage } from "@dataswapjs/dataswapjs"
 
 /**
  * Represents a connection to a Filecoin network.
  */
 export class Storager implements IStorager {
-  context: Context;
-  /**
-   * Creates an instance of ChainNetwork.
-   * @param config - The network configuration.
-   */
-  constructor(context: Context) {
-    this.context = context;
-  }
+    context: Context
+    /**
+     * Creates an instance of ChainNetwork.
+     * @param config - The network configuration.
+     */
+    constructor(context: Context) {
+        this.context = context
+    }
 
-  /**
-   * get latest synced height that is stored.
-   */
-  async getLatestSyncedHeight(): Promise<number> {
-    const res = await this.context.datastore.tipset.find({
-      page: 0,
-      limit: 1,
-      sort: [{ field: 'Height', order: 'desc' }],
-    });
-    if (!res.ok) {
-      throw new Error('getLatestSyncedHeight failed!');
-    }
-    if (res.data && res.data.length > 0) {
-      return res.data[0].Height;
-    } else {
-      return 0;
-    }
-  }
-
-  /**
-   * Checks if a given height has already been synchronized.
-   * @param {number} height - The height to check for synchronization.
-   * @returns {Promise<boolean>} True if the height is already synchronized, false otherwise.
-   * @throws {Error} If there is an error checking the synchronization status.
-   */
-  async isThisHeightStored(height: number): Promise<boolean> {
-    const syncedTipsetsRes = await this.context.datastore.tipset.find({
-      conditions: [{ Height: height }],
-    });
-    if (!syncedTipsetsRes.ok) {
-      throw new Error(`isHeightAlreadySynced error:${syncedTipsetsRes.error}`);
-    }
-    if (syncedTipsetsRes.data.length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  /**
-   * Stores chain information.
-   */
-  async storeChainInfo(chain: Chain): Promise<void> {
-    const res = await this.context.chain.service.SaveChainInfo(chain);
-    if (!res.ok) {
-      throw new Error(res.error);
-    }
-  }
-
-  /**
-   * Stores an array of dataswap messages.
-   */
-  async storeDataswapMessages(
-    dataswapMessages: Array<DataswapMessage>,
-  ): Promise<void> {
-    try {
-      const doStores = dataswapMessages.map(async (msg) =>
-        this.context.datastore.dataswapMessage.CreateOrupdateByUniqueIndexes(
-          msg,
-        ),
-      );
-      const res = await Promise.all(doStores);
-      res.map((result) => {
-        if (!result.ok) throw new Error(result.error);
-      });
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
-
-  /**
-   * Stores an array of selected parameters.
-   */
-  async storeSelectedParams(
-    selectedParams: Array<SelectedParams>,
-  ): Promise<void> {
-    try {
-      const doStores = selectedParams.map(async (selected) => {
-        switch (selected.method) {
-          case 'submitDatasetMetadata':
-            return this.context.datastore.datasetMetadata.CreateOrupdateByUniqueIndexes(
-              selected.params as DatasetMetadata,
-            );
-          case 'submitDatasetReplicaRequirements':
-            throw new Error('not implement');
-          //TODO: add other methods
-          default:
-            throw new Error('Error selected method and params');
+    /**
+     * get latest synced height that is stored.
+     */
+    async getLatestSyncedHeight(): Promise<number> {
+        const res = await this.context.datastore.tipset.find({
+            page: 0,
+            limit: 1,
+            sort: [{ field: "Height", order: "desc" }],
+        })
+        if (!res.ok) {
+            throw new Error("getLatestSyncedHeight failed!")
         }
-      });
-      const results = await Promise.all(doStores);
-      results.forEach((res) => {
-        if (!res.ok) throw new Error(res.error);
-      });
-    } catch (error) {
-      throw new Error(error);
+        if (res.data && res.data.length > 0) {
+            return res.data[0].Height
+        } else {
+            return 0
+        }
     }
-  }
+
+    /**
+     * Checks if a given height has already been synchronized.
+     * @param {number} height - The height to check for synchronization.
+     * @returns {Promise<boolean>} True if the height is already synchronized, false otherwise.
+     * @throws {Error} If there is an error checking the synchronization status.
+     */
+    async isThisHeightStored(height: number): Promise<boolean> {
+        const syncedTipsetsRes = await this.context.datastore.tipset.find({
+            conditions: [{ Height: height }],
+        })
+        if (!syncedTipsetsRes.ok) {
+            throw new Error(
+                `isHeightAlreadySynced error:${syncedTipsetsRes.error}`
+            )
+        }
+        if (syncedTipsetsRes.data.length === 0) {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    /**
+     * Stores chain information.
+     */
+    async storeChainInfo(chain: Chain): Promise<void> {
+        const res = await this.context.chain.service.SaveChainInfo(chain)
+        if (!res.ok) {
+            throw new Error(res.error)
+        }
+    }
+
+    /**
+     * Stores an array of dataswap messages.
+     */
+    async storeDataswapMessages(
+        dataswapMessages: Array<DataswapMessage>
+    ): Promise<void> {
+        try {
+            const doStores = dataswapMessages.map(async (msg) =>
+                this.context.datastore.dataswapMessage.CreateOrupdateByUniqueIndexes(
+                    msg
+                )
+            )
+            const res = await Promise.all(doStores)
+            res.map((result) => {
+                if (!result.ok) throw new Error(result.error)
+            })
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
+    /**
+     * Stores an array of selected parameters.
+     */
+    async storeSelectedParams(
+        selectedParams: Array<SelectedParams>
+    ): Promise<void> {
+        try {
+            const doStores = selectedParams.map(async (selected) => {
+                switch (selected.method) {
+                    case "submitDatasetMetadata":
+                        return this.context.datastore.datasetMetadata.CreateOrupdateByUniqueIndexes(
+                            selected.params as DatasetMetadata
+                        )
+                    case "submitDatasetReplicaRequirements":
+                        throw new Error("not implement")
+                    //TODO: add other methods
+                    default:
+                        throw new Error("Error selected method and params")
+                }
+            })
+            const results = await Promise.all(doStores)
+            results.forEach((res) => {
+                if (!res.ok) throw new Error(res.error)
+            })
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
 }

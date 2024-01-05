@@ -18,10 +18,10 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { QueryFilter } from '@unipackage/datastore';
-import { ValueFields } from '@unipackage/utils';
+import { QueryFilter } from "@unipackage/datastore"
+import { ValueFields } from "@unipackage/utils"
 
 export interface QueryParam<T> {
-  network?: string;
-  queryFilter?: QueryFilter<ValueFields<T>>;
+    network?: string
+    queryFilter?: QueryFilter<ValueFields<T>>
 }

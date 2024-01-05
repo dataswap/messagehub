@@ -18,103 +18,105 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { calibrationBgTask } from '../src/config/backgroundTask';
-import { delay } from '@unipackage/utils';
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { calibrationBgTask } from "../src/config/backgroundTask"
+import { delay } from "@unipackage/utils"
+import { Test, TestingModule } from "@nestjs/testing"
+import { INestApplication } from "@nestjs/common"
+import request from "supertest"
+import { AppModule } from "./../src/app.module"
 
-describe('AppController (e2e)', () => {
-  let app: INestApplication;
-  beforeAll(async () => {
-    calibrationBgTask.start();
-    await delay(20000);
-  }, 30000);
+describe("AppController (e2e)", () => {
+    let app: INestApplication
+    beforeAll(async () => {
+        calibrationBgTask.start()
+        await delay(20000)
+    }, 30000)
 
-  afterAll(() => {
-    calibrationBgTask.stop();
-  });
+    afterAll(() => {
+        calibrationBgTask.stop()
+    })
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+    beforeEach(async () => {
+        const moduleFixture: TestingModule = await Test.createTestingModule({
+            imports: [AppModule],
+        }).compile()
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
+        app = moduleFixture.createNestApplication()
+        await app.init()
+    })
 
-  afterEach(async () => {
-    await app.close();
-  });
+    afterEach(async () => {
+        await app.close()
+    })
 
-  it('/tipset/query (POST)', async () => {
-    return request(app.getHttpServer())
-      .post('/tipset/query')
-      .send({
-        network: 'calibration',
-        queryFilter: {
-          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
-        },
-      })
-      .expect(201);
-  }, 30000);
+    it("/tipset/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/tipset/query")
+            .send({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+                },
+            })
+            .expect(201)
+    }, 30000)
 
-  it('/block/query (POST)', async () => {
-    return request(app.getHttpServer())
-      .post('/block/query')
-      .send({
-        network: 'calibration',
-        queryFilter: {
-          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
-        },
-      })
-      .expect(201);
-  }, 30000);
+    it("/block/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/block/query")
+            .send({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+                },
+            })
+            .expect(201)
+    }, 30000)
 
-  it('/message/query (POST)', async () => {
-    return request(app.getHttpServer())
-      .post('/message/query')
-      .send({
-        network: 'calibration',
-        queryFilter: {
-          conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
-        },
-      })
-      .expect(201);
-  }, 30000);
+    it("/message/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/message/query")
+            .send({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ Height: { $gt: 1213437, $lt: 1213439 } }],
+                },
+            })
+            .expect(201)
+    }, 30000)
 
-  it('/dataswapmessage/query (POST)', async () => {
-    return request(app.getHttpServer())
-      .post('/dataswapmessage/query')
-      .send({
-        network: 'calibration',
-        queryFilter: {
-          conditions: [{ height: { $gt: 1213437, $lt: 1213439 } }],
-        },
-      })
-      .expect(201);
-  }, 30000);
+    it("/dataswapmessage/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/dataswapmessage/query")
+            .send({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ height: { $gt: 1213437, $lt: 1213439 } }],
+                },
+            })
+            .expect(201)
+    }, 30000)
 
-  it('/datasetmetadata/query (POST)', async () => {
-    return request(app.getHttpServer())
-      .post('/datasetmetadata/query')
-      .send({
-        network: 'calibration',
-        queryFilter: { conditions: [{ datasetId: { $gt: 0, $lt: 3 } }] },
-      })
-      .expect(201);
-  }, 30000);
+    it("/datasetmetadata/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/datasetmetadata/query")
+            .send({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            .expect(201)
+    }, 30000)
 
-  it('/syncstatus/query (POST)', async () => {
-    return request(app.getHttpServer())
-      .post('/syncstatus/query')
-      .send({ network: 'calibration' })
-      .expect(201);
-  }, 30000);
+    it("/syncstatus/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/syncstatus/query")
+            .send({ network: "calibration" })
+            .expect(201)
+    }, 30000)
 
-  it('/version (GET)', async () => {
-    return request(app.getHttpServer()).get('/version').expect(200);
-  }, 30000);
-});
+    it("/version (GET)", async () => {
+        return request(app.getHttpServer()).get("/version").expect(200)
+    }, 30000)
+})

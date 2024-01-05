@@ -19,128 +19,135 @@
  ********************************************************************************/
 
 import {
-  IBackgroundTask,
-  ISyncer,
-  IDecoder,
-  IStorager,
-  IContext,
-} from './interface';
-import { delay } from '@unipackage/utils';
+    IBackgroundTask,
+    ISyncer,
+    IDecoder,
+    IStorager,
+    IContext,
+} from "./interface"
+import { delay } from "@unipackage/utils"
 
 /**
  * BackgroundTask class implementing the IBackgroundTask interface.
  */
 export class BackgroundTask implements IBackgroundTask {
-  context: IContext;
-  private syncer: ISyncer;
-  private decoder: IDecoder;
-  private storager: IStorager;
-  private needRunning: boolean;
-  private syncHeight: number;
+    context: IContext
+    private syncer: ISyncer
+    private decoder: IDecoder
+    private storager: IStorager
+    private needRunning: boolean
+    private syncHeight: number
 
-  /**
-   * Constructor for the BackgroundTask class.
-   * @param config - Configuration object containing necessary dependencies.
-   */
-  constructor(config: {
-    context: IContext;
-    syncer: ISyncer;
-    decoder: IDecoder;
-    storager: IStorager;
-  }) {
-    // Assign dependencies from the configuration
-    this.syncer = config.syncer;
-    this.decoder = config.decoder;
-    this.storager = config.storager;
-    this.context = config.context;
+    /**
+     * Constructor for the BackgroundTask class.
+     * @param config - Configuration object containing necessary dependencies.
+     */
+    constructor(config: {
+        context: IContext
+        syncer: ISyncer
+        decoder: IDecoder
+        storager: IStorager
+    }) {
+        // Assign dependencies from the configuration
+        this.syncer = config.syncer
+        this.decoder = config.decoder
+        this.storager = config.storager
+        this.context = config.context
 
-    // Initialize syncHeight using the startHeight from the chain configuration
-    this.syncHeight = this.context.chain.startHeight;
-  }
-
-  /**
-   * start the bg task.
-   */
-  async start() {
-    this.needRunning = true;
-    //process this.syncHeight
-    const realSavedSyncedHeight = await this.storager.getLatestSyncedHeight();
-    this.syncHeight =
-      realSavedSyncedHeight > this.syncHeight
-        ? realSavedSyncedHeight
-        : this.syncHeight;
-
-    while (this.needRunning) {
-      try {
-        const chainHeadHeight = await this.syncer.getChainHeadHeight();
-        const isHeightStored = await this.storager.isThisHeightStored(
-          this.syncHeight,
-        );
-        if (!isHeightStored) {
-          //step 1: sync the chain in this height
-          const chainInfo = await this.syncer.getPendingChainInfo(
-            this.syncHeight,
-          );
-          if (chainInfo !== null) {
-            //step 2.1: decode the dataswapMessages from the chainInfo
-            const dataswapMessages =
-              this.decoder.getPendingDataswapMessages(chainInfo);
-
-            if (dataswapMessages) {
-              //step 2.2: select the special params from the dataswapMessages
-              const selectedParams =
-                this.decoder.getPendingSelectedParams(dataswapMessages);
-
-              //step 3.1 store selectedParams
-              await this.storager.storeSelectedParams(selectedParams);
-
-              //step 3.2 store dataswapMessages
-              await this.storager.storeDataswapMessages(dataswapMessages);
-            }
-            //step 3.3 store chainInfo
-            await this.storager.storeChainInfo(chainInfo);
-          } else if (this.syncHeight < chainHeadHeight) {
-            this.syncHeight++;
-          } else {
-            await delay(3000);
-          }
-        } else if (this.syncHeight < chainHeadHeight) {
-          this.syncHeight++;
-        } else {
-          await delay(3000);
-        }
-      } catch (error) {
-        await this.context.datastore.baseConnection.disconnect();
-        throw new Error(error);
-      }
+        // Initialize syncHeight using the startHeight from the chain configuration
+        this.syncHeight = this.context.chain.startHeight
     }
-  }
 
-  /**
-   * stop the bg task.
-   */
-  stop() {
-    this.needRunning = false;
-  }
+    /**
+     * start the bg task.
+     */
+    async start() {
+        this.needRunning = true
+        //process this.syncHeight
+        const realSavedSyncedHeight =
+            await this.storager.getLatestSyncedHeight()
+        this.syncHeight =
+            realSavedSyncedHeight > this.syncHeight
+                ? realSavedSyncedHeight
+                : this.syncHeight
 
-  /**
-   * Check if the bgTask is running.
-   */
-  isRunning(): boolean {
-    return this.needRunning;
-  }
+        while (this.needRunning) {
+            try {
+                const chainHeadHeight = await this.syncer.getChainHeadHeight()
+                const isHeightStored = await this.storager.isThisHeightStored(
+                    this.syncHeight
+                )
+                if (!isHeightStored) {
+                    //step 1: sync the chain in this height
+                    const chainInfo = await this.syncer.getPendingChainInfo(
+                        this.syncHeight
+                    )
+                    if (chainInfo !== null) {
+                        //step 2.1: decode the dataswapMessages from the chainInfo
+                        const dataswapMessages =
+                            this.decoder.getPendingDataswapMessages(chainInfo)
 
-  /**
-   * get the current sync height
-   */
-  getCurrentSyncHeight(): number {
-    return this.syncHeight;
-  }
+                        if (dataswapMessages) {
+                            //step 2.2: select the special params from the dataswapMessages
+                            const selectedParams =
+                                this.decoder.getPendingSelectedParams(
+                                    dataswapMessages
+                                )
 
-  /**
-   * get the start height
-   */
-  getStartHeight(): number {
-    return this.context.chain.startHeight;
-  }
+                            //step 3.1 store selectedParams
+                            await this.storager.storeSelectedParams(
+                                selectedParams
+                            )
+
+                            //step 3.2 store dataswapMessages
+                            await this.storager.storeDataswapMessages(
+                                dataswapMessages
+                            )
+                        }
+                        //step 3.3 store chainInfo
+                        await this.storager.storeChainInfo(chainInfo)
+                    } else if (this.syncHeight < chainHeadHeight) {
+                        this.syncHeight++
+                    } else {
+                        await delay(3000)
+                    }
+                } else if (this.syncHeight < chainHeadHeight) {
+                    this.syncHeight++
+                } else {
+                    await delay(3000)
+                }
+            } catch (error) {
+                await this.context.datastore.baseConnection.disconnect()
+                throw new Error(error)
+            }
+        }
+    }
+
+    /**
+     * stop the bg task.
+     */
+    stop() {
+        this.needRunning = false
+    }
+
+    /**
+     * Check if the bgTask is running.
+     */
+    isRunning(): boolean {
+        return this.needRunning
+    }
+
+    /**
+     * get the current sync height
+     */
+    getCurrentSyncHeight(): number {
+        return this.syncHeight
+    }
+
+    /**
+     * get the start height
+     */
+    getStartHeight(): number {
+        return this.context.chain.startHeight
+    }
 }

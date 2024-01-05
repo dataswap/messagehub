@@ -18,33 +18,33 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Injectable } from '@nestjs/common';
-import { DataswapMessage } from '@dataswapjs/dataswapjs';
-import { ValueFields, Result } from '@unipackage/utils';
-import { calibrationBgTask, mainBgTask } from '../config/backgroundTask';
-import { BackgroundTask } from 'src/backgroundTask';
-import { QueryParam } from 'src/shared/queryParams';
+import { Injectable } from "@nestjs/common"
+import { DataswapMessage } from "@dataswapjs/dataswapjs"
+import { ValueFields, Result } from "@unipackage/utils"
+import { calibrationBgTask, mainBgTask } from "../config/backgroundTask"
+import { BackgroundTask } from "src/backgroundTask"
+import { QueryParam } from "src/shared/queryParams"
 
 /**
  * Service responsible for providing root-level functionality.
  */
 @Injectable()
 export class DataswapMessageService {
-  /**
-   * Gets a greeting message.
-   * @returns A string representing a greeting message.
-   */
-  async find(
-    queryParam: QueryParam<DataswapMessage>,
-  ): Promise<Result<ValueFields<DataswapMessage>[]>> {
-    let bgTask: BackgroundTask;
-    if (queryParam.network === 'calibration') {
-      bgTask = calibrationBgTask;
-    } else {
-      bgTask = mainBgTask;
+    /**
+     * Gets a greeting message.
+     * @returns A string representing a greeting message.
+     */
+    async find(
+        queryParam: QueryParam<DataswapMessage>
+    ): Promise<Result<ValueFields<DataswapMessage>[]>> {
+        let bgTask: BackgroundTask
+        if (queryParam.network === "calibration") {
+            bgTask = calibrationBgTask
+        } else {
+            bgTask = mainBgTask
+        }
+        return await bgTask.context.datastore.dataswapMessage.find(
+            queryParam.queryFilter
+        )
     }
-    return await bgTask.context.datastore.dataswapMessage.find(
-      queryParam.queryFilter,
-    );
-  }
 }

@@ -18,40 +18,40 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Controller, Post, Body } from '@nestjs/common';
-import { TipsetService } from './tipset.service';
-import { Tipset } from '@unipackage/filecoin';
-import { ValueFields, Result } from '@unipackage/utils';
-import { QueryParam } from 'src/shared/queryParams';
+import { Controller, Post, Body } from "@nestjs/common"
+import { TipsetService } from "./tipset.service"
+import { Tipset } from "@unipackage/filecoin"
+import { ValueFields, Result } from "@unipackage/utils"
+import { QueryParam } from "src/shared/queryParams"
 
 /**
  * Controller responsible for handling root-level requests.
  */
-@Controller('tipset')
+@Controller("tipset")
 export class TipsetController {
-  /**
-   * Creates an instance of RootController.
-   * @param rootService - The RootService instance.
-   */
-  constructor(private readonly tipsetService: TipsetService) {}
+    /**
+     * Creates an instance of RootController.
+     * @param rootService - The RootService instance.
+     */
+    constructor(private readonly tipsetService: TipsetService) {}
 
-  /**
-   * Handles GET requests for root-level resources with an identifier.
-   * @param queryFilter - Request parameters.
-   * @returns A string representing the response.
-   * @example
-   * {
-   * "conditions": [
-   *   {
-   *    "Height": { "$gt": 1213437, "$lt": 1213439 }
-   *   }
-   *  ]
-   * }
-   */
-  @Post('query')
-  async find(
-    @Body() queryParam: QueryParam<Tipset>,
-  ): Promise<Result<ValueFields<Tipset>[]>> {
-    return await this.tipsetService.find(queryParam);
-  }
+    /**
+     * Handles GET requests for root-level resources with an identifier.
+     * @param queryFilter - Request parameters.
+     * @returns A string representing the response.
+     * @example
+     * {
+     * "conditions": [
+     *   {
+     *    "Height": { "$gt": 1213437, "$lt": 1213439 }
+     *   }
+     *  ]
+     * }
+     */
+    @Post("query")
+    async find(
+        @Body() queryParam: QueryParam<Tipset>
+    ): Promise<Result<ValueFields<Tipset>[]>> {
+        return await this.tipsetService.find(queryParam)
+    }
 }

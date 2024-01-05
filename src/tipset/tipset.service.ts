@@ -18,31 +18,33 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Injectable } from '@nestjs/common';
-import { Tipset } from '@unipackage/filecoin';
-import { ValueFields, Result } from '@unipackage/utils';
-import { calibrationBgTask, mainBgTask } from '../config/backgroundTask';
-import { BackgroundTask } from 'src/backgroundTask';
-import { QueryParam } from 'src/shared/queryParams';
+import { Injectable } from "@nestjs/common"
+import { Tipset } from "@unipackage/filecoin"
+import { ValueFields, Result } from "@unipackage/utils"
+import { calibrationBgTask, mainBgTask } from "../config/backgroundTask"
+import { BackgroundTask } from "src/backgroundTask"
+import { QueryParam } from "src/shared/queryParams"
 
 /**
  * Service responsible for providing root-level functionality.
  */
 @Injectable()
 export class TipsetService {
-  /**
-   * Gets a greeting message.
-   * @returns A string representing a greeting message.
-   */
-  async find(
-    queryParam: QueryParam<Tipset>,
-  ): Promise<Result<ValueFields<Tipset>[]>> {
-    let bgTask: BackgroundTask;
-    if (queryParam.network === 'calibration') {
-      bgTask = calibrationBgTask;
-    } else {
-      bgTask = mainBgTask;
+    /**
+     * Gets a greeting message.
+     * @returns A string representing a greeting message.
+     */
+    async find(
+        queryParam: QueryParam<Tipset>
+    ): Promise<Result<ValueFields<Tipset>[]>> {
+        let bgTask: BackgroundTask
+        if (queryParam.network === "calibration") {
+            bgTask = calibrationBgTask
+        } else {
+            bgTask = mainBgTask
+        }
+        return await bgTask.context.datastore.tipset.find(
+            queryParam.queryFilter
+        )
     }
-    return await bgTask.context.datastore.tipset.find(queryParam.queryFilter);
-  }
 }

@@ -18,120 +18,123 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Chain } from '@unipackage/filecoin';
-import { Context } from '../context';
-import { IDecoder, SelectedParams } from '../interface';
+import { Chain } from "@unipackage/filecoin"
+import { Context } from "../context"
+import { IDecoder, SelectedParams } from "../interface"
 // import { Chain } from '@unipackage/filecoin';
-import { DataswapMessage } from '@dataswapjs/dataswapjs';
-import { selectedMethods } from '../interface/config';
-import { getFilecoinAddress } from '../../shared/address';
+import { DataswapMessage } from "@dataswapjs/dataswapjs"
+import { selectedMethods } from "../interface/config"
+import { getFilecoinAddress } from "../../shared/address"
 
 /**
  * Represents a connection to a Filecoin network.
  */
 export class Decoder implements IDecoder {
-  context: Context;
-  /**
-   * Creates an instance of ChainNetwork.
-   * @param config - The network configuration.
-   */
-  constructor(context: Context) {
-    this.context = context;
-  }
+    context: Context
+    /**
+     * Creates an instance of ChainNetwork.
+     * @param config - The network configuration.
+     */
+    constructor(context: Context) {
+        this.context = context
+    }
 
-  /**
-   * Gets pending dataswap messages based on the provided chain information.
-   */
-  getPendingDataswapMessages(pendingChainInfo: Chain): DataswapMessage[] {
-    try {
-      const res: DataswapMessage[] = [];
-      pendingChainInfo.messages.forEach((msg) => {
-        switch (msg.Msg.To) {
-          case getFilecoinAddress(this.context.evm.datasetMetadata):
-            res.push(this.context.evm.datasetMetadata.decodeMessage(msg).data);
-            break;
+    /**
+     * Gets pending dataswap messages based on the provided chain information.
+     */
+    getPendingDataswapMessages(pendingChainInfo: Chain): DataswapMessage[] {
+        try {
+            const res: DataswapMessage[] = []
+            pendingChainInfo.messages.forEach((msg) => {
+                switch (msg.Msg.To) {
+                    case getFilecoinAddress(this.context.evm.datasetMetadata):
+                        res.push(
+                            this.context.evm.datasetMetadata.decodeMessage(msg)
+                                .data
+                        )
+                        break
 
-          // case this.context.evm.dataset.requirement.getContractAddress():
-          //   res.push(
-          //     this.context.evm.dataset.requirement.decodeMessage(msg).data,
-          //   );
-          //   break;
+                    // case this.context.evm.dataset.requirement.getContractAddress():
+                    //   res.push(
+                    //     this.context.evm.dataset.requirement.decodeMessage(msg).data,
+                    //   );
+                    //   break;
 
-          // case this.context.evm.dataset.proof.getContractAddress():
-          //   res.push(this.context.evm.dataset.proof.decodeMessage(msg).data);
-          //   break;
+                    // case this.context.evm.dataset.proof.getContractAddress():
+                    //   res.push(this.context.evm.dataset.proof.decodeMessage(msg).data);
+                    //   break;
 
-          // case this.context.evm.dataset.challenge.getContractAddress():
-          //   res.push(
-          //     this.context.evm.dataset.challenge.decodeMessage(msg).data,
-          //   );
-          //   break;
+                    // case this.context.evm.dataset.challenge.getContractAddress():
+                    //   res.push(
+                    //     this.context.evm.dataset.challenge.decodeMessage(msg).data,
+                    //   );
+                    //   break;
 
-          // case this.context.evm.matching.target.getContractAddress():
-          //   res.push(this.context.evm.matching.target.decodeMessage(msg).data);
-          //   break;
+                    // case this.context.evm.matching.target.getContractAddress():
+                    //   res.push(this.context.evm.matching.target.decodeMessage(msg).data);
+                    //   break;
 
-          // case this.context.evm.matching.metadata.getContractAddress():
-          //   res.push(
-          //     this.context.evm.matching.metadata.decodeMessage(msg).data,
-          //   );
-          //   break;
+                    // case this.context.evm.matching.metadata.getContractAddress():
+                    //   res.push(
+                    //     this.context.evm.matching.metadata.decodeMessage(msg).data,
+                    //   );
+                    //   break;
 
-          // case this.context.evm.matching.bids.getContractAddress():
-          //   res.push(this.context.evm.matching.bids.decodeMessage(msg).data);
-          //   break;
+                    // case this.context.evm.matching.bids.getContractAddress():
+                    //   res.push(this.context.evm.matching.bids.decodeMessage(msg).data);
+                    //   break;
 
-          // case this.context.evm.storages.getContractAddress():
-          //   res.push(this.context.evm.storages.decodeMessage(msg).data);
-          //   break;
+                    // case this.context.evm.storages.getContractAddress():
+                    //   res.push(this.context.evm.storages.decodeMessage(msg).data);
+                    //   break;
 
-          // case this.context.evm.datacaps.getContractAddress():
-          //   res.push(this.context.evm.datacaps.decodeMessage(msg).data);
-          //   break;
+                    // case this.context.evm.datacaps.getContractAddress():
+                    //   res.push(this.context.evm.datacaps.decodeMessage(msg).data);
+                    //   break;
 
-          // case this.context.evm.escrow.getContractAddress():
-          //   res.push(this.context.evm.escrow.decodeMessage(msg).data);
-          //   break;
+                    // case this.context.evm.escrow.getContractAddress():
+                    //   res.push(this.context.evm.escrow.decodeMessage(msg).data);
+                    //   break;
 
-          // case this.context.evm.filplus.getContractAddress():
-          //   res.push(this.context.evm.filplus.decodeMessage(msg).data);
-          //   break;
+                    // case this.context.evm.filplus.getContractAddress():
+                    //   res.push(this.context.evm.filplus.decodeMessage(msg).data);
+                    //   break;
 
-          // case this.context.evm.roles.getContractAddress():
-          //   res.push(this.context.evm.roles.decodeMessage(msg).data);
-          //   break;
+                    // case this.context.evm.roles.getContractAddress():
+                    //   res.push(this.context.evm.roles.decodeMessage(msg).data);
+                    //   break;
 
-          default:
-            break;
+                    default:
+                        break
+                }
+            })
+            return res
+        } catch (error) {
+            throw new Error(error)
         }
-      });
-      return res;
-    } catch (error) {
-      throw new Error(error);
     }
-  }
 
-  /**
-   * Gets pending selected parameters from a list of dataswap messages.
-   */
-  getPendingSelectedParams(
-    dataswapMessages: DataswapMessage[],
-  ): SelectedParams[] {
-    try {
-      const selectedMsgs = dataswapMessages.filter((msg) =>
-        selectedMethods.includes(msg.method),
-      );
+    /**
+     * Gets pending selected parameters from a list of dataswap messages.
+     */
+    getPendingSelectedParams(
+        dataswapMessages: DataswapMessage[]
+    ): SelectedParams[] {
+        try {
+            const selectedMsgs = dataswapMessages.filter((msg) =>
+                selectedMethods.includes(msg.method)
+            )
 
-      const res = selectedMsgs.map((msg) => {
-        return {
-          method: msg.method,
-          params: msg.params,
-        } as SelectedParams;
-      });
+            const res = selectedMsgs.map((msg) => {
+                return {
+                    method: msg.method,
+                    params: msg.params,
+                } as SelectedParams
+            })
 
-      return res;
-    } catch (error) {
-      throw new Error(error);
+            return res
+        } catch (error) {
+            throw new Error(error)
+        }
     }
-  }
 }

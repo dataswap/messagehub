@@ -18,31 +18,31 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { mainBgTask, calibrationBgTask } from '../../config/backgroundTask';
+import { Injectable, OnModuleInit } from "@nestjs/common"
+import { mainBgTask, calibrationBgTask } from "../../config/backgroundTask"
 
 /**
  * Service responsible for synchronizing with the blockchain.
  */
 @Injectable()
 export class BackgroundTaskService implements OnModuleInit {
-  /**
-   * Lifecycle hook, called once the module has been initialized.
-   */
-  onModuleInit() {
-    this.startBackgroundTask();
-  }
-
-  /**
-   * Start the background task for continuous synchronization.
-   */
-  private async startBackgroundTask() {
-    try {
-      const mainBgTaskPromise = mainBgTask.start();
-      const calibrationBgTaskPromise = calibrationBgTask.start();
-      await Promise.all([mainBgTaskPromise, calibrationBgTaskPromise]);
-    } catch (error) {
-      throw new Error(`Error in the background task:${error}`);
+    /**
+     * Lifecycle hook, called once the module has been initialized.
+     */
+    onModuleInit() {
+        this.startBackgroundTask()
     }
-  }
+
+    /**
+     * Start the background task for continuous synchronization.
+     */
+    private async startBackgroundTask() {
+        try {
+            const mainBgTaskPromise = mainBgTask.start()
+            const calibrationBgTaskPromise = calibrationBgTask.start()
+            await Promise.all([mainBgTaskPromise, calibrationBgTaskPromise])
+        } catch (error) {
+            throw new Error(`Error in the background task:${error}`)
+        }
+    }
 }

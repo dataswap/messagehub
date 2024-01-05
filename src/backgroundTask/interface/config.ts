@@ -18,24 +18,24 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { DatasetMetadata, DatasetRequirement } from '@dataswapjs/dataswapjs';
+import { DatasetMetadata, DatasetRequirement } from "@dataswapjs/dataswapjs"
 
 /**
  * Selected methods available for processing.
  * @Note: you can add new method names.
  */
 export const selectedMethods = [
-  'submitDatasetMetadata',
-  'submitDatasetReplicaRequirements',
-  //TODO: add other methods
-];
+    "submitDatasetMetadata",
+    "submitDatasetReplicaRequirements",
+    //TODO: add other methods
+]
 
 /**
  * Map of selected methods to their corresponding parameter types.
  * @Note: you can add new prop,but the key of this object must be element of SelectedMethods.
  */
 export type InternalSelectedParamsMap = {
-  submitDatasetMetadata: { params: DatasetMetadata };
-  submitDatasetReplicaRequirements: { params: Array<DatasetRequirement> };
-  //TODO: add other selected params
-};
+    submitDatasetMetadata: { params: DatasetMetadata }
+    submitDatasetReplicaRequirements: { params: Array<DatasetRequirement> }
+    //TODO: add other selected params
+}

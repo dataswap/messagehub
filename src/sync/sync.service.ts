@@ -18,16 +18,16 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Injectable } from '@nestjs/common';
-import { Result } from '@unipackage/utils';
-import { calibrationBgTask, mainBgTask } from '../config/backgroundTask';
-import { BackgroundTask } from 'src/backgroundTask';
-import { QueryParam } from '../shared/queryParams';
+import { Injectable } from "@nestjs/common"
+import { Result } from "@unipackage/utils"
+import { calibrationBgTask, mainBgTask } from "../config/backgroundTask"
+import { BackgroundTask } from "src/backgroundTask"
+import { QueryParam } from "../shared/queryParams"
 
 export interface SyncStatus {
-  startSyncHeight: number;
-  currentSyncHeight: number;
-  isRunning: boolean;
+    startSyncHeight: number
+    currentSyncHeight: number
+    isRunning: boolean
 }
 
 /**
@@ -35,24 +35,24 @@ export interface SyncStatus {
  */
 @Injectable()
 export class SyncService {
-  /**
-   * Gets a greeting message.
-   * @returns A string representing a greeting message.
-   */
-  getSyncStatus(queryParam: QueryParam<void>): Result<SyncStatus> {
-    let bgTask: BackgroundTask;
-    if (queryParam.network === 'calibration') {
-      bgTask = calibrationBgTask;
-    } else {
-      bgTask = mainBgTask;
+    /**
+     * Gets a greeting message.
+     * @returns A string representing a greeting message.
+     */
+    getSyncStatus(queryParam: QueryParam<void>): Result<SyncStatus> {
+        let bgTask: BackgroundTask
+        if (queryParam.network === "calibration") {
+            bgTask = calibrationBgTask
+        } else {
+            bgTask = mainBgTask
+        }
+        return {
+            ok: true,
+            data: {
+                currentSyncHeight: bgTask.getCurrentSyncHeight(),
+                startSyncHeight: bgTask.getStartHeight(),
+                isRunning: bgTask.isRunning(),
+            },
+        }
     }
-    return {
-      ok: true,
-      data: {
-        currentSyncHeight: bgTask.getCurrentSyncHeight(),
-        startSyncHeight: bgTask.getStartHeight(),
-        isRunning: bgTask.isRunning(),
-      },
-    };
-  }
 }

@@ -1,0 +1,27 @@
+{
+  "workbench.editor.enablePreview": false,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "standard.autoFixOnSave": true,
+  "standard.nodePath": "",
+  "eslint.options": {},
+  "previewServer.ui": {},
+  "prettier.semi": false,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "prettier.tabWidth": 4,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "window.zoomLevel": 1,
+  "workbench.colorTheme": "Solidity Visual Developer Dark",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "never"
+}

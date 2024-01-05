@@ -19,98 +19,98 @@
  ********************************************************************************/
 
 import {
-  TipsetMongoDatastore,
-  BlockMongoDatastore,
-  MessageMongoDatastore,
-  ChainService,
-  ChainFilecoinRPC,
-  AddressesFilterReplayStrategy,
-} from '@unipackage/filecoin';
+    TipsetMongoDatastore,
+    BlockMongoDatastore,
+    MessageMongoDatastore,
+    ChainService,
+    ChainFilecoinRPC,
+    AddressesFilterReplayStrategy,
+} from "@unipackage/filecoin"
 import {
-  IContext,
-  ChainContext,
-  EvmContext,
-  DatastoreContext,
-} from '../interface';
+    IContext,
+    ChainContext,
+    EvmContext,
+    DatastoreContext,
+} from "../interface"
 import {
-  DataswapMessageMongoDatastore,
-  DatasetMetadataMongoDatastore,
-} from '@dataswapjs/dataswapjs';
-import { getFilecoinAddress } from '../../shared/address';
-import { DatabaseConnection } from '@unipackage/datastore';
+    DataswapMessageMongoDatastore,
+    DatasetMetadataMongoDatastore,
+} from "@dataswapjs/dataswapjs"
+import { getFilecoinAddress } from "../../shared/address"
+import { DatabaseConnection } from "@unipackage/datastore"
 
 /**
  * Configuration for a Context config.
  */
 export interface Config {
-  apiAddress: string;
-  token: string;
-  mongoUrl: string;
-  startHeight: number;
-  evm: EvmContext;
+    apiAddress: string
+    token: string
+    mongoUrl: string
+    startHeight: number
+    evm: EvmContext
 }
 
 /**
  * Represents a connection to a Filecoin network.
  */
 export class Context implements IContext {
-  chain: ChainContext = {} as ChainContext;
-  evm: EvmContext = {} as EvmContext;
-  datastore: DatastoreContext = {} as DatastoreContext;
+    chain: ChainContext = {} as ChainContext
+    evm: EvmContext = {} as EvmContext
+    datastore: DatastoreContext = {} as DatastoreContext
 
-  /**
-   * Creates an instance of ChainNetwork.
-   * @param config - The network configuration.
-   */
-  constructor(config: Config) {
-    this.chain.startHeight = config.startHeight;
-    this.chain.rpc = new ChainFilecoinRPC({
-      apiAddress: config.apiAddress,
-      token: config.token,
-    });
-    this.datastore.baseConnection = DatabaseConnection.getInstance(
-      config.mongoUrl,
-    );
-    this.datastore.message = new MessageMongoDatastore(
-      this.datastore.baseConnection,
-    );
-    this.datastore.block = new BlockMongoDatastore(
-      this.datastore.baseConnection,
-    );
-    this.datastore.tipset = new TipsetMongoDatastore(
-      this.datastore.baseConnection,
-    );
-    this.datastore.dataswapMessage = new DataswapMessageMongoDatastore(
-      this.datastore.baseConnection,
-    );
-    this.datastore.datasetMetadata = new DatasetMetadataMongoDatastore(
-      this.datastore.baseConnection,
-    );
-    this.chain.service = new ChainService({
-      rpc: this.chain.rpc,
-      messageDs: this.datastore.message,
-      blockMessagesDs: this.datastore.block,
-      tipsetDs: this.datastore.tipset,
-      replayStrategyOptions: {
-        replay: true,
-        replayStrategy: new AddressesFilterReplayStrategy([
-          getFilecoinAddress(config.evm.datasetMetadata),
-          //TODO:add all evm address
-        ]),
-      },
-    });
+    /**
+     * Creates an instance of ChainNetwork.
+     * @param config - The network configuration.
+     */
+    constructor(config: Config) {
+        this.chain.startHeight = config.startHeight
+        this.chain.rpc = new ChainFilecoinRPC({
+            apiAddress: config.apiAddress,
+            token: config.token,
+        })
+        this.datastore.baseConnection = DatabaseConnection.getInstance(
+            config.mongoUrl
+        )
+        this.datastore.message = new MessageMongoDatastore(
+            this.datastore.baseConnection
+        )
+        this.datastore.block = new BlockMongoDatastore(
+            this.datastore.baseConnection
+        )
+        this.datastore.tipset = new TipsetMongoDatastore(
+            this.datastore.baseConnection
+        )
+        this.datastore.dataswapMessage = new DataswapMessageMongoDatastore(
+            this.datastore.baseConnection
+        )
+        this.datastore.datasetMetadata = new DatasetMetadataMongoDatastore(
+            this.datastore.baseConnection
+        )
+        this.chain.service = new ChainService({
+            rpc: this.chain.rpc,
+            messageDs: this.datastore.message,
+            blockMessagesDs: this.datastore.block,
+            tipsetDs: this.datastore.tipset,
+            replayStrategyOptions: {
+                replay: true,
+                replayStrategy: new AddressesFilterReplayStrategy([
+                    getFilecoinAddress(config.evm.datasetMetadata),
+                    //TODO:add all evm address
+                ]),
+            },
+        })
 
-    // this.evm.roles = config.evm.roles;
-    // this.evm.filplus = config.evm.filplus;
-    // this.evm.escrow = config.evm.escrow;
-    this.evm.datasetMetadata = config.evm.datasetMetadata;
-    // this.evm.dataset.requirement = config.evm.dataset.requirement;
-    // this.evm.dataset.proof = config.evm.dataset.proof;
-    // this.evm.dataset.challenge = config.evm.dataset.challenge;
-    // this.evm.matching.metadata = config.evm.matching.metadata;
-    // this.evm.matching.target = config.evm.matching.target;
-    // this.evm.matching.bids = config.evm.matching.bids;
-    // this.evm.storages = config.evm.storages;
-    // this.evm.datacaps = config.evm.datacaps;
-  }
+        // this.evm.roles = config.evm.roles;
+        // this.evm.filplus = config.evm.filplus;
+        // this.evm.escrow = config.evm.escrow;
+        this.evm.datasetMetadata = config.evm.datasetMetadata
+        // this.evm.dataset.requirement = config.evm.dataset.requirement;
+        // this.evm.dataset.proof = config.evm.dataset.proof;
+        // this.evm.dataset.challenge = config.evm.dataset.challenge;
+        // this.evm.matching.metadata = config.evm.matching.metadata;
+        // this.evm.matching.target = config.evm.matching.target;
+        // this.evm.matching.bids = config.evm.matching.bids;
+        // this.evm.storages = config.evm.storages;
+        // this.evm.datacaps = config.evm.datacaps;
+    }
 }

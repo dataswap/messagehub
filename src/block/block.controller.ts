@@ -18,40 +18,40 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Controller, Post, Body } from '@nestjs/common';
-import { BlockService } from './block.service';
-import { BlockMessages } from '@unipackage/filecoin';
-import { ValueFields, Result } from '@unipackage/utils';
-import { QueryParam } from 'src/shared/queryParams';
+import { Controller, Post, Body } from "@nestjs/common"
+import { BlockService } from "./block.service"
+import { BlockMessages } from "@unipackage/filecoin"
+import { ValueFields, Result } from "@unipackage/utils"
+import { QueryParam } from "src/shared/queryParams"
 
 /**
  * Controller responsible for handling root-level requests.
  */
-@Controller('block')
+@Controller("block")
 export class BlockController {
-  /**
-   * Creates an instance of RootController.
-   * @param rootService - The RootService instance.
-   */
-  constructor(private readonly blockService: BlockService) {}
+    /**
+     * Creates an instance of RootController.
+     * @param rootService - The RootService instance.
+     */
+    constructor(private readonly blockService: BlockService) {}
 
-  /**
-   * Handles GET requests for root-level resources with an identifier.
-   * @param queryFilter - Request parameters.
-   * @returns A string representing the response.
-   * @example
-   * {
-   * "conditions": [
-   *   {
-   *    "Height": { "$gt": 1213437, "$lt": 1213439 }
-   *   }
-   *  ]
-   * }
-   */
-  @Post('query')
-  async find(
-    @Body() queryParam: QueryParam<BlockMessages>,
-  ): Promise<Result<ValueFields<BlockMessages>[]>> {
-    return await this.blockService.find(queryParam);
-  }
+    /**
+     * Handles GET requests for root-level resources with an identifier.
+     * @param queryFilter - Request parameters.
+     * @returns A string representing the response.
+     * @example
+     * {
+     * "conditions": [
+     *   {
+     *    "Height": { "$gt": 1213437, "$lt": 1213439 }
+     *   }
+     *  ]
+     * }
+     */
+    @Post("query")
+    async find(
+        @Body() queryParam: QueryParam<BlockMessages>
+    ): Promise<Result<ValueFields<BlockMessages>[]>> {
+        return await this.blockService.find(queryParam)
+    }
 }

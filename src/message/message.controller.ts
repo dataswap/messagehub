@@ -18,40 +18,40 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Controller, Post, Body } from '@nestjs/common';
-import { MessageService } from './message.service';
-import { Message } from '@unipackage/filecoin';
-import { ValueFields, Result } from '@unipackage/utils';
-import { QueryParam } from 'src/shared/queryParams';
+import { Controller, Post, Body } from "@nestjs/common"
+import { MessageService } from "./message.service"
+import { Message } from "@unipackage/filecoin"
+import { ValueFields, Result } from "@unipackage/utils"
+import { QueryParam } from "src/shared/queryParams"
 
 /**
  * Controller responsible for handling root-level requests.
  */
-@Controller('message')
+@Controller("message")
 export class MessageController {
-  /**
-   * Creates an instance of RootController.
-   * @param rootService - The RootService instance.
-   */
-  constructor(private readonly messageService: MessageService) {}
+    /**
+     * Creates an instance of RootController.
+     * @param rootService - The RootService instance.
+     */
+    constructor(private readonly messageService: MessageService) {}
 
-  /**
-   * Handles GET requests for root-level resources with an identifier.
-   * @param queryFilter - Request parameters.
-   * @returns A string representing the response.
-   * @example
-   * {
-   * "conditions": [
-   *   {
-   *    "Height": { "$gt": 1213437, "$lt": 1213439 }
-   *   }
-   *  ]
-   * }
-   */
-  @Post('query')
-  async find(
-    @Body() queryParam: QueryParam<Message>,
-  ): Promise<Result<ValueFields<Message>[]>> {
-    return await this.messageService.find(queryParam);
-  }
+    /**
+     * Handles GET requests for root-level resources with an identifier.
+     * @param queryFilter - Request parameters.
+     * @returns A string representing the response.
+     * @example
+     * {
+     * "conditions": [
+     *   {
+     *    "Height": { "$gt": 1213437, "$lt": 1213439 }
+     *   }
+     *  ]
+     * }
+     */
+    @Post("query")
+    async find(
+        @Body() queryParam: QueryParam<Message>
+    ): Promise<Result<ValueFields<Message>[]>> {
+        return await this.messageService.find(queryParam)
+    }
 }

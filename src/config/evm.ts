@@ -17,19 +17,19 @@
  *  See the MIT License or the Apache License for the specific language governing permissions and
  *  limitations under the respective licenses.
  ********************************************************************************/
-import { DatasetMetadataEvm } from '@dataswapjs/dataswapjs';
-import datasetMetaAbi from '@dataswapcore/contracts/abi/v0.8/Datasets.json';
-import * as dotenv from 'dotenv';
-dotenv.config();
+import { DatasetMetadataEvm } from "@dataswapjs/dataswapjs"
+import datasetMetaAbi from "@dataswapcore/contracts/abi/v0.8/Datasets.json"
+import * as dotenv from "dotenv"
+dotenv.config()
 
 export const datasetMetadataEvm_Calibration = new DatasetMetadataEvm(
-  datasetMetaAbi,
-  '0x023e4b966b943c830b7d4cae84fe761641b29003',
-  process.env.CALIBRATION_LOTUS_PROVIDER_URL,
-);
+    datasetMetaAbi,
+    "0x023e4b966b943c830b7d4cae84fe761641b29003",
+    process.env.CALIBRATION_LOTUS_PROVIDER_URL
+)
 
 export const datasetMetadataEvm_Main = new DatasetMetadataEvm(
-  datasetMetaAbi,
-  '0x023e4b966b943c830b7d4cae84fe761641b29003',
-  process.env.CALIBRATION_LOTUS_PROVIDER_URL,
-);
+    datasetMetaAbi,
+    "0x023e4b966b943c830b7d4cae84fe761641b29003",
+    process.env.CALIBRATION_LOTUS_PROVIDER_URL
+)

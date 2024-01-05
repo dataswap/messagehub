@@ -17,12 +17,12 @@
  *  See the MIT License or the Apache License for the specific language governing permissions and
  *  limitations under the respective licenses.
  ********************************************************************************/
-import { delegatedFromEthAddress } from '@glif/filecoin-address';
-import { EvmEx } from '@dataswapjs/dataswapjs';
+import { delegatedFromEthAddress } from "@glif/filecoin-address"
+import { EvmEx } from "@dataswapjs/dataswapjs"
 
 /*
  * Get filecoin address from Evm
  */
 export function getFilecoinAddress(evm: EvmEx): string {
-  return 'f' + delegatedFromEthAddress(evm.getContractAddress()).slice(1);
+    return "f" + delegatedFromEthAddress(evm.getContractAddress()).slice(1)
 }

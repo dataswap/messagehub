@@ -18,44 +18,44 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Controller, Post, Body, UseInterceptors } from '@nestjs/common';
-import { DatasetMetadataService } from './datasetMetadata.service';
-import { DatasetMetadata } from '@dataswapjs/dataswapjs';
-import { ValueFields, Result } from '@unipackage/utils';
-import { BigIntToStringInterceptor } from '../shared/bigIntToStringInterceptor';
-import { QueryParam } from 'src/shared/queryParams';
+import { Controller, Post, Body, UseInterceptors } from "@nestjs/common"
+import { DatasetMetadataService } from "./datasetMetadata.service"
+import { DatasetMetadata } from "@dataswapjs/dataswapjs"
+import { ValueFields, Result } from "@unipackage/utils"
+import { BigIntToStringInterceptor } from "../shared/bigIntToStringInterceptor"
+import { QueryParam } from "src/shared/queryParams"
 
 /**
  * Controller responsible for handling root-level requests.
  */
 @UseInterceptors(BigIntToStringInterceptor)
-@Controller('datasetmetadata')
+@Controller("datasetmetadata")
 export class DatasetMetadataController {
-  /**
-   * Creates an instance of RootController.
-   * @param rootService - The RootService instance.
-   */
-  constructor(
-    private readonly datasetMetadataService: DatasetMetadataService,
-  ) {}
+    /**
+     * Creates an instance of RootController.
+     * @param rootService - The RootService instance.
+     */
+    constructor(
+        private readonly datasetMetadataService: DatasetMetadataService
+    ) {}
 
-  /**
-   * Handles GET requests for root-level resources with an identifier.
-   * @param queryFilter - Request parameters.
-   * @returns A string representing the response.
-   * @example
-   * {
-   * "conditions": [
-   *   {
-   *    "datasetId": { "$gt": 0, "$lt": 3}
-   *   }
-   *  ]
-   * }
-   */
-  @Post('query')
-  async find(
-    @Body() queryParam: QueryParam<DatasetMetadata>,
-  ): Promise<Result<ValueFields<DatasetMetadata>[]>> {
-    return await this.datasetMetadataService.find(queryParam);
-  }
+    /**
+     * Handles GET requests for root-level resources with an identifier.
+     * @param queryFilter - Request parameters.
+     * @returns A string representing the response.
+     * @example
+     * {
+     * "conditions": [
+     *   {
+     *    "datasetId": { "$gt": 0, "$lt": 3}
+     *   }
+     *  ]
+     * }
+     */
+    @Post("query")
+    async find(
+        @Body() queryParam: QueryParam<DatasetMetadata>
+    ): Promise<Result<ValueFields<DatasetMetadata>[]>> {
+        return await this.datasetMetadataService.find(queryParam)
+    }
 }

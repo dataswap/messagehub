@@ -19,186 +19,186 @@
  ********************************************************************************/
 
 import {
-  TipsetMongoDatastore,
-  BlockMongoDatastore,
-  MessageMongoDatastore,
-  Chain,
-  ChainService,
-  ChainFilecoinRPC,
-} from '@unipackage/filecoin';
+    TipsetMongoDatastore,
+    BlockMongoDatastore,
+    MessageMongoDatastore,
+    Chain,
+    ChainService,
+    ChainFilecoinRPC,
+} from "@unipackage/filecoin"
 import {
-  DatasetMetadataEvm,
-  // DatasetProofEvm,
-  // DatasetRequirementEvm,
-  // DatasetChallengeEvm,
-  // MatchingBidsEvm,
-  // MatchingMetadataEvm,
-  // MatchingTargetEvm,
-  // StoragesEvm,
-  // DatacapsEvm,
-  // EscrowEvm,
-  // RolesEvm,
-  // FilplusEvm,
-  DataswapMessage,
-  DataswapMessageMongoDatastore,
-  DatasetMetadataMongoDatastore,
-} from '@dataswapjs/dataswapjs';
-import { InternalSelectedParamsMap } from './config';
-import { DatabaseConnection } from '@unipackage/datastore';
+    DatasetMetadataEvm,
+    // DatasetProofEvm,
+    // DatasetRequirementEvm,
+    // DatasetChallengeEvm,
+    // MatchingBidsEvm,
+    // MatchingMetadataEvm,
+    // MatchingTargetEvm,
+    // StoragesEvm,
+    // DatacapsEvm,
+    // EscrowEvm,
+    // RolesEvm,
+    // FilplusEvm,
+    DataswapMessage,
+    DataswapMessageMongoDatastore,
+    DatasetMetadataMongoDatastore,
+} from "@dataswapjs/dataswapjs"
+import { InternalSelectedParamsMap } from "./config"
+import { DatabaseConnection } from "@unipackage/datastore"
 
 /**
  * Configuration for Chain context.
  */
 export interface ChainContext {
-  rpc: ChainFilecoinRPC;
-  service: ChainService;
-  startHeight: number;
+    rpc: ChainFilecoinRPC
+    service: ChainService
+    startHeight: number
 }
 
 /**
  * Configuration for Evm context.
  */
 export interface EvmContext {
-  // escrow: EscrowEvm;
-  // filplus: FilplusEvm;
-  // roles: RolesEvm;
-  datasetMetadata: DatasetMetadataEvm;
-  // requirement: DatasetRequirementEvm;
-  // proof: DatasetProofEvm;
-  // challenge: DatasetChallengeEvm;
-  // matching: {
-  //   target: MatchingTargetEvm;
-  //   metadata: MatchingMetadataEvm;
-  //   bids: MatchingBidsEvm;
-  // };
-  // storages: StoragesEvm;
-  // datacaps: DatacapsEvm;
+    // escrow: EscrowEvm;
+    // filplus: FilplusEvm;
+    // roles: RolesEvm;
+    datasetMetadata: DatasetMetadataEvm
+    // requirement: DatasetRequirementEvm;
+    // proof: DatasetProofEvm;
+    // challenge: DatasetChallengeEvm;
+    // matching: {
+    //   target: MatchingTargetEvm;
+    //   metadata: MatchingMetadataEvm;
+    //   bids: MatchingBidsEvm;
+    // };
+    // storages: StoragesEvm;
+    // datacaps: DatacapsEvm;
 }
 
 /**
  * Configuration for Datastore context.
  */
 export interface DatastoreContext {
-  baseConnection: DatabaseConnection;
-  message: MessageMongoDatastore;
-  block: BlockMongoDatastore;
-  tipset: TipsetMongoDatastore;
-  dataswapMessage: DataswapMessageMongoDatastore;
-  datasetMetadata: DatasetMetadataMongoDatastore;
+    baseConnection: DatabaseConnection
+    message: MessageMongoDatastore
+    block: BlockMongoDatastore
+    tipset: TipsetMongoDatastore
+    dataswapMessage: DataswapMessageMongoDatastore
+    datasetMetadata: DatasetMetadataMongoDatastore
 }
 
 /**
  * Configuration for IContext.
  */
 export interface IContext {
-  chain: ChainContext;
-  datastore: DatastoreContext;
-  evm: EvmContext;
+    chain: ChainContext
+    datastore: DatastoreContext
+    evm: EvmContext
 }
 
 /**
  * Union type of selected method names.
  */
-type InternalSelectedMethod = keyof InternalSelectedParamsMap;
+type InternalSelectedMethod = keyof InternalSelectedParamsMap
 
 /**
  * Type representing selected methods and their associated parameters.
  */
 export type SelectedParams = {
-  [K in InternalSelectedMethod]: {
-    method: K;
-    params: InternalSelectedParamsMap[K]['params'];
-  };
-}[InternalSelectedMethod];
+    [K in InternalSelectedMethod]: {
+        method: K
+        params: InternalSelectedParamsMap[K]["params"]
+    }
+}[InternalSelectedMethod]
 
 /**
  * Interface for the Syncer, responsible for interacting with the blockchain.
  */
 export interface ISyncer {
-  /**
-   * Gets the height of the current chain head.
-   */
-  getChainHeadHeight(): Promise<number>;
+    /**
+     * Gets the height of the current chain head.
+     */
+    getChainHeadHeight(): Promise<number>
 
-  /**
-   * Gets pending chain information.
-   */
-  getPendingChainInfo(height: number): Promise<Chain>;
+    /**
+     * Gets pending chain information.
+     */
+    getPendingChainInfo(height: number): Promise<Chain>
 }
 
 /**
  * Interface for the Decoder, responsible for decoding dataswap messages.
  */
 export interface IDecoder {
-  /**
-   * Gets pending dataswap messages based on the provided chain information.
-   */
-  getPendingDataswapMessages(pendingChainInfo: Chain): Array<DataswapMessage>;
+    /**
+     * Gets pending dataswap messages based on the provided chain information.
+     */
+    getPendingDataswapMessages(pendingChainInfo: Chain): Array<DataswapMessage>
 
-  /**
-   * Gets pending selected parameters from a list of dataswap messages.
-   */
-  getPendingSelectedParams(
-    dataswapMessages: Array<DataswapMessage>,
-  ): Array<SelectedParams>;
+    /**
+     * Gets pending selected parameters from a list of dataswap messages.
+     */
+    getPendingSelectedParams(
+        dataswapMessages: Array<DataswapMessage>
+    ): Array<SelectedParams>
 }
 
 /**
  * Interface for the Storager, responsible for storing blockchain-related data.
  */
 export interface IStorager {
-  /**
-   * get latest synced height that is stored.
-   */
-  getLatestSyncedHeight(): Promise<number>;
+    /**
+     * get latest synced height that is stored.
+     */
+    getLatestSyncedHeight(): Promise<number>
 
-  /**
-   * Checks if data for the specified height is stored.
-   */
-  isThisHeightStored(height: number): Promise<boolean>;
+    /**
+     * Checks if data for the specified height is stored.
+     */
+    isThisHeightStored(height: number): Promise<boolean>
 
-  /**
-   * Stores chain information.
-   */
-  storeChainInfo(chain: Chain): void;
+    /**
+     * Stores chain information.
+     */
+    storeChainInfo(chain: Chain): void
 
-  /**
-   * Stores an array of dataswap messages.
-   */
-  storeDataswapMessages(dataswapMessages: Array<DataswapMessage>): void;
+    /**
+     * Stores an array of dataswap messages.
+     */
+    storeDataswapMessages(dataswapMessages: Array<DataswapMessage>): void
 
-  /**
-   * Stores an array of selected parameters.
-   */
-  storeSelectedParams(selectedParams: Array<SelectedParams>): void;
+    /**
+     * Stores an array of selected parameters.
+     */
+    storeSelectedParams(selectedParams: Array<SelectedParams>): void
 }
 
 /**
  * Interface for the BackgroundTask, representing a background task that can be started and stopped.
  */
 export interface IBackgroundTask {
-  /**
-   * Starts the background task.
-   */
-  start(): void;
+    /**
+     * Starts the background task.
+     */
+    start(): void
 
-  /**
-   * Stops the background task.
-   */
-  stop(): void;
+    /**
+     * Stops the background task.
+     */
+    stop(): void
 
-  /**
-   * Check if the bgTask is running.
-   */
-  isRunning(): boolean;
+    /**
+     * Check if the bgTask is running.
+     */
+    isRunning(): boolean
 
-  /**
-   * get the current sync height
-   */
-  getCurrentSyncHeight(): number;
+    /**
+     * get the current sync height
+     */
+    getCurrentSyncHeight(): number
 
-  /**
-   * get the start height
-   */
-  getStartHeight(): number;
+    /**
+     * get the start height
+     */
+    getStartHeight(): number
 }
