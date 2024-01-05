@@ -37,6 +37,25 @@ export class Storager implements IStorager {
   }
 
   /**
+   * get latest synced height that is stored.
+   */
+  async getLatestSyncedHeight(): Promise<number> {
+    const res = await this.context.datastore.tipset.find({
+      page: 0,
+      limit: 1,
+      sort: [{ field: 'Height', order: 'desc' }],
+    });
+    if (!res.ok) {
+      throw new Error('getLatestSyncedHeight failed!');
+    }
+    if (res.data && res.data.length > 0) {
+      return res.data[0].Height;
+    } else {
+      return 0;
+    }
+  }
+
+  /**
    * Checks if a given height has already been synchronized.
    * @param {number} height - The height to check for synchronization.
    * @returns {Promise<boolean>} True if the height is already synchronized, false otherwise.

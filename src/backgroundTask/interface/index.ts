@@ -148,6 +148,11 @@ export interface IDecoder {
  */
 export interface IStorager {
   /**
+   * get latest synced height that is stored.
+   */
+  getLatestSyncedHeight(): Promise<number>;
+
+  /**
    * Checks if data for the specified height is stored.
    */
   isThisHeightStored(height: number): Promise<boolean>;
