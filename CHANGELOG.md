@@ -1,5 +1,12 @@
 
 
+# [0.5.0](https://github.com/dataswap/messagehub/compare/0.4.0...0.5.0) (2024-01-05)
+
+
+### Features
+
+* 🎸 support version ([db85598](https://github.com/dataswap/messagehub/commit/db85598cab9bc7f3ac6206fdc18dad99224132b1)), closes [#23](https://github.com/dataswap/messagehub/issues/23)
+
 # [0.4.0](https://github.com/dataswap/messagehub/compare/0.3.0...0.4.0) (2024-01-05)
 
 
