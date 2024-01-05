@@ -1,5 +1,18 @@
 
 
+# [0.4.0](https://github.com/dataswap/messagehub/compare/0.3.0...0.4.0) (2024-01-05)
+
+
+### Bug Fixes
+
+* 🐛 [#13](https://github.com/dataswap/messagehub/issues/13) ([f76315a](https://github.com/dataswap/messagehub/commit/f76315aadac8d2852f2f9156fdb77787efee365e))
+* 🐛 delete log ([d579ade](https://github.com/dataswap/messagehub/commit/d579adebbdad7b60d311e0f9f7e52ed0f9576da4))
+
+
+### Features
+
+* 🎸 fixed [#14](https://github.com/dataswap/messagehub/issues/14) ([1dd5ce5](https://github.com/dataswap/messagehub/commit/1dd5ce5d097e1170997e29216a9e391ff6030111))
+
 # [0.3.0](https://github.com/dataswap/messagehub/compare/0.2.0...0.3.0) (2024-01-04)
 
 
