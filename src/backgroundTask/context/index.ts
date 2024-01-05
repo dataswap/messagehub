@@ -95,22 +95,32 @@ export class Context implements IContext {
                 replay: true,
                 replayStrategy: new AddressesFilterReplayStrategy([
                     getFilecoinAddress(config.evm.datasetMetadata),
-                    //TODO:add all evm address
+                    getFilecoinAddress(config.evm.datasetRequirement),
+                    getFilecoinAddress(config.evm.datasetProof),
+                    getFilecoinAddress(config.evm.datasetChallenge),
+                    getFilecoinAddress(config.evm.matchingMetadata),
+                    getFilecoinAddress(config.evm.matchingTarget),
+                    getFilecoinAddress(config.evm.matchingBids),
+                    getFilecoinAddress(config.evm.storages),
+                    getFilecoinAddress(config.evm.datacaps),
+                    getFilecoinAddress(config.evm.escrow),
+                    getFilecoinAddress(config.evm.roles),
+                    getFilecoinAddress(config.evm.filplus),
                 ]),
             },
         })
 
-        // this.evm.roles = config.evm.roles;
-        // this.evm.filplus = config.evm.filplus;
-        // this.evm.escrow = config.evm.escrow;
+        this.evm.roles = config.evm.roles
+        this.evm.filplus = config.evm.filplus
+        this.evm.escrow = config.evm.escrow
         this.evm.datasetMetadata = config.evm.datasetMetadata
-        // this.evm.dataset.requirement = config.evm.dataset.requirement;
-        // this.evm.dataset.proof = config.evm.dataset.proof;
-        // this.evm.dataset.challenge = config.evm.dataset.challenge;
-        // this.evm.matching.metadata = config.evm.matching.metadata;
-        // this.evm.matching.target = config.evm.matching.target;
-        // this.evm.matching.bids = config.evm.matching.bids;
-        // this.evm.storages = config.evm.storages;
-        // this.evm.datacaps = config.evm.datacaps;
+        this.evm.datasetRequirement = config.evm.datasetRequirement
+        this.evm.datasetProof = config.evm.datasetProof
+        this.evm.datasetChallenge = config.evm.datasetChallenge
+        this.evm.matchingMetadata = config.evm.matchingMetadata
+        this.evm.matchingTarget = config.evm.matchingTarget
+        this.evm.matchingBids = config.evm.matchingBids
+        this.evm.storages = config.evm.storages
+        this.evm.datacaps = config.evm.datacaps
     }
 }

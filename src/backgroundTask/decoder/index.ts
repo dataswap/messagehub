@@ -21,7 +21,6 @@
 import { Chain } from "@unipackage/filecoin"
 import { Context } from "../context"
 import { IDecoder, SelectedParams } from "../interface"
-// import { Chain } from '@unipackage/filecoin';
 import { DataswapMessage } from "@dataswapjs/dataswapjs"
 import { selectedMethods } from "../interface/config"
 import { getFilecoinAddress } from "../../shared/address"
@@ -54,55 +53,78 @@ export class Decoder implements IDecoder {
                         )
                         break
 
-                    // case this.context.evm.dataset.requirement.getContractAddress():
-                    //   res.push(
-                    //     this.context.evm.dataset.requirement.decodeMessage(msg).data,
-                    //   );
-                    //   break;
+                    case getFilecoinAddress(
+                        this.context.evm.datasetRequirement
+                    ):
+                        res.push(
+                            this.context.evm.datasetRequirement.decodeMessage(
+                                msg
+                            ).data
+                        )
+                        break
 
-                    // case this.context.evm.dataset.proof.getContractAddress():
-                    //   res.push(this.context.evm.dataset.proof.decodeMessage(msg).data);
-                    //   break;
+                    case getFilecoinAddress(this.context.evm.datasetProof):
+                        res.push(
+                            this.context.evm.datasetProof.decodeMessage(msg)
+                                .data
+                        )
+                        break
 
-                    // case this.context.evm.dataset.challenge.getContractAddress():
-                    //   res.push(
-                    //     this.context.evm.dataset.challenge.decodeMessage(msg).data,
-                    //   );
-                    //   break;
+                    case getFilecoinAddress(this.context.evm.datasetChallenge):
+                        res.push(
+                            this.context.evm.datasetChallenge.decodeMessage(msg)
+                                .data
+                        )
+                        break
 
-                    // case this.context.evm.matching.target.getContractAddress():
-                    //   res.push(this.context.evm.matching.target.decodeMessage(msg).data);
-                    //   break;
+                    case getFilecoinAddress(this.context.evm.matchingMetadata):
+                        res.push(
+                            this.context.evm.matchingMetadata.decodeMessage(msg)
+                                .data
+                        )
+                        break
 
-                    // case this.context.evm.matching.metadata.getContractAddress():
-                    //   res.push(
-                    //     this.context.evm.matching.metadata.decodeMessage(msg).data,
-                    //   );
-                    //   break;
+                    case getFilecoinAddress(this.context.evm.matchingTarget):
+                        res.push(
+                            this.context.evm.matchingTarget.decodeMessage(msg)
+                                .data
+                        )
+                        break
 
-                    // case this.context.evm.matching.bids.getContractAddress():
-                    //   res.push(this.context.evm.matching.bids.decodeMessage(msg).data);
-                    //   break;
+                    case getFilecoinAddress(this.context.evm.matchingBids):
+                        res.push(
+                            this.context.evm.matchingBids.decodeMessage(msg)
+                                .data
+                        )
+                        break
 
-                    // case this.context.evm.storages.getContractAddress():
-                    //   res.push(this.context.evm.storages.decodeMessage(msg).data);
-                    //   break;
+                    case getFilecoinAddress(this.context.evm.storages):
+                        res.push(
+                            this.context.evm.storages.decodeMessage(msg).data
+                        )
+                        break
 
-                    // case this.context.evm.datacaps.getContractAddress():
-                    //   res.push(this.context.evm.datacaps.decodeMessage(msg).data);
-                    //   break;
+                    case getFilecoinAddress(this.context.evm.datacaps):
+                        res.push(
+                            this.context.evm.datacaps.decodeMessage(msg).data
+                        )
+                        break
 
-                    // case this.context.evm.escrow.getContractAddress():
-                    //   res.push(this.context.evm.escrow.decodeMessage(msg).data);
-                    //   break;
+                    case getFilecoinAddress(this.context.evm.roles):
+                        res.push(this.context.evm.roles.decodeMessage(msg).data)
+                        break
 
-                    // case this.context.evm.filplus.getContractAddress():
-                    //   res.push(this.context.evm.filplus.decodeMessage(msg).data);
-                    //   break;
+                    case getFilecoinAddress(this.context.evm.filplus):
+                        res.push(
+                            this.context.evm.filplus.decodeMessage(msg).data
+                        )
+                        break
 
-                    // case this.context.evm.roles.getContractAddress():
-                    //   res.push(this.context.evm.roles.decodeMessage(msg).data);
-                    //   break;
+                    case getFilecoinAddress(this.context.evm.escrow):
+                        res.push(
+                            this.context.evm.escrow.decodeMessage(msg).data
+                        )
+                        break
 
                     default:
                         break
