@@ -48,7 +48,7 @@ dotenv.config()
 
 export const datasetMetadataEvm_Calibration = new DatasetMetadataEvm(
     datasetMetaAbi,
-    "0x023e4b966b943c830b7d4cae84fe761641b29003",
+    "0x27400663b98367C5D4b04480030D4DDe193C2fEa",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
@@ -60,7 +60,7 @@ export const datasetMetadataEvm_Main = new DatasetMetadataEvm(
 
 export const datasetRequirementEvm_Calibration = new DatasetRequirementEvm(
     datasetsRequirementAbi,
-    "0x7777777777777777777777777777777777777700",
+    "0xAdE3e240736e550837e5b65b0163bbD56178aDdD",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
@@ -72,7 +72,7 @@ export const datasetRequirementEvm_Main = new DatasetRequirementEvm(
 
 export const datasetProofEvm_Calibration = new DatasetProofEvm(
     datasetsProofAbi,
-    "0x7777777777777777777777777777777777777701",
+    "0x15764e7bE0638696B88ECF39fc7f6167aB53552f",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
@@ -84,7 +84,7 @@ export const datasetProofEvm_Main = new DatasetProofEvm(
 
 export const datasetChallengeEvm_Calibration = new DatasetChallengeEvm(
     datasetsChallengeAbi,
-    "0x7777777777777777777777777777777777777702",
+    "0x60AcEb9dafE38D428f4DC7eBF01fa604EfDc4e0f",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
@@ -96,7 +96,7 @@ export const datasetChallengeEvm_Main = new DatasetChallengeEvm(
 
 export const matchingMetadataEvm_Calibration = new MatchingMetadataEvm(
     matchingsAbi,
-    "0x7777777777777777777777777777777777777703",
+    "0xdc9Df3dC24202451535E4eB0A3ecBBF4B64ae5C8",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
@@ -108,7 +108,7 @@ export const matchingMetadataEvm_Main = new MatchingMetadataEvm(
 
 export const matchingTargetEvm_Calibration = new MatchingTargetEvm(
     matchingsTargetAbi,
-    "0x7777777777777777777777777777777777777704",
+    "0xcA2852b58a67650cA6F220BA68267140caC7D915",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
@@ -120,7 +120,7 @@ export const matchingTargetEvm_Main = new MatchingTargetEvm(
 
 export const matchingBidsEvm_Calibration = new MatchingBidsEvm(
     matchingsBidsAbi,
-    "0x7777777777777777777777777777777777777705",
+    "0x527786A491cAe85237e00b8d0A483DBc8D449e2b",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
@@ -132,7 +132,7 @@ export const matchingBidsEvm_Main = new MatchingBidsEvm(
 
 export const storagesEvm_Calibration = new StoragesEvm(
     storagesAbi,
-    "0x7777777777777777777777777777777777777706",
+    "0x4AEF9E8A0acc86404FF704398eBB023E014C5335",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
@@ -144,7 +144,7 @@ export const storagesEvm_Main = new StoragesEvm(
 
 export const datacapsEvm_Calibration = new DatacapsEvm(
     datacapsAbi,
-    "0x7777777777777777777777777777777777777707",
+    "0x2b06517fd3971E5829399f27f6C0F3f497F85ECc",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
@@ -156,7 +156,7 @@ export const datacapsEvm_Main = new DatacapsEvm(
 
 export const escrowEvm_Calibration = new EscrowEvm(
     escrowAbi,
-    "0x7777777777777777777777777777777777777708",
+    "0x0862a413920eFa1958dB61BD3fEC70c60B8Ed018",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
@@ -168,7 +168,7 @@ export const escrowEvm_Main = new EscrowEvm(
 
 export const filplusEvm_Calibraion = new FilplusEvm(
     filplusAbi,
-    "0x7777777777777777777777777777777777777709",
+    "0xf547A6284A3964580DD8F60C7Fe1cA2ACacE48e6",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
@@ -180,7 +180,7 @@ export const filplusEvm_Main = new FilplusEvm(
 
 export const rolesEvm_Calibration = new RolesEvm(
     rolesAbi,
-    "0x7777777777777777777777777777777777777710",
+    "0x40769d4797a4fc1A60529a5096bcFfd2b7c66317",
     process.env.CALIBRATION_LOTUS_PROVIDER_URL
 )
 
