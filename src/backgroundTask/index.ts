@@ -69,7 +69,6 @@ export class BackgroundTask implements IBackgroundTask {
       realSavedSyncedHeight > this.syncHeight
         ? realSavedSyncedHeight
         : this.syncHeight;
-    console.log(this.syncHeight);
 
     while (this.needRunning) {
       try {
