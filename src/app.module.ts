@@ -19,6 +19,8 @@
  ********************************************************************************/
 
 import { Module } from '@nestjs/common';
+import { VersionController } from './version/version.controller';
+import { VersionService } from './version/version.service';
 import { SyncController } from './sync/sync.controller';
 import { SyncService } from './sync/sync.service';
 import { TipsetController } from './tipset/tipset.controller';
@@ -39,6 +41,7 @@ import { BackgroundTaskService } from './backgroundTask/provider/backgroundTask.
 @Module({
   imports: [],
   controllers: [
+    VersionController,
     SyncController,
     TipsetController,
     BlockController,
@@ -47,6 +50,7 @@ import { BackgroundTaskService } from './backgroundTask/provider/backgroundTask.
     DatasetMetadataController,
   ],
   providers: [
+    VersionService,
     SyncService,
     TipsetService,
     BlockService,

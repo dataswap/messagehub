@@ -113,4 +113,8 @@ describe('AppController (e2e)', () => {
       .send({ network: 'calibration' })
       .expect(201);
   }, 30000);
+
+  it('/version (GET)', async () => {
+    return request(app.getHttpServer()).get('/version').expect(200);
+  }, 30000);
 });
