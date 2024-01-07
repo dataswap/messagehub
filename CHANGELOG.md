@@ -1,5 +1,22 @@
 
 
+# [0.6.0](https://github.com/dataswap/messagehub/compare/0.5.0...0.6.0) (2024-01-07)
+
+
+### Bug Fixes
+
+* 🐛 format ([16c18be](https://github.com/dataswap/messagehub/commit/16c18be0f0f7815328e60f01b7949ef83243b3d5)), closes [#25](https://github.com/dataswap/messagehub/issues/25)
+* 🐛 main evm using MAIN_LOTUS_PROVIDER_URL ([e17d2b3](https://github.com/dataswap/messagehub/commit/e17d2b3ef81e62afabc0645a17d0b66f30039e0f))
+* 🐛 new evm address test issue ([46c60ca](https://github.com/dataswap/messagehub/commit/46c60ca167c688e58f619a581b0cac5474dde77e))
+
+
+### Features
+
+* 🎸 Add dataswap calibration evm address ([c36ffbb](https://github.com/dataswap/messagehub/commit/c36ffbb3c166f0ee7ac05e3704af692d6ce268f0)), closes [#29](https://github.com/dataswap/messagehub/issues/29)
+* 🎸 complete evmcontext ([5f3b74e](https://github.com/dataswap/messagehub/commit/5f3b74e46ecc3502f49b0defe6c458e4ffca0922)), closes [#27](https://github.com/dataswap/messagehub/issues/27) [#22](https://github.com/dataswap/messagehub/issues/22)
+* 🎸 update package name ([46e586c](https://github.com/dataswap/messagehub/commit/46e586c729ff281d091da8eb5139fc74aa234821))
+* 🎸 update the full selected methods&parms ([977565e](https://github.com/dataswap/messagehub/commit/977565ea91bfdf6296a3ab7d0e2e197794c247af)), closes [#10](https://github.com/dataswap/messagehub/issues/10)
+
 # [0.5.0](https://github.com/dataswap/messagehub/compare/0.4.0...0.5.0) (2024-01-05)
 
 
