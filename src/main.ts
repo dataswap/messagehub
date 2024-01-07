@@ -30,6 +30,15 @@ async function bootstrap() {
     // Create a NestJS application instance
     const app = await NestFactory.create(AppModule)
 
+    const corsOptions = {
+        origin: "*",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept",
+        credentials: true,
+    }
+
+    app.enableCors(corsOptions)
+
     // Start the application, listening on port 3000
     await app.listen(Number(process.env.PORT))
 }
