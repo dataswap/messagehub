@@ -9,7 +9,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "outDir": "./dist-test",
+    "outDir": "./dist",
     "declaration": true,
     "target": "ES2015",
     "forceConsistentCasingInFileNames": true,
