@@ -53,6 +53,18 @@ jobs:
            sudo docker stop "$container_id"
            sudo docker rm "$container_id"
          fi
+         sudo docker stop messagehub
+         sudo docker rm messagehub
+
          sudo docker pull "${{ secrets.DOCKERHUB_USERNAME }}/messagehub:${latest_version}"
-         sudo docker run -d -p ${{ vars.PORT}}:${{ vars.PORT}} --env-file env.list "${{ secrets.DOCKERHUB_USERNAME }}/messagehub:${latest_version}"
-     
+         sudo docker run -d -p ${{ vars.PORT}}:${{ vars.PORT}} --name messagehub --env-file env.list "${{ secrets.DOCKERHUB_USERNAME }}/messagehub:${latest_version}"
+         sleep 10
+         container_status=$(sudo docker inspect -f '{{.State.Status}}' messagehub)
+
+         if [ "$container_status" = "running" ]; then
+           echo "Docker container started successfully."
+         else
+           echo "Error: Docker container failed to start (status: $container_status)."
+           exit 1
+         fi
+         sudo docker ps -a |grep messagehub 
