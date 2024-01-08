@@ -31,6 +31,8 @@ import { DataswapMessageController } from "../src/dataswapMessage/dataswapMessag
 import { DataswapMessageService } from "../src/dataswapMessage/dataswapMessage.service"
 import { DatasetMetadataController } from "../src/datasetMetadata/datasetMetadata.controller"
 import { DatasetMetadataService } from "../src/datasetMetadata/datasetMetadata.service"
+import { MatchingMetadataController } from "../src/matchingMetadata/matchingMetadata.controller"
+import { MatchingMetadataService } from "../src/matchingMetadata/matchingMetadata.service"
 import { SyncController } from "../src/sync/sync.controller"
 import { SyncService } from "../src/sync/sync.service"
 
@@ -40,6 +42,7 @@ describe("AppController Test", () => {
     let messageController: MessageController
     let dataswapMessageController: DataswapMessageController
     let datasetMetadataController: DatasetMetadataController
+    let matchingMetadataController: MatchingMetadataController
     let syncController: SyncController
 
     beforeAll(async () => {
@@ -59,6 +62,7 @@ describe("AppController Test", () => {
                 MessageController,
                 DataswapMessageController,
                 DatasetMetadataController,
+                MatchingMetadataController,
                 SyncController,
             ],
             providers: [
@@ -67,6 +71,7 @@ describe("AppController Test", () => {
                 MessageService,
                 DataswapMessageService,
                 DatasetMetadataService,
+                MatchingMetadataService,
                 SyncService,
             ],
         }).compile()
@@ -79,6 +84,9 @@ describe("AppController Test", () => {
         )
         datasetMetadataController = root.get<DatasetMetadataController>(
             DatasetMetadataController
+        )
+        matchingMetadataController = root.get<MatchingMetadataController>(
+            MatchingMetadataController
         )
         syncController = root.get<SyncController>(SyncController)
     })
@@ -137,6 +145,18 @@ describe("AppController Test", () => {
                 network: "calibration",
                 queryFilter: {
                     conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
+
+    describe("matchingmetadata query", () => {
+        it("should ok", async () => {
+            const res = await matchingMetadataController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ matchingId: { $gt: 0, $lt: 3 } }],
                 },
             })
             expect(res.ok).toBe(true)

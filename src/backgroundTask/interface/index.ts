@@ -42,6 +42,7 @@ import {
     DataswapMessage,
     DataswapMessageMongoDatastore,
     DatasetMetadataMongoDatastore,
+    MatchingMetadataMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import { InternalSelectedParamsMap } from "./config"
 import { DatabaseConnection } from "@unipackage/datastore"
@@ -83,6 +84,7 @@ export interface DatastoreContext {
     tipset: TipsetMongoDatastore
     dataswapMessage: DataswapMessageMongoDatastore
     datasetMetadata: DatasetMetadataMongoDatastore
+    matchingMetadata: MatchingMetadataMongoDatastore
 }
 
 /**
