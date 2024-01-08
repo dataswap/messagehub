@@ -109,6 +109,18 @@ describe("AppController (e2e)", () => {
             .expect(201)
     }, 30000)
 
+    it("/car/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/car/query")
+            .send({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ carId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            .expect(201)
+    }, 30000)
+
     it("/syncstatus/query (POST)", async () => {
         return request(app.getHttpServer())
             .post("/syncstatus/query")

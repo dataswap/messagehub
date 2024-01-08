@@ -34,11 +34,13 @@ describe("BackgroundTask", () => {
             await calibrationBgTask.context.datastore.dataswapMessage.find({})
         const datasetMetadata =
             await calibrationBgTask.context.datastore.datasetMetadata.find({})
+        const car = await calibrationBgTask.context.datastore.car.find({})
 
         expect(tipsets.data.length > 0).toBe(true)
         expect(blocks.data.length > 0).toBe(true)
         expect(messages.data.length > 0).toBe(true)
         expect(dataswapMessages.data.length >= 0).toBe(true)
         expect(datasetMetadata.data.length >= 0).toBe(true)
+        expect(car.data.length >= 0).toBe(true)
     }, 100000)
 })
