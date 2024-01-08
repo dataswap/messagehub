@@ -31,6 +31,8 @@ import { DataswapMessageController } from "../src/dataswapMessage/dataswapMessag
 import { DataswapMessageService } from "../src/dataswapMessage/dataswapMessage.service"
 import { DatasetMetadataController } from "../src/datasetMetadata/datasetMetadata.controller"
 import { DatasetMetadataService } from "../src/datasetMetadata/datasetMetadata.service"
+import { CarController } from "../src/car/car.controller"
+import { CarService } from "../src/car/car.service"
 import { SyncController } from "../src/sync/sync.controller"
 import { SyncService } from "../src/sync/sync.service"
 
@@ -40,6 +42,7 @@ describe("AppController Test", () => {
     let messageController: MessageController
     let dataswapMessageController: DataswapMessageController
     let datasetMetadataController: DatasetMetadataController
+    let carController: CarController
     let syncController: SyncController
 
     beforeAll(async () => {
@@ -59,6 +62,7 @@ describe("AppController Test", () => {
                 MessageController,
                 DataswapMessageController,
                 DatasetMetadataController,
+                CarController,
                 SyncController,
             ],
             providers: [
@@ -67,6 +71,7 @@ describe("AppController Test", () => {
                 MessageService,
                 DataswapMessageService,
                 DatasetMetadataService,
+                CarService,
                 SyncService,
             ],
         }).compile()
@@ -80,6 +85,7 @@ describe("AppController Test", () => {
         datasetMetadataController = root.get<DatasetMetadataController>(
             DatasetMetadataController
         )
+        carController = root.get<CarController>(CarController)
         syncController = root.get<SyncController>(SyncController)
     })
 
@@ -137,6 +143,18 @@ describe("AppController Test", () => {
                 network: "calibration",
                 queryFilter: {
                     conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
+
+    describe("car query", () => {
+        it("should ok", async () => {
+            const res = await carController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ carId: { $gt: 0, $lt: 3 } }],
                 },
             })
             expect(res.ok).toBe(true)
