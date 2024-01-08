@@ -38,6 +38,7 @@ import {
     CarMongoDatastore,
     CarReplicaMongoDatastore,
     DatasetRequirementMongoDatastore,
+    DatasetProofMetadataMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import { getFilecoinAddress } from "../../shared/address"
 import { DatabaseConnection } from "@unipackage/datastore"
@@ -97,6 +98,10 @@ export class Context implements IContext {
         )
         this.datastore.datasetRequirement =
             new DatasetRequirementMongoDatastore(this.datastore.baseConnection)
+        this.datastore.datasetProofMetadata =
+            new DatasetProofMetadataMongoDatastore(
+                this.datastore.baseConnection
+            )
         this.chain.service = new ChainService({
             rpc: this.chain.rpc,
             messageDs: this.datastore.message,

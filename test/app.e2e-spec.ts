@@ -142,6 +142,17 @@ describe("AppController (e2e)", () => {
             })
             .expect(201)
     }, 30000)
+    it("/datasetproofmetadata/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/datasetproofmetadata/query")
+            .send({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            .expect(201)
+    }, 30000)
 
     it("/syncstatus/query (POST)", async () => {
         return request(app.getHttpServer())

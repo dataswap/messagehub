@@ -37,6 +37,8 @@ import { CarReplicaController } from "../src/carReplica/carReplica.controller"
 import { CarReplicaService } from "../src/carReplica/carReplica.service"
 import { DatasetRequirementController } from "../src/datasetRequirement/datasetRequirement.controller"
 import { DatasetRequirementService } from "../src/datasetRequirement/datasetRequirement.service"
+import { DatasetProofMetadataController } from "../src/datasetProofMetadata/datasetProofMetadata.controller"
+import { DatasetProofMetadataService } from "../src/datasetProofMetadata/datasetProofMetadata.service"
 import { SyncController } from "../src/sync/sync.controller"
 import { SyncService } from "../src/sync/sync.service"
 
@@ -49,6 +51,7 @@ describe("AppController Test", () => {
     let carController: CarController
     let carReplicaController: CarReplicaController
     let datasetRequirementController: DatasetRequirementController
+    let datasetProofMetadataController: DatasetProofMetadataController
     let syncController: SyncController
 
     beforeAll(async () => {
@@ -71,6 +74,7 @@ describe("AppController Test", () => {
                 CarController,
                 CarReplicaController,
                 DatasetRequirementController,
+                DatasetProofMetadataController,
                 SyncController,
             ],
             providers: [
@@ -82,6 +86,7 @@ describe("AppController Test", () => {
                 CarService,
                 CarReplicaService,
                 DatasetRequirementService,
+                DatasetProofMetadataService,
                 SyncService,
             ],
         }).compile()
@@ -101,6 +106,10 @@ describe("AppController Test", () => {
         datasetRequirementController = root.get<DatasetRequirementController>(
             DatasetRequirementController
         )
+        datasetProofMetadataController =
+            root.get<DatasetProofMetadataController>(
+                DatasetProofMetadataController
+            )
         syncController = root.get<SyncController>(SyncController)
     })
 
@@ -189,6 +198,17 @@ describe("AppController Test", () => {
     describe("datasetrequirement query", () => {
         it("should ok", async () => {
             const res = await datasetRequirementController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
+    describe("datasetproofmetadata query", () => {
+        it("should ok", async () => {
+            const res = await datasetProofMetadataController.find({
                 network: "calibration",
                 queryFilter: {
                     conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
