@@ -39,6 +39,8 @@ import { CarReplicaController } from "./carReplica/carReplica.controller"
 import { CarReplicaService } from "./carReplica/carReplica.service"
 import { DatasetRequirementController } from "./datasetRequirement/datasetRequirement.controller"
 import { DatasetRequirementService } from "./datasetRequirement/datasetRequirement.service"
+import { DatasetProofMetadataController } from "./datasetProofMetadata/datasetProofMetadata.controller"
+import { DatasetProofMetadataService } from "./datasetProofMetadata/datasetProofMetadata.service"
 import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.service"
 
 /**
@@ -57,6 +59,7 @@ import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.
         CarController,
         CarReplicaController,
         DatasetRequirementController,
+        DatasetProofMetadataController,
     ],
     providers: [
         VersionService,
@@ -70,6 +73,7 @@ import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.
         CarService,
         CarReplicaService,
         DatasetRequirementService,
+        DatasetProofMetadataService,
     ],
 })
 export class AppModule {}
