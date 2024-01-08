@@ -43,6 +43,7 @@ import {
     DataswapMessageMongoDatastore,
     DatasetMetadataMongoDatastore,
     CarMongoDatastore,
+    CarReplicaMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import { InternalSelectedParamsMap } from "./config"
 import { DatabaseConnection } from "@unipackage/datastore"
@@ -85,6 +86,7 @@ export interface DatastoreContext {
     dataswapMessage: DataswapMessageMongoDatastore
     datasetMetadata: DatasetMetadataMongoDatastore
     car: CarMongoDatastore
+    carReplica: CarReplicaMongoDatastore
 }
 
 /**

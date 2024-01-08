@@ -35,6 +35,8 @@ import { DatasetMetadataController } from "./datasetMetadata/datasetMetadata.con
 import { DatasetMetadataService } from "./datasetMetadata/datasetMetadata.service"
 import { CarController } from "./car/car.controller"
 import { CarService } from "./car/car.service"
+import { CarReplicaController } from "./carReplica/carReplica.controller"
+import { CarReplicaService } from "./carReplica/carReplica.service"
 import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.service"
 
 /**
@@ -51,6 +53,7 @@ import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.
         DataswapMessageController,
         DatasetMetadataController,
         CarController,
+        CarReplicaController,
     ],
     providers: [
         VersionService,
@@ -62,6 +65,7 @@ import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.
         DataswapMessageService,
         DatasetMetadataService,
         CarService,
+        CarReplicaService,
     ],
 })
 export class AppModule {}
