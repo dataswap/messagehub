@@ -20,7 +20,7 @@
 
 import {
     DatasetMetadata,
-    DatasetRequirement,
+    DatasetRequirements,
     MatchingMetadata,
     MatchingTarget,
     DatasetProofs,
@@ -37,6 +37,7 @@ export const selectedMethods = [
     "submitDatasetProofRoot",
     "submitDatasetProof",
     "createMatching",
+    "createTarget",
     "publishMatching",
     //"submitStorageClaimIds",
 ]
@@ -47,10 +48,11 @@ export const selectedMethods = [
  */
 export type InternalSelectedParamsMap = {
     submitDatasetMetadata: { params: DatasetMetadata } //Insert or update DatasetMetadata to datastore
-    submitDatasetReplicaRequirements: { params: Array<DatasetRequirement> } //Insert DatasetRequirment[] to datastore
+    submitDatasetReplicaRequirements: { params: DatasetRequirements } //Insert DatasetRequirment[] to datastore
     submitDatasetProofRoot: { params: DatasetProofMetadata } //Insert or update DatasetProofMetadata to datastore
     submitDatasetProof: { params: DatasetProofs } //Insert or update Car[] to datastore
     createMatching: { params: MatchingMetadata } //Insert or update MatchiangMetadata to datastore
-    publishMatching: { params: MatchingTarget } //Insert or update MatchiangTarget and CarReplica[] to datastore
+    createTarget: { params: MatchingTarget } // Insert MatchingTarget
+    publishMatching: { params: MatchingTarget } //Update MatchiangTarget and insert CarReplica[] to datastore
     //submitStorageClaimIds: { params: StorageClaimIds } //update datastore for CarReplica
 }

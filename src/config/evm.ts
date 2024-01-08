@@ -18,6 +18,7 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 import {
+    CarstoreEvm,
     DatasetMetadataEvm,
     DatasetRequirementEvm,
     DatasetChallengeEvm,
@@ -31,6 +32,7 @@ import {
     FilplusEvm,
     RolesEvm,
 } from "@dataswapjs/dataswapjs"
+import carstoreAbi from "@dataswapcore/contracts/abi/v0.8/Carstore.json"
 import datasetMetaAbi from "@dataswapcore/contracts/abi/v0.8/Datasets.json"
 import datasetsRequirementAbi from "@dataswapcore/contracts/abi/v0.8/DatasetsRequirement.json"
 import datasetsProofAbi from "@dataswapcore/contracts/abi/v0.8/DatasetsProof.json"
@@ -45,6 +47,17 @@ import filplusAbi from "@dataswapcore/contracts/abi/v0.8/Filplus.json"
 import rolesAbi from "@dataswapcore/contracts/abi/v0.8/Roles.json"
 import * as dotenv from "dotenv"
 dotenv.config()
+
+export const carstoreEvm_Calibration = new CarstoreEvm(
+    carstoreAbi,
+    "0xC7FBF8Df0A6E584A17361e7E4287EE3a1F72b7b5",
+    process.env.CALIBRATION_LOTUS_PROVIDER_URL
+)
+export const carstoreEvm_Main = new CarstoreEvm(
+    carstoreAbi,
+    "0x7777777777777777777777777777777777777777",
+    process.env.MAIN_LOTUS_PROVIDER_URL
+)
 
 export const datasetMetadataEvm_Calibration = new DatasetMetadataEvm(
     datasetMetaAbi,
