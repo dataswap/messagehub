@@ -120,6 +120,17 @@ describe("AppController (e2e)", () => {
             })
             .expect(201)
     }, 30000)
+    it("/carreplica/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/carreplica/query")
+            .send({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ carId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            .expect(201)
+    }, 30000)
 
     it("/syncstatus/query (POST)", async () => {
         return request(app.getHttpServer())
