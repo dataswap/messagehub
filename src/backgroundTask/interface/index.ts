@@ -42,7 +42,12 @@ import {
     DataswapMessage,
     DataswapMessageMongoDatastore,
     DatasetMetadataMongoDatastore,
+    DatasetRequirementMongoDatastore,
+    DatasetProofMetadataMongoDatastore,
     CarMongoDatastore,
+    CarstoreEvm,
+    MatchingMetadataMongoDatastore,
+    MatchingTargetMongoDatastore,
     CarReplicaMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import { InternalSelectedParamsMap } from "./config"
@@ -61,6 +66,7 @@ export interface ChainContext {
  * Configuration for Evm context.
  */
 export interface EvmContext {
+    carstore: CarstoreEvm
     escrow: EscrowEvm
     filplus: FilplusEvm
     roles: RolesEvm
@@ -85,6 +91,10 @@ export interface DatastoreContext {
     tipset: TipsetMongoDatastore
     dataswapMessage: DataswapMessageMongoDatastore
     datasetMetadata: DatasetMetadataMongoDatastore
+    datasetRequirement: DatasetRequirementMongoDatastore
+    datasetProofMetadata: DatasetProofMetadataMongoDatastore
+    matchingMetadata: MatchingMetadataMongoDatastore
+    matchingTarget: MatchingTargetMongoDatastore
     car: CarMongoDatastore
     carReplica: CarReplicaMongoDatastore
 }

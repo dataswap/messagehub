@@ -35,7 +35,11 @@ import {
 import {
     DataswapMessageMongoDatastore,
     DatasetMetadataMongoDatastore,
+    DatasetRequirementMongoDatastore,
+    DatasetProofMetadataMongoDatastore,
     CarMongoDatastore,
+    MatchingMetadataMongoDatastore,
+    MatchingTargetMongoDatastore,
     CarReplicaMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import { getFilecoinAddress } from "../../shared/address"
@@ -91,6 +95,18 @@ export class Context implements IContext {
         this.datastore.car = new CarMongoDatastore(
             this.datastore.baseConnection
         )
+        this.datastore.datasetRequirement =
+            new DatasetRequirementMongoDatastore(this.datastore.baseConnection)
+        this.datastore.datasetProofMetadata =
+            new DatasetProofMetadataMongoDatastore(
+                this.datastore.baseConnection
+            )
+        this.datastore.matchingMetadata = new MatchingMetadataMongoDatastore(
+            this.datastore.baseConnection
+        )
+        this.datastore.matchingTarget = new MatchingTargetMongoDatastore(
+            this.datastore.baseConnection
+        )
         this.datastore.carReplica = new CarReplicaMongoDatastore(
             this.datastore.baseConnection
         )
@@ -118,6 +134,7 @@ export class Context implements IContext {
             },
         })
 
+        this.evm.carstore = config.evm.carstore
         this.evm.roles = config.evm.roles
         this.evm.filplus = config.evm.filplus
         this.evm.escrow = config.evm.escrow
