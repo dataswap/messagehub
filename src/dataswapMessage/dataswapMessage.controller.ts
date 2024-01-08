@@ -54,4 +54,15 @@ export class DataswapMessageController {
     ): Promise<Result<ValueFields<DataswapMessage>[]>> {
         return await this.messageService.find(queryParam)
     }
+
+    /**
+     * Gets a total count.
+     * @returns A number representing a total count by query param.
+     */
+    @Post("total")
+    async total(
+        @Body() queryParam: QueryParam<DataswapMessage>
+    ): Promise<Result<number>> {
+        return await this.messageService.total(queryParam)
+    }
 }

@@ -58,4 +58,15 @@ export class DatasetMetadataController {
     ): Promise<Result<ValueFields<DatasetMetadata>[]>> {
         return await this.datasetMetadataService.find(queryParam)
     }
+
+    /**
+     * Gets a total count.
+     * @returns A number representing a total count by query param.
+     */
+    @Post("total")
+    async total(
+        @Body() queryParam: QueryParam<DatasetMetadata>
+    ): Promise<Result<number>> {
+        return await this.datasetMetadataService.total(queryParam)
+    }
 }
