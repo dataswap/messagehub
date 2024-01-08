@@ -45,6 +45,8 @@ describe("BackgroundTask", () => {
             await calibrationBgTask.context.datastore.datasetProofMetadata.find(
                 {}
             )
+        const matchingMetadata =
+            await calibrationBgTask.context.datastore.matchingMetadata.find({})
 
         expect(tipsets.data.length > 0).toBe(true)
         expect(blocks.data.length > 0).toBe(true)
@@ -55,5 +57,6 @@ describe("BackgroundTask", () => {
         expect(carReplica.data.length >= 0).toBe(true)
         expect(datasetRequirement.data.length >= 0).toBe(true)
         expect(datasetProofMetadata.data.length >= 0).toBe(true)
+        expect(matchingMetadata.data.length >= 0).toBe(true)
     }, 100000)
 })

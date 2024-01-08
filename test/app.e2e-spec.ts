@@ -153,6 +153,17 @@ describe("AppController (e2e)", () => {
             })
             .expect(201)
     }, 30000)
+    it("/matchingmetadata/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/matchingmetadata/query")
+            .send({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ matchingId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            .expect(201)
+    }, 30000)
 
     it("/syncstatus/query (POST)", async () => {
         return request(app.getHttpServer())
