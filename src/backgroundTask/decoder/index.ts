@@ -47,83 +47,183 @@ export class Decoder implements IDecoder {
             pendingChainInfo.messages.forEach((msg) => {
                 switch (msg.Msg.To) {
                     case getFilecoinAddress(this.context.evm.datasetMetadata):
-                        res.push(
-                            this.context.evm.datasetMetadata.decodeMessage(msg)
-                                .data
-                        )
+                        const datasetMetadata =
+                            this.context.evm.datasetMetadata.decodeMessage(
+                                msg
+                            ).data
+                        if (datasetMetadata) {
+                            res.push(datasetMetadata)
+                        } else {
+                            console.error(
+                                `Decode datasetMetadata error,:${datasetMetadata}`
+                            )
+                            throw new Error(
+                                `Decode datasetMetadata error,:${datasetMetadata}`
+                            )
+                        }
                         break
 
                     case getFilecoinAddress(
                         this.context.evm.datasetRequirement
                     ):
-                        res.push(
+                        const datasetRequirement =
                             this.context.evm.datasetRequirement.decodeMessage(
                                 msg
                             ).data
-                        )
+                        if (datasetRequirement) {
+                            res.push(datasetRequirement)
+                        } else {
+                            console.error(
+                                `Decode datasetRequirement error,:${datasetRequirement}`
+                            )
+                            throw new Error(
+                                `Decode datasetRequirement error,:${datasetRequirement}`
+                            )
+                        }
                         break
 
                     case getFilecoinAddress(this.context.evm.datasetProof):
-                        res.push(
-                            this.context.evm.datasetProof.decodeMessage(msg)
-                                .data
-                        )
+                        const datasetProof =
+                            this.context.evm.datasetProof.decodeMessage(
+                                msg
+                            ).data
+                        if (datasetProof) {
+                            res.push(datasetProof)
+                        } else {
+                            console.error(
+                                `Decode datasetProof error,:${datasetProof}`
+                            )
+                            throw new Error(
+                                `Decode datasetProof error,:${datasetProof}`
+                            )
+                        }
                         break
 
                     case getFilecoinAddress(this.context.evm.datasetChallenge):
-                        res.push(
-                            this.context.evm.datasetChallenge.decodeMessage(msg)
-                                .data
-                        )
+                        const datasetChallenge =
+                            this.context.evm.datasetChallenge.decodeMessage(
+                                msg
+                            ).data
+                        if (datasetChallenge) {
+                            res.push(datasetChallenge)
+                        } else {
+                            console.error(
+                                `Decode datasetChallenge error,:${datasetChallenge}`
+                            )
+                            throw new Error(
+                                `Decode datasetChallenge error,:${datasetChallenge}`
+                            )
+                        }
                         break
 
                     case getFilecoinAddress(this.context.evm.matchingMetadata):
-                        res.push(
-                            this.context.evm.matchingMetadata.decodeMessage(msg)
-                                .data
-                        )
+                        const matchingMetadata =
+                            this.context.evm.matchingMetadata.decodeMessage(
+                                msg
+                            ).data
+                        if (matchingMetadata) {
+                            res.push(matchingMetadata)
+                        } else {
+                            console.error(
+                                `Decode matchingMetadata error,:${matchingMetadata}`
+                            )
+                            throw new Error(
+                                `Decode matchingMetadata error,:${matchingMetadata}`
+                            )
+                        }
                         break
 
                     case getFilecoinAddress(this.context.evm.matchingTarget):
-                        res.push(
-                            this.context.evm.matchingTarget.decodeMessage(msg)
-                                .data
-                        )
+                        const matchingTarget =
+                            this.context.evm.matchingTarget.decodeMessage(
+                                msg
+                            ).data
+                        if (matchingTarget) {
+                            res.push(matchingTarget)
+                        } else {
+                            console.error(
+                                `Decode matchingTarget error,:${matchingTarget}`
+                            )
+                            throw new Error(
+                                `Decode matchingTarget error,:${matchingTarget}`
+                            )
+                        }
                         break
 
                     case getFilecoinAddress(this.context.evm.matchingBids):
-                        res.push(
-                            this.context.evm.matchingBids.decodeMessage(msg)
-                                .data
-                        )
+                        const matchingBids =
+                            this.context.evm.matchingBids.decodeMessage(
+                                msg
+                            ).data
+                        if (matchingBids) {
+                            res.push(matchingBids)
+                        } else {
+                            console.error(
+                                `Decode matchingBids error,:${matchingBids}`
+                            )
+                            throw new Error(
+                                `Decode matchingBids error,:${matchingBids}`
+                            )
+                        }
                         break
 
                     case getFilecoinAddress(this.context.evm.storages):
-                        res.push(
+                        const storages =
                             this.context.evm.storages.decodeMessage(msg).data
-                        )
+                        if (storages) {
+                            res.push(storages)
+                        } else {
+                            console.error(`Decode storages error,:${storages}`)
+                            throw new Error(
+                                `Decode storages error,:${storages}`
+                            )
+                        }
                         break
 
                     case getFilecoinAddress(this.context.evm.datacaps):
-                        res.push(
+                        const datacaps =
                             this.context.evm.datacaps.decodeMessage(msg).data
-                        )
+                        if (datacaps) {
+                            res.push(datacaps)
+                        } else {
+                            console.error(`Decode datacaps error,:${datacaps}`)
+                            throw new Error(
+                                `Decode datacaps error,:${datacaps}`
+                            )
+                        }
                         break
 
                     case getFilecoinAddress(this.context.evm.roles):
-                        res.push(this.context.evm.roles.decodeMessage(msg).data)
+                        const roles =
+                            this.context.evm.roles.decodeMessage(msg).data
+                        if (roles) {
+                            res.push(roles)
+                        } else {
+                            console.error(`Decode roles error,:${roles}`)
+                            throw new Error(`Decode roles error,:${roles}`)
+                        }
                         break
 
                     case getFilecoinAddress(this.context.evm.filplus):
-                        res.push(
+                        const filplus =
                             this.context.evm.filplus.decodeMessage(msg).data
-                        )
+                        if (filplus) {
+                            res.push(filplus)
+                        } else {
+                            console.error(`Decode filplus error,:${filplus}`)
+                            throw new Error(`Decode filplus error,:${filplus}`)
+                        }
                         break
 
                     case getFilecoinAddress(this.context.evm.escrow):
-                        res.push(
+                        const escrow =
                             this.context.evm.escrow.decodeMessage(msg).data
-                        )
+                        if (escrow) {
+                            res.push(escrow)
+                        } else {
+                            console.error(`Decode escrow error,:${escrow}`)
+                            throw new Error(`Decode escrow error,:${escrow}`)
+                        }
                         break
 
                     default:
