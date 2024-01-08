@@ -24,6 +24,8 @@ import { Syncer } from "../backgroundTask/syncer"
 import { Decoder } from "../backgroundTask/decoder"
 import { Storager } from "../backgroundTask/storager"
 import {
+    carstoreEvm_Calibration,
+    carstoreEvm_Main,
     datacapsEvm_Calibration,
     datacapsEvm_Main,
     datasetChallengeEvm_Calibration,
@@ -64,6 +66,7 @@ export const calibrationConfig: Config = {
             : (process.env.CALIBRATION_MONGO_URL as string),
     startHeight: Number(process.env.CALIBRATION_START_HEIGHT as string),
     evm: {
+        carstore: carstoreEvm_Calibration,
         datasetMetadata: datasetMetadataEvm_Calibration,
         datasetRequirement: datasetRequirementEvm_Calibration,
         datasetProof: datasetProofEvm_Calibration,
@@ -91,6 +94,7 @@ export const mainConfig: Config = {
             : (process.env.MAIN_MONGO_URL as string),
     startHeight: Number(process.env.MAIN_START_HEIGHT as string),
     evm: {
+        carstore: carstoreEvm_Main,
         datasetMetadata: datasetMetadataEvm_Main,
         datasetRequirement: datasetRequirementEvm_Main,
         datasetProof: datasetProofEvm_Main,

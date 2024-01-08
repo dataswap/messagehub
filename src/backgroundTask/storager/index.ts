@@ -21,7 +21,19 @@
 import { Context } from "../context"
 import { IStorager, SelectedParams } from "../interface"
 import { Chain } from "@unipackage/filecoin"
-import { DatasetMetadata, DataswapMessage } from "@dataswapjs/dataswapjs"
+import {
+    DatasetMetadata,
+    DatasetProofMetadata,
+    DatasetProofs,
+    DatasetRequirements,
+    DataswapMessage,
+    MatchingMetadata,
+    MatchingTarget,
+    convertToCarArray,
+    convertToCarReplicasArray,
+    convertToRequirementArray,
+    mergeMatchingTarget,
+} from "@dataswapjs/dataswapjs"
 
 /**
  * Represents a connection to a Filecoin network.
@@ -122,8 +134,78 @@ export class Storager implements IStorager {
                             selected.params as DatasetMetadata
                         )
                     case "submitDatasetReplicaRequirements":
-                        throw new Error("not implement")
-                    //TODO: add other methods
+                        const requirements = convertToRequirementArray(
+                            selected.params as DatasetRequirements
+                        )
+                        for (let i = 0; i < requirements.length; i++) {
+                            const ret =
+                                await this.context.datastore.datasetRequirement.CreateOrupdateByUniqueIndexes(
+                                    requirements[i]
+                                )
+                            if (!ret.ok) {
+                                throw ret.error
+                            }
+                        }
+                        break
+                    case "submitDatasetProofRoot":
+                        return this.context.datastore.datasetProofMetadata.CreateOrupdateByUniqueIndexes(
+                            selected.params as DatasetProofMetadata
+                        )
+                    case "submitDatasetProof":
+                        const cars = await convertToCarArray({
+                            carstorEvm: this.context.evm.carstore,
+                            requirementEvm: this.context.evm.datasetRequirement,
+                            proofs: selected.params as DatasetProofs,
+                        })
+                        for (let i = 0; i < cars.length; i++) {
+                            const ret =
+                                await this.context.datastore.car.CreateOrupdateByUniqueIndexes(
+                                    cars[i]
+                                )
+                            if (!ret.ok) {
+                                throw ret.error
+                            }
+                        }
+                        break
+                    case "createMatching":
+                        return this.context.datastore.matchingMetadata.CreateOrupdateByUniqueIndexes(
+                            selected.params as MatchingMetadata
+                        )
+                    case "createTarget":
+                        return this.context.datastore.matchingTarget.CreateOrupdateByUniqueIndexes(
+                            selected.params as MatchingTarget
+                        )
+                    case "publishMatching":
+                        const targetParam = selected.params as MatchingTarget
+                        const carReplicas = await convertToCarReplicasArray({
+                            carstorEvm: this.context.evm.carstore,
+                            target: targetParam,
+                        })
+                        for (let i = 0; i < carReplicas.length; i++) {
+                            const ret =
+                                await this.context.datastore.carReplica.CreateOrupdateByUniqueIndexes(
+                                    carReplicas[i]
+                                )
+                            if (!ret.ok) {
+                                throw ret.error
+                            }
+                        }
+                        const target =
+                            await this.context.evm.matchingTarget.getMatchingTarget(
+                                targetParam.matchingId
+                            )
+                        if (!target.ok) {
+                            throw target.error
+                        }
+                        if (!target.data) {
+                            throw new Error(
+                                "Get matchingtarget on chain failed"
+                            )
+                        }
+                        this.context.datastore.matchingTarget.CreateOrupdateByUniqueIndexes(
+                            target.data as MatchingTarget
+                        )
+                        break
                     default:
                         throw new Error("Error selected method and params")
                 }
