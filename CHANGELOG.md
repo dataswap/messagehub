@@ -1,5 +1,18 @@
 
 
+# [0.8.0](https://github.com/dataswap/messagehub/compare/0.7.0...0.8.0) (2024-01-09)
+
+
+### Bug Fixes
+
+* 🐛 add detail error info ([5645dfc](https://github.com/dataswap/messagehub/commit/5645dfc37f775e15daa32469ab07f0ebf45e7f20))
+* 🐛 promise bug ([a79dd4b](https://github.com/dataswap/messagehub/commit/a79dd4be6a37e46121bea8614b5415986ca32063))
+
+
+### Features
+
+* 🎸 Add matchingTarget API and test code ([29b2714](https://github.com/dataswap/messagehub/commit/29b2714baa551e750aeae0dadda042e971befde9)), closes [#33](https://github.com/dataswap/messagehub/issues/33)
+
 # [0.7.0](https://github.com/dataswap/messagehub/compare/0.6.0...0.7.0) (2024-01-09)
 
 
