@@ -31,7 +31,7 @@ import {
     MatchingTarget,
     convertToRequirementArray,
     storeCars,
-    storeCarReplicass,
+    storeCarReplicas,
     storeMatchingtarget,
 } from "@dataswapjs/dataswapjs"
 import { Result } from "@unipackage/utils"
@@ -194,7 +194,7 @@ export class Storager implements IStorager {
 
                     case "publishMatching":
                         doStores.push(
-                            storeCarReplicass({
+                            storeCarReplicas({
                                 carReplicaDatastore:
                                     this.context.datastore.carReplica,
                                 target: selected.params as MatchingTarget,
