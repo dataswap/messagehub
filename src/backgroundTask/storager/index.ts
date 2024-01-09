@@ -29,9 +29,10 @@ import {
     DataswapMessage,
     MatchingMetadata,
     MatchingTarget,
-    convertToCarArray,
-    convertToCarReplicasArray,
     convertToRequirementArray,
+    storeCars,
+    storeCarReplicass,
+    storeMatchingtarget,
 } from "@dataswapjs/dataswapjs"
 import { Result } from "@unipackage/utils"
 
@@ -164,18 +165,15 @@ export class Storager implements IStorager {
                         break
 
                     case "submitDatasetProof":
-                        const cars = await convertToCarArray({
-                            carstorEvm: this.context.evm.carstore,
-                            requirementEvm: this.context.evm.datasetRequirement,
-                            proofs: selected.params as DatasetProofs,
-                        })
-                        for (let i = 0; i < cars.length; i++) {
-                            doStores.push(
-                                this.context.datastore.car.CreateOrupdateByUniqueIndexes(
-                                    cars[i]
-                                )
-                            )
-                        }
+                        doStores.push(
+                            storeCars({
+                                carstoreEvm: this.context.evm.carstore,
+                                requirementEvm:
+                                    this.context.evm.datasetRequirement,
+                                carDatastore: this.context.datastore.car,
+                                proofs: selected.params as DatasetProofs,
+                            })
+                        )
                         break
 
                     case "createMatching":
@@ -195,36 +193,21 @@ export class Storager implements IStorager {
                         break
 
                     case "publishMatching":
-                        const targetParam = selected.params as MatchingTarget
-                        const carReplicas = await convertToCarReplicasArray({
-                            carstorEvm: this.context.evm.carstore,
-                            target: targetParam,
-                        })
-                        for (let i = 0; i < carReplicas.length; i++) {
-                            doStores.push(
-                                this.context.datastore.carReplica.CreateOrupdateByUniqueIndexes(
-                                    carReplicas[i]
-                                )
-                            )
-                        }
-
-                        //TODO:
-                        const target =
-                            await this.context.evm.matchingTarget.getMatchingTarget(
-                                targetParam.matchingId
-                            )
-                        if (!target.ok) {
-                            throw new Error(
-                                `storeSelectedParams-getMatchingTarget error:${target.error}`
-                            )
-                        }
-                        if (!target.data) {
-                            throw new Error(
-                                "storeSelectedParams-Get matchingtarget on chain failed"
-                            )
-                        }
-                        this.context.datastore.matchingTarget.CreateOrupdateByUniqueIndexes(
-                            target.data as MatchingTarget
+                        doStores.push(
+                            storeCarReplicass({
+                                carReplicaDatastore:
+                                    this.context.datastore.carReplica,
+                                target: selected.params as MatchingTarget,
+                            })
+                        )
+                        doStores.push(
+                            storeMatchingtarget({
+                                matchingTargetEvm:
+                                    this.context.evm.matchingTarget,
+                                matchingTargetDatastore:
+                                    this.context.datastore.matchingTarget,
+                                target: selected.params as MatchingTarget,
+                            })
                         )
                         break
 
