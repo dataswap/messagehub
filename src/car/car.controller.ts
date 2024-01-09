@@ -56,4 +56,13 @@ export class CarController {
     ): Promise<Result<ValueFields<Car>[]>> {
         return await this.carService.find(queryParam)
     }
+
+    /**
+     * Gets a total count.
+     * @returns A number representing a total count by query param.
+     */
+    @Post("total")
+    async total(@Body() queryParam: QueryParam<Car>): Promise<Result<number>> {
+        return await this.carService.total(queryParam)
+    }
 }

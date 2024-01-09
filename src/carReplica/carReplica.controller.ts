@@ -56,4 +56,15 @@ export class CarReplicaController {
     ): Promise<Result<ValueFields<CarReplica>[]>> {
         return await this.carReplicaService.find(queryParam)
     }
+
+    /**
+     * Gets a total count.
+     * @returns A number representing a total count by query param.
+     */
+    @Post("total")
+    async total(
+        @Body() queryParam: QueryParam<CarReplica>
+    ): Promise<Result<number>> {
+        return await this.carReplicaService.total(queryParam)
+    }
 }
