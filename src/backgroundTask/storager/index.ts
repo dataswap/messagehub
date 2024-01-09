@@ -32,8 +32,8 @@ import {
     convertToCarArray,
     convertToCarReplicasArray,
     convertToRequirementArray,
-    mergeMatchingTarget,
 } from "@dataswapjs/dataswapjs"
+import { Result } from "@unipackage/utils"
 
 /**
  * Represents a connection to a Filecoin network.
@@ -130,32 +130,39 @@ export class Storager implements IStorager {
         selectedParams: Array<SelectedParams>
     ): Promise<void> {
         try {
-            const doStores = selectedParams.map(async (selected) => {
+            const doStores: Promise<Result<any>>[] = []
+
+            selectedParams.map(async (selected) => {
                 switch (selected.method) {
                     case "submitDatasetMetadata":
-                        return this.context.datastore.datasetMetadata.CreateOrupdateByUniqueIndexes(
-                            selected.params as DatasetMetadata
+                        doStores.push(
+                            this.context.datastore.datasetMetadata.CreateOrupdateByUniqueIndexes(
+                                selected.params as DatasetMetadata
+                            )
                         )
+                        break
+
                     case "submitDatasetReplicaRequirements":
                         const requirements = convertToRequirementArray(
                             selected.params as DatasetRequirements
                         )
                         for (let i = 0; i < requirements.length; i++) {
-                            const ret =
-                                await this.context.datastore.datasetRequirement.CreateOrupdateByUniqueIndexes(
+                            doStores.push(
+                                this.context.datastore.datasetRequirement.CreateOrupdateByUniqueIndexes(
                                     requirements[i]
                                 )
-                            if (!ret.ok) {
-                                throw new Error(
-                                    `storeSelectedParams-submitDatasetReplicaRequirements error:${ret.error}`
-                                )
-                            }
+                            )
                         }
                         break
+
                     case "submitDatasetProofRoot":
-                        return this.context.datastore.datasetProofMetadata.CreateOrupdateByUniqueIndexes(
-                            selected.params as DatasetProofMetadata
+                        doStores.push(
+                            this.context.datastore.datasetProofMetadata.CreateOrupdateByUniqueIndexes(
+                                selected.params as DatasetProofMetadata
+                            )
                         )
+                        break
+
                     case "submitDatasetProof":
                         const cars = await convertToCarArray({
                             carstorEvm: this.context.evm.carstore,
@@ -163,25 +170,30 @@ export class Storager implements IStorager {
                             proofs: selected.params as DatasetProofs,
                         })
                         for (let i = 0; i < cars.length; i++) {
-                            const ret =
-                                await this.context.datastore.car.CreateOrupdateByUniqueIndexes(
+                            doStores.push(
+                                this.context.datastore.car.CreateOrupdateByUniqueIndexes(
                                     cars[i]
                                 )
-                            if (!ret.ok) {
-                                throw new Error(
-                                    `storeSelectedParams-submitDatasetProof error:${ret.error}`
-                                )
-                            }
+                            )
                         }
                         break
+
                     case "createMatching":
-                        return this.context.datastore.matchingMetadata.CreateOrupdateByUniqueIndexes(
-                            selected.params as MatchingMetadata
+                        doStores.push(
+                            this.context.datastore.matchingMetadata.CreateOrupdateByUniqueIndexes(
+                                selected.params as MatchingMetadata
+                            )
                         )
+                        break
+
                     case "createTarget":
-                        return this.context.datastore.matchingTarget.CreateOrupdateByUniqueIndexes(
-                            selected.params as MatchingTarget
+                        doStores.push(
+                            this.context.datastore.matchingTarget.CreateOrupdateByUniqueIndexes(
+                                selected.params as MatchingTarget
+                            )
                         )
+                        break
+
                     case "publishMatching":
                         const targetParam = selected.params as MatchingTarget
                         const carReplicas = await convertToCarReplicasArray({
@@ -189,16 +201,14 @@ export class Storager implements IStorager {
                             target: targetParam,
                         })
                         for (let i = 0; i < carReplicas.length; i++) {
-                            const ret =
-                                await this.context.datastore.carReplica.CreateOrupdateByUniqueIndexes(
+                            doStores.push(
+                                this.context.datastore.carReplica.CreateOrupdateByUniqueIndexes(
                                     carReplicas[i]
                                 )
-                            if (!ret.ok) {
-                                throw new Error(
-                                    `storeSelectedParams-publishMatching error:${ret.error}`
-                                )
-                            }
+                            )
                         }
+
+                        //TODO:
                         const target =
                             await this.context.evm.matchingTarget.getMatchingTarget(
                                 targetParam.matchingId
@@ -217,6 +227,7 @@ export class Storager implements IStorager {
                             target.data as MatchingTarget
                         )
                         break
+
                     default:
                         throw new Error(
                             "storeSelectedParams-Error selected method and params"
