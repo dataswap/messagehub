@@ -1,5 +1,29 @@
 
 
+# [0.7.0](https://github.com/dataswap/messagehub/compare/0.6.0...0.7.0) (2024-01-09)
+
+
+### Bug Fixes
+
+* 🐛 catch errors ([9c31223](https://github.com/dataswap/messagehub/commit/9c3122379e3094a1bf554edc260e68208562f68f))
+* 🐛 confirm whether it is running normally ([1cb7677](https://github.com/dataswap/messagehub/commit/1cb76773ea02bc815201eaa9bd659490154da1b2)), closes [#37](https://github.com/dataswap/messagehub/issues/37)
+* 🐛 debug synchronization error ([1d4c1c6](https://github.com/dataswap/messagehub/commit/1d4c1c6eac9785422e2ae24479f27a1a60008c30)), closes [#52](https://github.com/dataswap/messagehub/issues/52)
+* 🐛 Dockerfile adds code build ([feb1ccb](https://github.com/dataswap/messagehub/commit/feb1ccbd890758fede4359c9c018a6387fb27c8b))
+* 🐛 Resolve code conflicts ([4688811](https://github.com/dataswap/messagehub/commit/468881179b02072260c9f3c3161051f97fa1ee89)), closes [#50](https://github.com/dataswap/messagehub/issues/50)
+* 🐛 update height ([499a879](https://github.com/dataswap/messagehub/commit/499a879e508703e9a33d5ae6db1371c1b749d1f1))
+
+
+### Features
+
+* 🎸 Add car API and test code ([50b6338](https://github.com/dataswap/messagehub/commit/50b63383bc54f62b0c6450256891a27eb496b895)), closes [#34](https://github.com/dataswap/messagehub/issues/34)
+* 🎸 Add carReplica api and test code ([e909d9a](https://github.com/dataswap/messagehub/commit/e909d9ae87dd0c54c3b1fbe2302c39790f2a998e)), closes [#35](https://github.com/dataswap/messagehub/issues/35)
+* 🎸 Add datasetProofMetadata API and test code ([e0f32be](https://github.com/dataswap/messagehub/commit/e0f32be84f8ab0562d3348b24ae5316cb43a55cf)), closes [#36](https://github.com/dataswap/messagehub/issues/36)
+* 🎸 Add datasetRequirement api and test code ([1de5040](https://github.com/dataswap/messagehub/commit/1de5040bb415f0218b4dd695f93da57075aefab0)), closes [#31](https://github.com/dataswap/messagehub/issues/31)
+* 🎸 add full selected ([dd722e8](https://github.com/dataswap/messagehub/commit/dd722e8456370952fba07a2beca1770821182113)), closes [#11](https://github.com/dataswap/messagehub/issues/11)
+* 🎸 Add matchingMetadata API and test code ([d39b87c](https://github.com/dataswap/messagehub/commit/d39b87c235a9187cd9598e7aac3f273aa33f35b3)), closes [#32](https://github.com/dataswap/messagehub/issues/32)
+* 🎸 allow cors ([9efef57](https://github.com/dataswap/messagehub/commit/9efef5753ed3da04e268796420d36b53dc0257c3))
+* 🎸 support total ([65f1245](https://github.com/dataswap/messagehub/commit/65f124511e3d5e75806fcf3c602476c77ee5b388))
+
 # [0.6.0](https://github.com/dataswap/messagehub/compare/0.5.0...0.6.0) (2024-01-07)
 
 
