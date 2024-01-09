@@ -43,6 +43,8 @@ import { DatasetProofMetadataController } from "./datasetProofMetadata/datasetPr
 import { DatasetProofMetadataService } from "./datasetProofMetadata/datasetProofMetadata.service"
 import { MatchingMetadataController } from "./matchingMetadata/matchingMetadata.controller"
 import { MatchingMetadataService } from "./matchingMetadata/matchingMetadata.service"
+import { MatchingTargetController } from "./matchingTarget/matchingTarget.controller"
+import { MatchingTargetService } from "./matchingTarget/matchingTarget.service"
 import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.service"
 
 /**
@@ -63,6 +65,7 @@ import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.
         DatasetRequirementController,
         DatasetProofMetadataController,
         MatchingMetadataController,
+        MatchingTargetController,
     ],
     providers: [
         VersionService,
@@ -78,6 +81,7 @@ import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.
         DatasetRequirementService,
         DatasetProofMetadataService,
         MatchingMetadataService,
+        MatchingTargetService,
     ],
 })
 export class AppModule {}
