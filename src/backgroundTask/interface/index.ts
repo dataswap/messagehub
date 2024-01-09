@@ -49,9 +49,6 @@ import {
     MatchingMetadataMongoDatastore,
     MatchingTargetMongoDatastore,
     CarReplicaMongoDatastore,
-    DatasetRequirementMongoDatastore,
-    DatasetProofMetadataMongoDatastore,
-    MatchingMetadataMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import { InternalSelectedParamsMap } from "./config"
 import { DatabaseConnection } from "@unipackage/datastore"
@@ -100,9 +97,6 @@ export interface DatastoreContext {
     matchingTarget: MatchingTargetMongoDatastore
     car: CarMongoDatastore
     carReplica: CarReplicaMongoDatastore
-    datasetRequirement: DatasetRequirementMongoDatastore
-    datasetProofMetadata: DatasetProofMetadataMongoDatastore
-    matchingMetadata: MatchingMetadataMongoDatastore
 }
 
 /**

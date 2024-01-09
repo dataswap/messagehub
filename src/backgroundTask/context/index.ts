@@ -41,9 +41,6 @@ import {
     MatchingMetadataMongoDatastore,
     MatchingTargetMongoDatastore,
     CarReplicaMongoDatastore,
-    DatasetRequirementMongoDatastore,
-    DatasetProofMetadataMongoDatastore,
-    MatchingMetadataMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import { getFilecoinAddress } from "../../shared/address"
 import { DatabaseConnection } from "@unipackage/datastore"
