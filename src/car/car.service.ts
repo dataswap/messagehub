@@ -45,4 +45,18 @@ export class CarService {
         }
         return await bgTask.context.datastore.car.find(queryParam.queryFilter)
     }
+
+    /**
+     * Gets a total count.
+     * @returns A number representing a total count by query param.
+     */
+    async total(queryParam: QueryParam<Car>): Promise<Result<number>> {
+        let bgTask: BackgroundTask
+        if (queryParam.network === "calibration") {
+            bgTask = calibrationBgTask
+        } else {
+            bgTask = mainBgTask
+        }
+        return await bgTask.context.datastore.car.total(queryParam.queryFilter)
+    }
 }

@@ -47,4 +47,20 @@ export class CarReplicaService {
             queryParam.queryFilter
         )
     }
+
+    /**
+     * Gets a total count.
+     * @returns A number representing a total count by query param.
+     */
+    async total(queryParam: QueryParam<CarReplica>): Promise<Result<number>> {
+        let bgTask: BackgroundTask
+        if (queryParam.network === "calibration") {
+            bgTask = calibrationBgTask
+        } else {
+            bgTask = mainBgTask
+        }
+        return await bgTask.context.datastore.carReplica.total(
+            queryParam.queryFilter
+        )
+    }
 }
