@@ -58,7 +58,7 @@ export class Storager implements IStorager {
             sort: [{ field: "Height", order: "desc" }],
         })
         if (!res.ok) {
-            throw new Error("getLatestSyncedHeight failed!")
+            throw new Error(`getLatestSyncedHeight error:${res.error}`)
         }
         if (res.data && res.data.length > 0) {
             return res.data[0].Height
@@ -95,7 +95,7 @@ export class Storager implements IStorager {
     async storeChainInfo(chain: Chain): Promise<void> {
         const res = await this.context.chain.service.SaveChainInfo(chain)
         if (!res.ok) {
-            throw new Error(res.error)
+            throw new Error(`storeChainInfo error:${res.error}`)
         }
     }
 
@@ -113,10 +113,13 @@ export class Storager implements IStorager {
             )
             const res = await Promise.all(doStores)
             res.map((result) => {
-                if (!result.ok) throw new Error(result.error)
+                if (!result.ok)
+                    throw new Error(
+                        `storeDataswapMessages error_do_stores:${result.error}`
+                    )
             })
         } catch (error) {
-            throw new Error(error)
+            throw new Error(`storeDataswapMessages error:${error}`)
         }
     }
 
@@ -143,7 +146,9 @@ export class Storager implements IStorager {
                                     requirements[i]
                                 )
                             if (!ret.ok) {
-                                throw ret.error
+                                throw new Error(
+                                    `storeSelectedParams-submitDatasetReplicaRequirements error:${ret.error}`
+                                )
                             }
                         }
                         break
@@ -163,7 +168,9 @@ export class Storager implements IStorager {
                                     cars[i]
                                 )
                             if (!ret.ok) {
-                                throw ret.error
+                                throw new Error(
+                                    `storeSelectedParams-submitDatasetProof error:${ret.error}`
+                                )
                             }
                         }
                         break
@@ -187,7 +194,9 @@ export class Storager implements IStorager {
                                     carReplicas[i]
                                 )
                             if (!ret.ok) {
-                                throw ret.error
+                                throw new Error(
+                                    `storeSelectedParams-publishMatching error:${ret.error}`
+                                )
                             }
                         }
                         const target =
@@ -195,11 +204,13 @@ export class Storager implements IStorager {
                                 targetParam.matchingId
                             )
                         if (!target.ok) {
-                            throw target.error
+                            throw new Error(
+                                `storeSelectedParams-getMatchingTarget error:${target.error}`
+                            )
                         }
                         if (!target.data) {
                             throw new Error(
-                                "Get matchingtarget on chain failed"
+                                "storeSelectedParams-Get matchingtarget on chain failed"
                             )
                         }
                         this.context.datastore.matchingTarget.CreateOrupdateByUniqueIndexes(
@@ -207,15 +218,18 @@ export class Storager implements IStorager {
                         )
                         break
                     default:
-                        throw new Error("Error selected method and params")
+                        throw new Error(
+                            "storeSelectedParams-Error selected method and params"
+                        )
                 }
             })
             const results = await Promise.all(doStores)
             results.forEach((res) => {
-                if (!res.ok) throw new Error(res.error)
+                if (!res.ok)
+                    throw new Error(`storeSelectedParams error_1:${res.error}`)
             })
         } catch (error) {
-            throw new Error(error)
+            throw new Error(`storeSelectedParams error_2:${error}`)
         }
     }
 }

@@ -232,7 +232,7 @@ export class Decoder implements IDecoder {
             })
             return res
         } catch (error) {
-            throw new Error(error)
+            throw new Error(`getPendingDataswapMessages error:${error}`)
         }
     }
 
@@ -256,7 +256,7 @@ export class Decoder implements IDecoder {
 
             return res
         } catch (error) {
-            throw new Error(error)
+            throw new Error(`getPendingSelectedParams error:${error}`)
         }
     }
 }

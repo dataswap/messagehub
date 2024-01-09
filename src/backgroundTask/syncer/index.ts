@@ -55,7 +55,7 @@ export class Syncer implements ISyncer {
         const res =
             await this.context.chain.service.GetChainInfoByHeight(height)
         if (!res.ok) {
-            throw new Error(res.error)
+            throw new Error(`getPendingChainInfo error:${res.error}`)
         }
         if (res.data.tipset.Height < height) {
             res.data = null as Chain
