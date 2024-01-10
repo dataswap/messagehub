@@ -41,10 +41,12 @@ jobs:
          echo "CALIBRATION_LOTUS_PROVIDER_URL= ${{ vars.CALIBRATION_LOTUS_PROVIDER_URL }}" >> env.list
          echo "CALIBRATION_PROD_MONGO_URL=${{ secrets.CALIBRATION_PROD_MONGO_URL }}" >> env.list
          echo "CALIBRATION_START_HEIGHT=${{ vars.CALIBRATION_START_HEIGHT }}" >> env.list
+         echo "CALIBRATION_NOT_RUN_SYNCTASK=${{ vars.CALIBRATION_NOT_RUN_SYNCTASK }}" >> env.list
          echo "MAIN_LOTUS_API_ENDPOINT=${{ vars.MAIN_LOTUS_API_ENDPOINT }}" >> env.list
          echo "MAIN_LOTUS_PROVIDER_URL=${{ vars.MAIN_LOTUS_PROVIDER_URL }}" >> env.list
          echo "MAIN_PROD_MONGO_URL=${{ secrets.MAIN_PROD_MONGO_URL }}" >> env.list
          echo "MAIN_START_HEIGHT=${{ vars.MAIN_START_HEIGHT }}" >> env.list
+         echo "MAIN_NOT_RUN_SYNCTASK=${{ vars.MAIN_NOT_RUN_SYNCTASK }}" >> env.list
          echo "PORT=${{ vars.PORT}}" >> env.list
      
          container_id=$(sudo docker ps -a | grep "${{ vars.PORT}}" | awk -F " " '{print $1}')
