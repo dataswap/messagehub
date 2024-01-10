@@ -1,5 +1,21 @@
 
 
+# [0.9.0](https://github.com/dataswap/messagehub/compare/0.8.0...0.9.0) (2024-01-10)
+
+
+### Bug Fixes
+
+* 🐛 Add car and carReplica add total interface ([5264bcd](https://github.com/dataswap/messagehub/commit/5264bcd6fccdd8e14766150e7e23a36b7cfc4bc9)), closes [#60](https://github.com/dataswap/messagehub/issues/60)
+* 🐛 fix storeSelectedParams bug ([b4fe8a0](https://github.com/dataswap/messagehub/commit/b4fe8a04e5e919a606c6af6341ccbe1d85e36982)), closes [#56](https://github.com/dataswap/messagehub/issues/56)
+* 🐛 rename storeCarReplicas ([d7a10d5](https://github.com/dataswap/messagehub/commit/d7a10d5c946b711d42a27884c65e9a7c76cb702c))
+* 🐛 update .github evn for runsynctarsk ([9903511](https://github.com/dataswap/messagehub/commit/99035112049ae23c4dc56e384af2e44951884918))
+* 🐛 update dataswapjs vertion to 0.13.1 ([5968142](https://github.com/dataswap/messagehub/commit/5968142aa02ec566fb5a1f5e56d97cff0a354c69)), closes [#58](https://github.com/dataswap/messagehub/issues/58)
+
+
+### Features
+
+* 🎸 add env for NOT_RUN_SYNCTAS ([a31711e](https://github.com/dataswap/messagehub/commit/a31711e5499013f06dc77884abae7470b7e6336f)), closes [#65](https://github.com/dataswap/messagehub/issues/65)
+
 # [0.8.0](https://github.com/dataswap/messagehub/compare/0.7.0...0.8.0) (2024-01-09)
 
 
