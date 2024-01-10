@@ -80,6 +80,10 @@ export const calibrationConfig: Config = {
         filplus: filplusEvm_Calibraion,
         escrow: escrowEvm_Calibration,
     },
+    notRunSynctask:
+        process.env.CALIBRATION_NOT_RUN_SYNCTASK &&
+        (process.env.CALIBRATION_NOT_RUN_SYNCTASK as string).toLowerCase() ===
+            "yes",
 }
 
 /**
@@ -108,6 +112,9 @@ export const mainConfig: Config = {
         filplus: filplusEvm_Main,
         escrow: escrowEvm_Main,
     },
+    notRunSynctask:
+        process.env.MAIN_NOT_RUN_SYNCTASK &&
+        (process.env.MAIN_NOT_RUN_SYNCTASK as string).toLowerCase() === "yes",
 }
 
 /**

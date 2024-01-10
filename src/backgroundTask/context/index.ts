@@ -54,6 +54,7 @@ export interface Config {
     mongoUrl: string
     startHeight: number
     evm: EvmContext
+    notRunSynctask: boolean
 }
 
 /**
@@ -70,6 +71,7 @@ export class Context implements IContext {
      */
     constructor(config: Config) {
         this.chain.startHeight = config.startHeight
+        this.chain.notRunSynctask = config.notRunSynctask
         this.chain.rpc = new ChainFilecoinRPC({
             apiAddress: config.apiAddress,
             token: config.token,
