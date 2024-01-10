@@ -71,7 +71,7 @@ export class BackgroundTask implements IBackgroundTask {
                 ? realSavedSyncedHeight
                 : this.syncHeight
 
-        while (this.needRunning) {
+        while (this.needRunning && !this.context.chain.notRunSynctask) {
             try {
                 const chainHeadHeight = await this.syncer.getChainHeadHeight()
                 const isHeightStored = await this.storager.isThisHeightStored(
@@ -134,7 +134,7 @@ export class BackgroundTask implements IBackgroundTask {
      * Check if the bgTask is running.
      */
     isRunning(): boolean {
-        return this.needRunning
+        return this.needRunning && !this.context.chain.notRunSynctask
     }
 
     /**

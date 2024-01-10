@@ -60,6 +60,7 @@ export interface ChainContext {
     rpc: ChainFilecoinRPC
     service: ChainService
     startHeight: number
+    notRunSynctask: boolean
 }
 
 /**
