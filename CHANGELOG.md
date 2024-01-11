@@ -1,5 +1,12 @@
 
 
+# [0.10.0](https://github.com/dataswap/messagehub/compare/0.9.1...0.10.0) (2024-01-11)
+
+
+### Features
+
+* 🎸 update dataswapjs version -> 0.15.0 ([76b48bf](https://github.com/dataswap/messagehub/commit/76b48bf3dd21284194fc3f7bc4f73ce40c61fcc4))
+
 ## [0.9.1](https://github.com/dataswap/messagehub/compare/0.9.0...0.9.1) (2024-01-10)
 
 
