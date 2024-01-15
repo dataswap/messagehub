@@ -19,7 +19,11 @@
  ********************************************************************************/
 
 import { Context } from "../context"
-import { IStorager, SelectedParams } from "../interface"
+import {
+    IStorager,
+    SelectedDataStorageParams,
+    SelectedStateEventParams,
+} from "../interface"
 import { Chain } from "@unipackage/filecoin"
 import {
     DatasetMetadata,
@@ -30,6 +34,7 @@ import {
     MatchingMetadata,
     MatchingTarget,
     convertToRequirementArray,
+    BasicParamsInfo,
 } from "@dataswapjs/dataswapjs"
 import { Result } from "@unipackage/utils"
 
@@ -122,10 +127,10 @@ export class Storager implements IStorager {
     }
 
     /**
-     * Stores an array of selected parameters.
+     * Stores an array of selected data storage parameters.
      */
-    async storeSelectedParams(
-        selectedParams: Array<SelectedParams>
+    async storeSelectedDataStorageParams(
+        selectedParams: Array<SelectedDataStorageParams>
     ): Promise<void> {
         try {
             const doStores: Promise<Result<any>>[] = []
@@ -218,6 +223,48 @@ export class Storager implements IStorager {
             })
         } catch (error) {
             throw new Error(`storeSelectedParams error_2:${error}`)
+        }
+    }
+
+    /**
+     * Stores an array of selected state event parameters.
+     */
+    async processSelectedStateEventParams(
+        selectedParams: Array<SelectedStateEventParams>
+    ): Promise<void> {
+        try {
+            const doStores: Promise<Result<any>>[] = []
+
+            selectedParams.map(async (selected) => {
+                const param = selected.params as BasicParamsInfo
+                switch (selected.method) {
+                    case "approveDataset":
+                        doStores.push(
+                            this.context.datastore.datasetMetadata.updateDatasetMetadataState(
+                                {
+                                    datasetMetadataEvm:
+                                        this.context.evm.datasetMetadata,
+                                    datasetId: param.datasetId!,
+                                }
+                            )
+                        )
+                        break
+
+                    default:
+                        throw new Error(
+                            "storeSelectedStateEventParams-Error selected method and params"
+                        )
+                }
+            })
+            const results = await Promise.all(doStores)
+            results.forEach((res) => {
+                if (!res.ok)
+                    throw new Error(
+                        `storeSelectedStateEventParams error_1:${res.error}`
+                    )
+            })
+        } catch (error) {
+            throw new Error(`storeSelectedStateEventParams error_2:${error}`)
         }
     }
 }

@@ -20,9 +20,16 @@
 
 import { Chain } from "@unipackage/filecoin"
 import { Context } from "../context"
-import { IDecoder, SelectedParams } from "../interface"
+import {
+    IDecoder,
+    SelectedDataStorageParams,
+    SelectedStateEventParams,
+} from "../interface"
 import { DataswapMessage } from "@dataswapjs/dataswapjs"
-import { selectedMethods } from "../interface/config"
+import {
+    selectedDataStorageMethods,
+    selectedStateEventMethods,
+} from "../interface/config"
 import { getFilecoinAddress } from "../../shared/address"
 
 /**
@@ -237,21 +244,45 @@ export class Decoder implements IDecoder {
     }
 
     /**
-     * Gets pending selected parameters from a list of dataswap messages.
+     * Gets pending selected data storage parameters from a list of dataswap messages.
      */
-    getPendingSelectedParams(
+    getPendingSelectedDataStorageParams(
         dataswapMessages: DataswapMessage[]
-    ): SelectedParams[] {
+    ): SelectedDataStorageParams[] {
         try {
             const selectedMsgs = dataswapMessages.filter((msg) =>
-                selectedMethods.includes(msg.method)
+                selectedDataStorageMethods.includes(msg.method)
             )
 
             const res = selectedMsgs.map((msg) => {
                 return {
                     method: msg.method,
                     params: msg.params,
-                } as SelectedParams
+                } as SelectedDataStorageParams
+            })
+
+            return res
+        } catch (error) {
+            throw new Error(`getPendingSelectedParams error:${error}`)
+        }
+    }
+
+    /**
+     * Gets pending selected state event parameters from a list of dataswap messages.
+     */
+    getPendingSelectedStateEventParams(
+        dataswapMessages: DataswapMessage[]
+    ): SelectedStateEventParams[] {
+        try {
+            const selectedMsgs = dataswapMessages.filter((msg) =>
+                selectedStateEventMethods.includes(msg.method)
+            )
+
+            const res = selectedMsgs.map((msg) => {
+                return {
+                    method: msg.method,
+                    params: msg.params,
+                } as SelectedStateEventParams
             })
 
             return res

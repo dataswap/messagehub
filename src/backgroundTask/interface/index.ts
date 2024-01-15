@@ -50,7 +50,10 @@ import {
     MatchingTargetMongoDatastore,
     CarReplicaMongoDatastore,
 } from "@dataswapjs/dataswapjs"
-import { InternalSelectedParamsMap } from "./config"
+import {
+    InternalSelectedDataStorageParamsMap,
+    InternalSelectedStateEventMethodsMap,
+} from "./config"
 import { DatabaseConnection } from "@unipackage/datastore"
 
 /**
@@ -110,19 +113,36 @@ export interface IContext {
 }
 
 /**
- * Union type of selected method names.
+ * Union type of selected data storage method names.
  */
-type InternalSelectedMethod = keyof InternalSelectedParamsMap
+type InternalSelectedDataStorageMethod =
+    keyof InternalSelectedDataStorageParamsMap
 
 /**
- * Type representing selected methods and their associated parameters.
+ * Type representing selected data storage methods and their associated parameters.
  */
-export type SelectedParams = {
-    [K in InternalSelectedMethod]: {
+export type SelectedDataStorageParams = {
+    [K in InternalSelectedDataStorageMethod]: {
         method: K
-        params: InternalSelectedParamsMap[K]["params"]
+        params: InternalSelectedDataStorageParamsMap[K]["params"]
     }
-}[InternalSelectedMethod]
+}[InternalSelectedDataStorageMethod]
+
+/**
+ * Union type of selected state evnet method names.
+ */
+type InternalSelectedStateEventMethod =
+    keyof InternalSelectedStateEventMethodsMap
+
+/**
+ * Type representing selected state event methods and their associated parameters.
+ */
+export type SelectedStateEventParams = {
+    [K in InternalSelectedStateEventMethod]: {
+        method: K
+        params: InternalSelectedStateEventMethodsMap[K]["params"]
+    }
+}[InternalSelectedStateEventMethod]
 
 /**
  * Interface for the Syncer, responsible for interacting with the blockchain.
@@ -149,11 +169,18 @@ export interface IDecoder {
     getPendingDataswapMessages(pendingChainInfo: Chain): Array<DataswapMessage>
 
     /**
-     * Gets pending selected parameters from a list of dataswap messages.
+     * Gets pending selected data storage parameters from a list of dataswap messages.
      */
-    getPendingSelectedParams(
+    getPendingSelectedDataStorageParams(
         dataswapMessages: Array<DataswapMessage>
-    ): Array<SelectedParams>
+    ): Array<SelectedDataStorageParams>
+
+    /**
+     * Gets pending selected state event parameters from a list of dataswap messages.
+     */
+    getPendingSelectedStateEventParams(
+        dataswapMessages: Array<DataswapMessage>
+    ): Array<SelectedStateEventParams>
 }
 
 /**
@@ -173,17 +200,28 @@ export interface IStorager {
     /**
      * Stores chain information.
      */
-    storeChainInfo(chain: Chain): void
+    storeChainInfo(chain: Chain): Promise<void>
 
     /**
      * Stores an array of dataswap messages.
      */
-    storeDataswapMessages(dataswapMessages: Array<DataswapMessage>): void
+    storeDataswapMessages(
+        dataswapMessages: Array<DataswapMessage>
+    ): Promise<void>
 
     /**
-     * Stores an array of selected parameters.
+     * Stores an array of selected data storage parameters.
      */
-    storeSelectedParams(selectedParams: Array<SelectedParams>): void
+    storeSelectedDataStorageParams(
+        selectedParams: Array<SelectedDataStorageParams>
+    ): Promise<void>
+
+    /**
+     * Process an array of selected state event parameters.
+     */
+    processSelectedStateEventParams(
+        selectedParams: Array<SelectedStateEventParams>
+    ): Promise<void>
 }
 
 /**
