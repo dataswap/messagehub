@@ -30,9 +30,6 @@ import {
     MatchingMetadata,
     MatchingTarget,
     convertToRequirementArray,
-    storeCars,
-    storeCarReplicas,
-    storeMatchingtarget,
 } from "@dataswapjs/dataswapjs"
 import { Result } from "@unipackage/utils"
 
@@ -166,11 +163,10 @@ export class Storager implements IStorager {
 
                     case "submitDatasetProof":
                         doStores.push(
-                            storeCars({
+                            this.context.datastore.car.storeCars({
                                 carstoreEvm: this.context.evm.carstore,
                                 requirementEvm:
                                     this.context.evm.datasetRequirement,
-                                carDatastore: this.context.datastore.car,
                                 proofs: selected.params as DatasetProofs,
                             })
                         )
@@ -194,20 +190,18 @@ export class Storager implements IStorager {
 
                     case "publishMatching":
                         doStores.push(
-                            storeCarReplicas({
-                                carReplicaDatastore:
-                                    this.context.datastore.carReplica,
+                            this.context.datastore.carReplica.storeCarReplicas({
                                 target: selected.params as MatchingTarget,
                             })
                         )
                         doStores.push(
-                            storeMatchingtarget({
-                                matchingTargetEvm:
-                                    this.context.evm.matchingTarget,
-                                matchingTargetDatastore:
-                                    this.context.datastore.matchingTarget,
-                                target: selected.params as MatchingTarget,
-                            })
+                            this.context.datastore.matchingTarget.storeMatchingtarget(
+                                {
+                                    matchingTargetEvm:
+                                        this.context.evm.matchingTarget,
+                                    target: selected.params as MatchingTarget,
+                                }
+                            )
                         )
                         break
 
