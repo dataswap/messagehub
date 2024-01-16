@@ -192,12 +192,24 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
+
                         break
 
                     case "createTarget":
                         doStores.push(
                             this.context.datastore.matchingTarget.CreateOrupdateByUniqueIndexes(
                                 selected.params as MatchingTarget
+                            )
+                        )
+                        doStores.push(
+                            this.context.datastore.datasetRequirement.addMatching(
+                                {
+                                    matchingTarget:
+                                        this.context.evm.matchingTarget,
+                                    matchingMetadata:
+                                        this.context.evm.matchingMetadata,
+                                    matchingId: selected.params.matchingId,
+                                }
                             )
                         )
                         break
@@ -237,6 +249,16 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
+                        doStores.push(
+                            this.context.datastore.datasetRequirement.updateMatching(
+                                {
+                                    matchingTarget:
+                                        this.context.evm.matchingTarget,
+                                    storages: this.context.evm.storages,
+                                    matchingId: selected.params.matchingId,
+                                }
+                            )
+                        )
                         break
                     case "bidding":
                         doStores.push(
@@ -248,7 +270,16 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
-
+                        doStores.push(
+                            this.context.datastore.datasetRequirement.updateMatching(
+                                {
+                                    matchingTarget:
+                                        this.context.evm.matchingTarget,
+                                    storages: this.context.evm.storages,
+                                    matchingId: selected.params.matchingId,
+                                }
+                            )
+                        )
                     case "pauseMatching":
                     case "resumeMatching":
                         doStores.push(
@@ -262,6 +293,19 @@ export class Storager implements IStorager {
                             )
                         )
 
+                        break
+                    case "closeMatching":
+                    case "cancelMatching":
+                        doStores.push(
+                            this.context.datastore.datasetRequirement.updateMatching(
+                                {
+                                    matchingTarget:
+                                        this.context.evm.matchingTarget,
+                                    storages: this.context.evm.storages,
+                                    matchingId: selected.params.matchingId,
+                                }
+                            )
+                        )
                         break
                     default:
                         throw new Error(
