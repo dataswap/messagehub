@@ -83,6 +83,7 @@ export const selectedStateEventMethods = [
     "bidding",
     "cancelMatching",
     "closeMatching",
+    //"submitStorageClaimIds",
 ]
 
 /**
@@ -104,4 +105,5 @@ export type InternalSelectedStateEventMethodsMap = {
     bidding: { params: BasicParamsInfo } // update MatchingState & carReplica state
     cancelMatching: { params: BasicParamsInfo } // update MatchingState & carReplica state
     closeMatching: { params: BasicParamsInfo } // update MatchingState & carReplica state
+    //submitStorageClaimIds: { params: StorageClaimIds } //update state for CarReplica
 }
