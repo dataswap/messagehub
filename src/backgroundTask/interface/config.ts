@@ -43,6 +43,8 @@ export const selectedDataStorageMethods = [
     "pauseMatching",
     "resumeMatching",
     "bidding",
+    "closeMatching",
+    "cancelMatching",
     //"submitStorageClaimIds",
 ]
 
@@ -60,8 +62,10 @@ export type InternalSelectedDataStorageParamsMap = {
     publishMatching: { params: MatchingTarget } //Update MatchiangTarget and insert CarReplica[] to datastore
     pauseMatching: { params: BasicParamsInfo } // Update MatchiangMetadata to datastore
     resumeMatching: { params: BasicParamsInfo } // Update MatchiangMetadata to datastore
-    bidding: { params: BasicParamsInfo } // Update MatchiangMetadata to datastore
-    //submitStorageClaimIds: { params: StorageClaimIds } //update datastore for CarReplica
+    bidding: { params: BasicParamsInfo } // Update MatchiangMetadata,Requirment to datastore
+    closeMatching: { params: BasicParamsInfo } // Update matchings of requirment to datastore
+    cancelMatching: { params: BasicParamsInfo } // Update matchings of requirment to datastore
+    //submitStorageClaimIds: { params: StorageClaimIds } //update datastore for CarReplica,requirement
 }
 
 /**
