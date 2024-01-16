@@ -216,8 +216,30 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
+                        doStores.push(
+                            this.context.datastore.matchingMetadata.updateMatchingTargetInfo(
+                                {
+                                    matchingTarget:
+                                        this.context.evm.matchingTarget,
+                                    matchingId: selected.params.matchingId,
+                                }
+                            )
+                        )
                         break
-
+                    case "bidding":
+                    case "pauseMatching":
+                    case "resumeMatching":
+                        doStores.push(
+                            this.context.datastore.matchingMetadata.updateMatchingBiddingInfo(
+                                {
+                                    matchingMetadata:
+                                        this.context.evm.matchingMetadata,
+                                    matchingBids: this.context.evm.matchingBids,
+                                    matchingId: selected.params.matchingId,
+                                }
+                            )
+                        )
+                        break
                     default:
                         throw new Error(
                             "storeSelectedParams-Error selected method and params"
