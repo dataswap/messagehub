@@ -33,6 +33,7 @@ import {
     DataswapMessage,
     MatchingMetadata,
     MatchingTarget,
+    MatchingBid,
     convertToRequirementArray,
     BasicParamsInfo,
 } from "@dataswapjs/dataswapjs"
@@ -238,6 +239,16 @@ export class Storager implements IStorager {
                         )
                         break
                     case "bidding":
+                        doStores.push(
+                            this.context.datastore.matchingBid.storeMatchingBid(
+                                {
+                                    matchingBids: this.context.evm.matchingBids,
+                                    origionMatchingBid:
+                                        selected.params as MatchingBid,
+                                }
+                            )
+                        )
+
                     case "pauseMatching":
                     case "resumeMatching":
                         doStores.push(
@@ -250,6 +261,7 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
+
                         break
                     default:
                         throw new Error(

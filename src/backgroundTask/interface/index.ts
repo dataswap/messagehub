@@ -48,6 +48,7 @@ import {
     CarstoreEvm,
     MatchingMetadataMongoDatastore,
     MatchingTargetMongoDatastore,
+    MatchingBidMongoDatastore,
     CarReplicaMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import {
@@ -99,6 +100,7 @@ export interface DatastoreContext {
     datasetProofMetadata: DatasetProofMetadataMongoDatastore
     matchingMetadata: MatchingMetadataMongoDatastore
     matchingTarget: MatchingTargetMongoDatastore
+    matchingBid: MatchingBidMongoDatastore
     car: CarMongoDatastore
     carReplica: CarReplicaMongoDatastore
 }
