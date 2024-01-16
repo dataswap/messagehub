@@ -88,23 +88,34 @@ export class BackgroundTask implements IBackgroundTask {
                             this.decoder.getPendingDataswapMessages(chainInfo)
 
                         if (dataswapMessages) {
-                            //step 2.2: select the special params from the dataswapMessages
-                            const selectedParams =
-                                this.decoder.getPendingSelectedParams(
+                            //step 2.2: select the special params from the dataswapMessages for data storage
+                            const selectedDataStorageParams =
+                                this.decoder.getPendingSelectedDataStorageParams(
                                     dataswapMessages
                                 )
 
-                            //step 3.1 store selectedParams
-                            await this.storager.storeSelectedParams(
-                                selectedParams
+                            //step 2.3: select the special params from the dataswapMessages for state event
+                            const selectedStateEventParams =
+                                this.decoder.getPendingSelectedStateEventParams(
+                                    dataswapMessages
+                                )
+
+                            //step 3.1 store data to datastore from selectedDataStorageParams
+                            await this.storager.storeSelectedDataStorageParams(
+                                selectedDataStorageParams
                             )
 
-                            //step 3.2 store dataswapMessages
+                            //step 3.2 process state event from selectedStateEventParams
+                            await this.storager.processSelectedStateEventParams(
+                                selectedStateEventParams
+                            )
+
+                            //step 3.3 store dataswapMessages
                             await this.storager.storeDataswapMessages(
                                 dataswapMessages
                             )
                         }
-                        //step 3.3 store chainInfo
+                        //step 3.4 store chainInfo
                         await this.storager.storeChainInfo(chainInfo)
                     } else if (this.syncHeight < chainHeadHeight) {
                         this.syncHeight++
