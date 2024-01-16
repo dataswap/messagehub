@@ -77,12 +77,12 @@ export const selectedStateEventMethods = [
     "submitDatasetProof",
     "submitDatasetProofCompleted",
     "appendDatasetFunds",
-    //"pauseMatching",
-    //"resumeMatching",
-    //"publishMatching",
-    //"bidding",
-    //"cancelMatching",
-    //"closeMatching",
+    "pauseMatching",
+    "resumeMatching",
+    "publishMatching",
+    "bidding",
+    "cancelMatching",
+    "closeMatching",
 ]
 
 /**
@@ -98,10 +98,10 @@ export type InternalSelectedStateEventMethodsMap = {
     submitDatasetProof: { params: BasicParamsInfo } // update DatasetState
     submitDatasetProofCompleted: { params: BasicParamsInfo } // update DatasetState
     appendDatasetFunds: { params: BasicParamsInfo } // update DatasetState
-    //pauseMatching: { params: BasicParamsInfo } // update MatchingState
-    //resumeMatching: { params: BasicParamsInfo } // update MatchingState
-    //publishMatching: { params: BasicParamsInfo } // update MatchingState
-    //bidding: { params: BasicParamsInfo } // update MatchingState & carReplica state
-    //cancelMatching: { params: BasicParamsInfo } // update MatchingState & carReplica state
-    //closeMatching: { params: BasicParamsInfo } // update MatchingState & carReplica state
+    pauseMatching: { params: BasicParamsInfo } // update MatchingState
+    resumeMatching: { params: BasicParamsInfo } // update MatchingState
+    publishMatching: { params: BasicParamsInfo } // update MatchingState
+    bidding: { params: BasicParamsInfo } // update MatchingState & carReplica state
+    cancelMatching: { params: BasicParamsInfo } // update MatchingState & carReplica state
+    closeMatching: { params: BasicParamsInfo } // update MatchingState & carReplica state
 }
