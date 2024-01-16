@@ -179,8 +179,16 @@ export class Storager implements IStorager {
 
                     case "createMatching":
                         doStores.push(
-                            this.context.datastore.matchingMetadata.CreateOrupdateByUniqueIndexes(
-                                selected.params as MatchingMetadata
+                            this.context.datastore.matchingMetadata.storeWithOrigionMatchingMetadata(
+                                {
+                                    matchingMetadata:
+                                        this.context.evm.matchingMetadata,
+                                    datasetRequirement:
+                                        this.context.evm.datasetRequirement,
+                                    origionMetadata:
+                                        selected.params as MatchingMetadata,
+                                    matchingId: selected.params.matchingId,
+                                }
                             )
                         )
                         break
