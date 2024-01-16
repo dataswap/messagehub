@@ -202,11 +202,22 @@ export class Storager implements IStorager {
                         break
 
                     case "publishMatching":
+                        const target = selected.params as MatchingTarget
                         doStores.push(
                             this.context.datastore.carReplica.storeCarReplicas({
                                 target: selected.params as MatchingTarget,
                             })
                         )
+                        for (let i = 0; i < target.cars.length; i++) {
+                            doStores.push(
+                                this.context.datastore.car.updateReplica({
+                                    carstore: this.context.evm.carstore,
+                                    carId: BigInt(target.cars[i]),
+                                    matchingId: target.matchingId,
+                                    replicaIndex: target.replicaIndex,
+                                })
+                            )
+                        }
                         doStores.push(
                             this.context.datastore.matchingTarget.storeMatchingtarget(
                                 {
@@ -287,12 +298,24 @@ export class Storager implements IStorager {
                             )
                         )
                         break
-                    case "pauseMatching":
-                    case "resumeMatching":
-                    case "publishMatching":
                     case "bidding":
                     case "cancelMatching":
                     case "closeMatching":
+                        doStores.push(
+                            this.context.datastore.car.updateAllReplicasStateOfMatching(
+                                {
+                                    matchingTarget:
+                                        this.context.evm.matchingTarget,
+                                    carstore: this.context.evm.carstore,
+                                    matchingId: (
+                                        selected.params as BasicParamsInfo
+                                    ).matchingId,
+                                }
+                            )
+                        )
+                    case "pauseMatching":
+                    case "resumeMatching":
+                    case "publishMatching":
                         doStores.push(
                             this.context.datastore.matchingMetadata.updateMatchingState(
                                 {
