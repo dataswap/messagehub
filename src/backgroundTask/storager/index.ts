@@ -266,9 +266,17 @@ export class Storager implements IStorager {
             const doStores: Promise<Result<any>>[] = []
 
             selectedParams.map(async (selected) => {
-                const param = selected.params as BasicParamsInfo
                 switch (selected.method) {
                     case "approveDataset":
+                    case "approveDataset":
+                    case "approveDatasetMetadata":
+                    case "rejectDataset":
+                    case "rejectDatasetMetadata":
+                    case "submitDatasetReplicaRequirements":
+                    case "submitDatasetProof":
+                    case "submitDatasetProofCompleted":
+                    case "appendDatasetFunds":
+                        const param = selected.params as BasicParamsInfo
                         doStores.push(
                             this.context.datastore.datasetMetadata.updateDatasetMetadataState(
                                 {
