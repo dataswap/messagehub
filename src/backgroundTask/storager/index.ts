@@ -313,6 +313,16 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
+                        doStores.push(
+                            this.context.datastore.carReplica.updateAllStatesOfMatching(
+                                {
+                                    matchingTarget:
+                                        this.context.evm.matchingTarget,
+                                    carstore: this.context.evm.carstore,
+                                    matchingId: selected.params.matchingId,
+                                }
+                            )
+                        )
                     case "pauseMatching":
                     case "resumeMatching":
                     case "publishMatching":
