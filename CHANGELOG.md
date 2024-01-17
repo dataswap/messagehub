@@ -1,5 +1,30 @@
 
 
+# [0.11.0](https://github.com/dataswap/messagehub/compare/0.10.0...0.11.0) (2024-01-17)
+
+
+### Bug Fixes
+
+* 🐛 Add store MatchingBids API and test ([2348685](https://github.com/dataswap/messagehub/commit/23486855e57ca990ee52e8fb76a61dfce137bd07)), closes [#77](https://github.com/dataswap/messagehub/issues/77)
+
+
+### Features
+
+* 🎸 add selected state event ([b4e728e](https://github.com/dataswap/messagehub/commit/b4e728e3b723c7613fe069367863e69cfa94bd97)), closes [#80](https://github.com/dataswap/messagehub/issues/80)
+* 🎸 Add store MatchingBids model ([44aa5a4](https://github.com/dataswap/messagehub/commit/44aa5a4ed29b08acdda684bac6dcc7230a4a27e5)), closes [#77](https://github.com/dataswap/messagehub/issues/77)
+* 🎸 Complete the DatasetId for Matching-related methods ([c01a1bf](https://github.com/dataswap/messagehub/commit/c01a1bf8cc7ea6d87e809c6c1f2d7137f87533b5)), closes [#96](https://github.com/dataswap/messagehub/issues/96)
+* 🎸 process update the 'status' field in DatasetMetadata ([b184e06](https://github.com/dataswap/messagehub/commit/b184e067aaa45edeb7d7c82ca7bb1d17ed6f05ea)), closes [#71](https://github.com/dataswap/messagehub/issues/71)
+* 🎸 process update the 'status' field in MatchingMetadata ([9e41482](https://github.com/dataswap/messagehub/commit/9e414822cc08ca5889a9cec5889f38d2fcc92ba6)), closes [#73](https://github.com/dataswap/messagehub/issues/73)
+* 🎸 Update bid and funds in MatchingMetadata ([c448b71](https://github.com/dataswap/messagehub/commit/c448b7171f4d1577f6dea3386142228924d7a289)), closes [#74](https://github.com/dataswap/messagehub/issues/74)
+* 🎸 update dataswapjs version to 0.16.1 ([169f979](https://github.com/dataswap/messagehub/commit/169f979c8ccea4817308f7cb7eccb09fa750fd6b)), closes [#78](https://github.com/dataswap/messagehub/issues/78)
+* 🎸 update dataswapjs version to 0.17.0 ([3b63301](https://github.com/dataswap/messagehub/commit/3b633013b80babfb0e89717dfd914d2e254555a0)), closes [#86](https://github.com/dataswap/messagehub/issues/86)
+* 🎸 update dataswapjs version to 0.17.1 ([aa8e619](https://github.com/dataswap/messagehub/commit/aa8e6193cdccd3c8984e123c26d53042f7ce7fff)), closes [#90](https://github.com/dataswap/messagehub/issues/90)
+* 🎸 update dataswapjs version to 0.17.2 ([2f69236](https://github.com/dataswap/messagehub/commit/2f692369a981f174b5915e51f86e326dc41a877f)), closes [#98](https://github.com/dataswap/messagehub/issues/98)
+* 🎸 update the 'replicaInfos' field in Car model ([70dfcfd](https://github.com/dataswap/messagehub/commit/70dfcfd3e64b839056b3215d678c6b17400a0f74)), closes [#72](https://github.com/dataswap/messagehub/issues/72)
+* 🎸 update the 'size','requirement' in MatchingMetadata ([e9337b8](https://github.com/dataswap/messagehub/commit/e9337b837af5281ebb9209bb86d6370dff67b72b)), closes [#76](https://github.com/dataswap/messagehub/issues/76)
+* 🎸 update the 'state' field in CarReplica model ([e179add](https://github.com/dataswap/messagehub/commit/e179addd845fd28b702211f3df2da913e3d95bbb)), closes [#88](https://github.com/dataswap/messagehub/issues/88)
+* 🎸 update the matchings field in DatasetRequirment ([28518e0](https://github.com/dataswap/messagehub/commit/28518e03a0b5384db663450eec17ef0cd225d114)), closes [#75](https://github.com/dataswap/messagehub/issues/75)
+
 # [0.10.0](https://github.com/dataswap/messagehub/compare/0.9.1...0.10.0) (2024-01-11)
 
 
