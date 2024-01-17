@@ -45,6 +45,8 @@ import { MatchingMetadataController } from "./matchingMetadata/matchingMetadata.
 import { MatchingMetadataService } from "./matchingMetadata/matchingMetadata.service"
 import { MatchingTargetController } from "./matchingTarget/matchingTarget.controller"
 import { MatchingTargetService } from "./matchingTarget/matchingTarget.service"
+import { MatchingBidsController } from "./matchingBids/matchingBids.controller"
+import { MatchingBidsService } from "./matchingBids/matchingBids.service"
 import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.service"
 
 /**
@@ -66,6 +68,7 @@ import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.
         DatasetProofMetadataController,
         MatchingMetadataController,
         MatchingTargetController,
+        MatchingBidsController,
     ],
     providers: [
         VersionService,
@@ -82,6 +85,7 @@ import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.
         DatasetProofMetadataService,
         MatchingMetadataService,
         MatchingTargetService,
+        MatchingBidsService,
     ],
 })
 export class AppModule {}

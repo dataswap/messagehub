@@ -110,7 +110,7 @@ export class Context implements IContext {
         this.datastore.matchingTarget = new MatchingTargetMongoDatastore(
             this.datastore.baseConnection
         )
-        this.datastore.matchingBid = new MatchingBidMongoDatastore(
+        this.datastore.matchingBids = new MatchingBidMongoDatastore(
             this.datastore.baseConnection
         )
         this.datastore.carReplica = new CarReplicaMongoDatastore(
