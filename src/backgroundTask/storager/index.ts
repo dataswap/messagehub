@@ -262,7 +262,7 @@ export class Storager implements IStorager {
                         break
                     case "bidding":
                         doStores.push(
-                            this.context.datastore.matchingBid.storeMatchingBid(
+                            this.context.datastore.matchingBids.storeMatchingBid(
                                 {
                                     matchingBids: this.context.evm.matchingBids,
                                     origionMatchingBid:

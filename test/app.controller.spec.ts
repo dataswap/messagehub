@@ -43,6 +43,8 @@ import { MatchingMetadataController } from "../src/matchingMetadata/matchingMeta
 import { MatchingMetadataService } from "../src/matchingMetadata/matchingMetadata.service"
 import { MatchingTargetController } from "../src/matchingTarget/matchingTarget.controller"
 import { MatchingTargetService } from "../src/matchingTarget/matchingTarget.service"
+import { MatchingBidsController } from "../src/matchingBids/matchingBids.controller"
+import { MatchingBidsService } from "../src/matchingBids/matchingBids.service"
 import { SyncController } from "../src/sync/sync.controller"
 import { SyncService } from "../src/sync/sync.service"
 
@@ -58,6 +60,7 @@ describe("AppController Test", () => {
     let datasetProofMetadataController: DatasetProofMetadataController
     let matchingMetadataController: MatchingMetadataController
     let matchingTargetController: MatchingTargetController
+    let matchingBidsController: MatchingBidsController
     let syncController: SyncController
 
     beforeAll(async () => {
@@ -83,6 +86,7 @@ describe("AppController Test", () => {
                 DatasetProofMetadataController,
                 MatchingMetadataController,
                 MatchingTargetController,
+                MatchingBidsController,
                 SyncController,
             ],
             providers: [
@@ -97,6 +101,7 @@ describe("AppController Test", () => {
                 DatasetProofMetadataService,
                 MatchingMetadataService,
                 MatchingTargetService,
+                MatchingBidsService,
                 SyncService,
             ],
         }).compile()
@@ -125,6 +130,9 @@ describe("AppController Test", () => {
         )
         matchingTargetController = root.get<MatchingTargetController>(
             MatchingTargetController
+        )
+        matchingBidsController = root.get<MatchingBidsController>(
+            MatchingBidsController
         )
         syncController = root.get<SyncController>(SyncController)
     })
@@ -247,6 +255,17 @@ describe("AppController Test", () => {
     describe("matchingtarget query", () => {
         it("should ok", async () => {
             const res = await matchingTargetController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ matchingId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
+    describe("matchingbids query", () => {
+        it("should ok", async () => {
+            const res = await matchingBidsController.find({
                 network: "calibration",
                 queryFilter: {
                     conditions: [{ matchingId: { $gt: 0, $lt: 3 } }],

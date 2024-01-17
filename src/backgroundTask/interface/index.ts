@@ -100,7 +100,7 @@ export interface DatastoreContext {
     datasetProofMetadata: DatasetProofMetadataMongoDatastore
     matchingMetadata: MatchingMetadataMongoDatastore
     matchingTarget: MatchingTargetMongoDatastore
-    matchingBid: MatchingBidMongoDatastore
+    matchingBids: MatchingBidMongoDatastore
     car: CarMongoDatastore
     carReplica: CarReplicaMongoDatastore
 }
