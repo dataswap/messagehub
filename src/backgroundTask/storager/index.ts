@@ -180,7 +180,17 @@ export class Storager implements IStorager {
                             })
                         )
                         break
-
+                    case "submitDatasetProofCompleted":
+                        doStores.push(
+                            this.context.datastore.datasetProofMetadata.updateDatasetSize(
+                                {
+                                    datasetProofEvm:
+                                        this.context.evm.datasetProof,
+                                    datasetId: selected.params.datasetId,
+                                }
+                            )
+                        )
+                        break
                     case "createMatching":
                         doStores.push(
                             this.context.datastore.matchingMetadata.storeWithOrigionMatchingMetadata(
@@ -221,6 +231,7 @@ export class Storager implements IStorager {
                         const target = selected.params as MatchingTarget
                         doStores.push(
                             this.context.datastore.carReplica.storeCarReplicas({
+                                matchingTarget: this.context.evm.matchingTarget,
                                 target: selected.params as MatchingTarget,
                             })
                         )
