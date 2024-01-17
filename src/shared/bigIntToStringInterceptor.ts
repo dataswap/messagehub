@@ -62,8 +62,8 @@ export class BigIntToStringInterceptor implements NestInterceptor {
                 if (typeof data[key] === "bigint") {
                     data[key] = data[key].toString()
                 }
-                // If the value is an object, recursively check for BigInt values
-                else if (typeof data[key] === "object") {
+                // If the value is an object, and not null, recursively check for BigInt values
+                else if (typeof data[key] === "object" && data[key] !== null) {
                     this.transformBigIntToString(data[key])
                 }
             }
