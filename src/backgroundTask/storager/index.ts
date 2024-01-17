@@ -111,8 +111,11 @@ export class Storager implements IStorager {
     ): Promise<void> {
         try {
             const doStores = dataswapMessages.map(async (msg) =>
-                this.context.datastore.dataswapMessage.CreateOrupdateByUniqueIndexes(
-                    msg
+                this.context.datastore.dataswapMessage.CreateOrupdateByUniqueIndexesPlus(
+                    {
+                        matchingTarget: this.context.evm.matchingTarget,
+                        data: msg,
+                    }
                 )
             )
             const res = await Promise.all(doStores)
