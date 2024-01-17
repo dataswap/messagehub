@@ -1,5 +1,12 @@
 
 
+## [0.11.1](https://github.com/dataswap/messagehub/compare/0.11.0...0.11.1) (2024-01-17)
+
+
+### Bug Fixes
+
+* 🐛 update dataswapjs version to 0.17.4 ([0faa938](https://github.com/dataswap/messagehub/commit/0faa9387844ddb88fb8b15489997238bc96c7133)), closes [#104](https://github.com/dataswap/messagehub/issues/104)
+
 # [0.11.0](https://github.com/dataswap/messagehub/compare/0.10.0...0.11.0) (2024-01-17)
 
 
