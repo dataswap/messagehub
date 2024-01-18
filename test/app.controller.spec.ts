@@ -47,6 +47,8 @@ import { MatchingBidsController } from "../src/matchingBids/matchingBids.control
 import { MatchingBidsService } from "../src/matchingBids/matchingBids.service"
 import { SyncController } from "../src/sync/sync.controller"
 import { SyncService } from "../src/sync/sync.service"
+import { DatasetChallengeController } from "../src/datasetChallenge/datasetChallenge.controller"
+import { DatasetChallengeService } from "../src/datasetChallenge/datasetChallenge.service"
 
 describe("AppController Test", () => {
     let tipsetController: TipsetController
@@ -62,6 +64,7 @@ describe("AppController Test", () => {
     let matchingTargetController: MatchingTargetController
     let matchingBidsController: MatchingBidsController
     let syncController: SyncController
+    let datasetChallengeController: DatasetChallengeController
 
     beforeAll(async () => {
         calibrationBgTask.start()
@@ -88,6 +91,7 @@ describe("AppController Test", () => {
                 MatchingTargetController,
                 MatchingBidsController,
                 SyncController,
+                DatasetChallengeController,
             ],
             providers: [
                 TipsetService,
@@ -103,6 +107,7 @@ describe("AppController Test", () => {
                 MatchingTargetService,
                 MatchingBidsService,
                 SyncService,
+                DatasetChallengeService,
             ],
         }).compile()
 
@@ -135,6 +140,9 @@ describe("AppController Test", () => {
             MatchingBidsController
         )
         syncController = root.get<SyncController>(SyncController)
+        datasetChallengeController = root.get<DatasetChallengeController>(
+            DatasetChallengeController
+        )
     })
 
     describe("tipset query", () => {
@@ -279,6 +287,18 @@ describe("AppController Test", () => {
         it("should ok", async () => {
             const res = await syncController.getSyncStatus({
                 network: "1",
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
+
+    describe("datasetchallenge query", () => {
+        it("should ok", async () => {
+            const res = await datasetChallengeController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+                },
             })
             expect(res.ok).toBe(true)
         }, 300000)

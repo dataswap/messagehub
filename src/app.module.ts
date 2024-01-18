@@ -48,6 +48,8 @@ import { MatchingTargetService } from "./matchingTarget/matchingTarget.service"
 import { MatchingBidsController } from "./matchingBids/matchingBids.controller"
 import { MatchingBidsService } from "./matchingBids/matchingBids.service"
 import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.service"
+import { DatasetChallengeController } from "./datasetChallenge/datasetChallenge.controller"
+import { DatasetChallengeService } from "./datasetChallenge/datasetChallenge.service"
 
 /**
  * Root module for the application.
@@ -69,6 +71,7 @@ import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.
         MatchingMetadataController,
         MatchingTargetController,
         MatchingBidsController,
+        DatasetChallengeController,
     ],
     providers: [
         VersionService,
@@ -86,6 +89,7 @@ import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.
         MatchingMetadataService,
         MatchingTargetService,
         MatchingBidsService,
+        DatasetChallengeService,
     ],
 })
 export class AppModule {}
