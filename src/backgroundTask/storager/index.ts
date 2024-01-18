@@ -330,8 +330,9 @@ export class Storager implements IStorager {
                             this.context.datastore.matchingMetadata.updateMatchingWinner(
                                 {
                                     matchingBids: this.context.evm.matchingBids,
-                                    matchingId: (selected.params as MatchingBid)
-                                        .matchingId,
+                                    matchingId: (
+                                        selected.params as BasicParamsInfo
+                                    ).matchingId,
                                 }
                             )
                         )
