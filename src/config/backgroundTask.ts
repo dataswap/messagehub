@@ -50,7 +50,7 @@ import {
     rolesEvm_Main,
     storagesEvm_Calibration,
     storagesEvm_Main,
-} from "./evm"
+} from "@dataswapjs/dataswapjs"
 import * as dotenv from "dotenv"
 dotenv.config()
 
