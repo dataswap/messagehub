@@ -1,5 +1,17 @@
 
 
+# [0.12.0](https://github.com/dataswap/messagehub/compare/0.11.2...0.12.0) (2024-01-18)
+
+
+### Bug Fixes
+
+* 🐛 update dataswapjs version to 0.18.2 ([e65fc23](https://github.com/dataswap/messagehub/commit/e65fc236693a875f0552782520e334f54d092c20)), closes [#108](https://github.com/dataswap/messagehub/issues/108)
+
+
+### Features
+
+* 🎸 update Dataset Size into the dataset proof ([4a941bd](https://github.com/dataswap/messagehub/commit/4a941bdb32c345883701a38d71684c2c4306c57d)), closes [#106](https://github.com/dataswap/messagehub/issues/106)
+
 ## [0.11.2](https://github.com/dataswap/messagehub/compare/0.11.1...0.11.2) (2024-01-17)
 
 ## [0.11.1](https://github.com/dataswap/messagehub/compare/0.11.0...0.11.1) (2024-01-17)
