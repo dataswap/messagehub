@@ -50,6 +50,7 @@ import {
     MatchingTargetMongoDatastore,
     MatchingBidMongoDatastore,
     CarReplicaMongoDatastore,
+    DatasetChallengeMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import {
     InternalSelectedDataStorageParamsMap,
@@ -98,6 +99,7 @@ export interface DatastoreContext {
     datasetMetadata: DatasetMetadataMongoDatastore
     datasetRequirement: DatasetRequirementMongoDatastore
     datasetProofMetadata: DatasetProofMetadataMongoDatastore
+    datasetChallenge: DatasetChallengeMongoDatastore
     matchingMetadata: MatchingMetadataMongoDatastore
     matchingTarget: MatchingTargetMongoDatastore
     matchingBids: MatchingBidMongoDatastore

@@ -37,6 +37,7 @@ import {
     DatasetMetadataMongoDatastore,
     DatasetRequirementMongoDatastore,
     DatasetProofMetadataMongoDatastore,
+    DatasetChallengeMongoDatastore,
     CarMongoDatastore,
     MatchingMetadataMongoDatastore,
     MatchingTargetMongoDatastore,
@@ -104,6 +105,9 @@ export class Context implements IContext {
             new DatasetProofMetadataMongoDatastore(
                 this.datastore.baseConnection
             )
+        this.datastore.datasetChallenge = new DatasetChallengeMongoDatastore(
+            this.datastore.baseConnection
+        )
         this.datastore.matchingMetadata = new MatchingMetadataMongoDatastore(
             this.datastore.baseConnection
         )

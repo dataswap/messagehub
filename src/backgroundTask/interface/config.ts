@@ -25,6 +25,7 @@ import {
     MatchingTarget,
     DatasetProofs,
     DatasetProofMetadata,
+    DatasetChallenge,
     BasicParamsInfo,
 } from "@dataswapjs/dataswapjs"
 
@@ -38,6 +39,7 @@ export const selectedDataStorageMethods = [
     "submitDatasetProofRoot",
     "submitDatasetProof",
     "submitDatasetProofCompleted",
+    "submitDatasetChallengeProofs",
     "createMatching",
     "createTarget",
     "publishMatching",
@@ -59,6 +61,7 @@ export type InternalSelectedDataStorageParamsMap = {
     submitDatasetProofRoot: { params: DatasetProofMetadata } //Insert or update DatasetProofMetadata to datastore
     submitDatasetProof: { params: DatasetProofs } //Insert or update Car[] to datastore
     submitDatasetProofCompleted: { params: BasicParamsInfo } // update DatasetState
+    submitDatasetChallengeProofs: { params: DatasetChallenge } //Insert DatasetChallenge to datastore
     createMatching: { params: MatchingMetadata } //Insert or update MatchiangMetadata to datastore
     createTarget: { params: MatchingTarget } // Insert MatchingTarget
     publishMatching: { params: MatchingTarget } //Update MatchiangTarget and insert CarReplica[] to datastore
