@@ -1,5 +1,20 @@
 
 
+# [0.13.0](https://github.com/dataswap/messagehub/compare/0.12.0...0.13.0) (2024-01-18)
+
+
+### Bug Fixes
+
+* 🐛 fix params of closeMatching ([8f536d0](https://github.com/dataswap/messagehub/commit/8f536d0b56dfd7761edc97c892606178e64c3201)), closes [#118](https://github.com/dataswap/messagehub/issues/118)
+* 🐛 update the winner in matchingmetadata ([0d392f8](https://github.com/dataswap/messagehub/commit/0d392f800ed1d7805eb20f2eaaa10cb0db4e0332)), closes [#118](https://github.com/dataswap/messagehub/issues/118)
+
+
+### Features
+
+* 🎸 add api of datasetchallenge ([157bc8c](https://github.com/dataswap/messagehub/commit/157bc8cfe7c943eda37607bc7bd0ad2743bb529b)), closes [#111](https://github.com/dataswap/messagehub/issues/111)
+* 🎸 Add datastore of the datasetchalange ([e4c70ec](https://github.com/dataswap/messagehub/commit/e4c70eca76b4821498601203418544c078b2cf79)), closes [#110](https://github.com/dataswap/messagehub/issues/110)
+* 🎸 update dataswapjs version to 0.20.1 ([92840de](https://github.com/dataswap/messagehub/commit/92840de490d6761f5aef17178e3a3493f80fdf23)), closes [#112](https://github.com/dataswap/messagehub/issues/112)
+
 # [0.12.0](https://github.com/dataswap/messagehub/compare/0.11.2...0.12.0) (2024-01-18)
 
 
