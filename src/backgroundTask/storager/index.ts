@@ -302,6 +302,15 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
+                        doStores.push(
+                            this.context.datastore.matchingMetadata.updateMatchingWinner(
+                                {
+                                    matchingBids: this.context.evm.matchingBids,
+                                    matchingId: (selected.params as MatchingBid)
+                                        .matchingId,
+                                }
+                            )
+                        )
                     case "pauseMatching":
                     case "resumeMatching":
                         doStores.push(
@@ -317,6 +326,15 @@ export class Storager implements IStorager {
 
                         break
                     case "closeMatching":
+                        doStores.push(
+                            this.context.datastore.matchingMetadata.updateMatchingWinner(
+                                {
+                                    matchingBids: this.context.evm.matchingBids,
+                                    matchingId: (selected.params as MatchingBid)
+                                        .matchingId,
+                                }
+                            )
+                        )
                     case "cancelMatching":
                         doStores.push(
                             this.context.datastore.datasetRequirement.updateMatching(
