@@ -194,6 +194,18 @@ describe("AppController (e2e)", () => {
             .expect(201)
     }, 30000)
 
+    it("/datasetchallenge/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/datasetchallenge/query")
+            .send({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            .expect(201)
+    }, 30000)
+
     it("/version (GET)", async () => {
         return request(app.getHttpServer()).get("/version").expect(200)
     }, 30000)
