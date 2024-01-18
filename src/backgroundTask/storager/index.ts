@@ -36,6 +36,7 @@ import {
     MatchingBid,
     convertToRequirementArray,
     BasicParamsInfo,
+    DatasetChallenge,
 } from "@dataswapjs/dataswapjs"
 import { Result } from "@unipackage/utils"
 
@@ -188,6 +189,13 @@ export class Storager implements IStorager {
                                         this.context.evm.datasetProof,
                                     datasetId: selected.params.datasetId,
                                 }
+                            )
+                        )
+                        break
+                    case "submitDatasetChallengeProofs":
+                        doStores.push(
+                            this.context.datastore.datasetChallenge.CreateOrupdateByUniqueIndexes(
+                                selected.params as DatasetChallenge
                             )
                         )
                         break
