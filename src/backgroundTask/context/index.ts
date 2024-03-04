@@ -145,6 +145,7 @@ export class Context implements IContext {
                     getFilecoinAddress(config.evm.matchingTarget),
                     getFilecoinAddress(config.evm.matchingBids),
                     getFilecoinAddress(config.evm.storages),
+                    getFilecoinAddress(config.evm.finance),
                     getFilecoinAddress(config.evm.roles),
                     getFilecoinAddress(config.evm.filplus),
                 ]),
@@ -154,6 +155,7 @@ export class Context implements IContext {
         this.evm.carstore = config.evm.carstore
         this.evm.roles = config.evm.roles
         this.evm.filplus = config.evm.filplus
+        this.evm.finance = config.evm.finance
         this.evm.datasetMetadata = config.evm.datasetMetadata
         this.evm.datasetRequirement = config.evm.datasetRequirement
         this.evm.datasetProof = config.evm.datasetProof

@@ -209,6 +209,17 @@ export class Decoder implements IDecoder {
                         }
                         break
 
+                    case getFilecoinAddress(this.context.evm.finance):
+                        const finance =
+                            this.context.evm.finance.decodeMessage(msg).data
+                        if (finance) {
+                            res.push(finance)
+                        } else {
+                            console.error(`Decode finance error,:${finance}`)
+                            throw new Error(`Decode finance error,:${finance}`)
+                        }
+                        break
+
                     default:
                         break
                 }
