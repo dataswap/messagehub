@@ -50,6 +50,7 @@ import {
     MatchingBidMongoDatastore,
     CarReplicaMongoDatastore,
     DatasetChallengeMongoDatastore,
+    MemberMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import {
     InternalSelectedDataStorageParamsMap,
@@ -103,6 +104,7 @@ export interface DatastoreContext {
     matchingBids: MatchingBidMongoDatastore
     car: CarMongoDatastore
     carReplica: CarReplicaMongoDatastore
+    member: MemberMongoDatastore
 }
 
 /**

@@ -23,6 +23,7 @@ import {
     DatasetRequirements,
     MatchingMetadata,
     MatchingTarget,
+    MatchingBid,
     DatasetProofs,
     DatasetProofMetadata,
     DatasetChallenge,
@@ -60,14 +61,14 @@ export type InternalSelectedDataStorageParamsMap = {
     submitDatasetReplicaRequirements: { params: DatasetRequirements } //Insert DatasetRequirment[] to datastore
     submitDatasetProofRoot: { params: DatasetProofMetadata } //Insert or update DatasetProofMetadata to datastore
     submitDatasetProof: { params: DatasetProofs } //Insert or update Car[] to datastore
-    submitDatasetProofCompleted: { params: BasicParamsInfo } // update DatasetState
+    submitDatasetProofCompleted: { params: DatasetProofMetadata } // update DatasetState
     submitDatasetChallengeProofs: { params: DatasetChallenge } //Insert DatasetChallenge to datastore
     createMatching: { params: MatchingMetadata } //Insert or update MatchiangMetadata to datastore
     createTarget: { params: MatchingTarget } // Insert MatchingTarget
     publishMatching: { params: MatchingTarget } //Update MatchiangTarget and insert CarReplica[] to datastore
     pauseMatching: { params: BasicParamsInfo } // Update MatchiangMetadata to datastore
     resumeMatching: { params: BasicParamsInfo } // Update MatchiangMetadata to datastore
-    bidding: { params: BasicParamsInfo } // Update MatchiangMetadata,Requirment to datastore
+    bidding: { params: MatchingBid } // Update MatchiangMetadata,Requirment to datastore
     closeMatching: { params: BasicParamsInfo } // Update matchings of requirment to datastore
     cancelMatching: { params: BasicParamsInfo } // Update matchings of requirment to datastore
     //submitStorageClaimIds: { params: StorageClaimIds } //update datastore for CarReplica,requirement
