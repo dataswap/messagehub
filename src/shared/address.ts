@@ -23,6 +23,10 @@ import { EvmEx } from "@dataswapjs/dataswapjs"
 /*
  * Get filecoin address from Evm
  */
-export function getFilecoinAddress(evm: EvmEx): string {
-    return "f" + delegatedFromEthAddress(evm.getContractAddress()).slice(1)
+export function getFilecoinAddress(evm: EvmEx, network: string): string {
+    if (network == "main") {
+        return "f" + delegatedFromEthAddress(evm.getContractAddress()).slice(1)
+    } else {
+        return "t" + delegatedFromEthAddress(evm.getContractAddress()).slice(1)
+    }
 }

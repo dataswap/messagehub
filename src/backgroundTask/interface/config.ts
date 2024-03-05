@@ -20,11 +20,13 @@
 
 import {
     DatasetMetadata,
+    DatasetTimeoutParameters,
     DatasetRequirements,
     MatchingMetadata,
     MatchingTarget,
     MatchingBid,
     DatasetProofs,
+    DatasetProofsWithhCarIds,
     DatasetProofMetadata,
     DatasetChallenge,
     BasicParamsInfo,
@@ -36,9 +38,11 @@ import {
  */
 export const selectedDataStorageMethods = [
     "submitDatasetMetadata",
+    "updateDatasetTimeoutParameters",
     "submitDatasetReplicaRequirements",
     "submitDatasetProofRoot",
     "submitDatasetProof",
+    "submitDatasetProofWithCarIds",
     "submitDatasetProofCompleted",
     "submitDatasetChallengeProofs",
     "createMatching",
@@ -58,10 +62,12 @@ export const selectedDataStorageMethods = [
  */
 export type InternalSelectedDataStorageParamsMap = {
     submitDatasetMetadata: { params: DatasetMetadata } //Insert or update DatasetMetadata to datastore
+    updateDatasetTimeoutParameters: { params: DatasetTimeoutParameters } //Update MatchiangMetadata to datastore
     submitDatasetReplicaRequirements: { params: DatasetRequirements } //Insert DatasetRequirment[] to datastore
     submitDatasetProofRoot: { params: DatasetProofMetadata } //Insert or update DatasetProofMetadata to datastore
     submitDatasetProof: { params: DatasetProofs } //Insert or update Car[] to datastore
     submitDatasetProofCompleted: { params: DatasetProofMetadata } // update DatasetState
+    submitDatasetProofWithCarIds: { params: DatasetProofsWithhCarIds } //Insert or update Car[] to datastore
     submitDatasetChallengeProofs: { params: DatasetChallenge } //Insert DatasetChallenge to datastore
     createMatching: { params: MatchingMetadata } //Insert or update MatchiangMetadata to datastore
     createTarget: { params: MatchingTarget } // Insert MatchingTarget
@@ -79,14 +85,11 @@ export type InternalSelectedDataStorageParamsMap = {
  * @Note: you can add new method names.
  */
 export const selectedStateEventMethods = [
-    "approveDataset",
-    "approveDatasetMetadata",
-    "rejectDataset",
-    "rejectDatasetMetadata",
     "submitDatasetReplicaRequirements",
     "submitDatasetProof",
+    "submitDatasetProofWithCarIds",
+    "completeEscrow",
     "submitDatasetProofCompleted",
-    "appendDatasetFunds",
     "pauseMatching",
     "resumeMatching",
     "publishMatching",
@@ -101,14 +104,11 @@ export const selectedStateEventMethods = [
  * @Note: you can add new prop,but the key of this object must be element of selectedStateEventMethods.
  */
 export type InternalSelectedStateEventMethodsMap = {
-    approveDataset: { params: BasicParamsInfo } // update DatasetState
-    approveDatasetMetadata: { params: BasicParamsInfo } // update DatasetState
-    rejectDataset: { params: BasicParamsInfo } // update DatasetState
-    rejectDatasetMetadata: { params: BasicParamsInfo } // update DatasetState
     submitDatasetReplicaRequirements: { params: BasicParamsInfo } // update DatasetState
     submitDatasetProof: { params: BasicParamsInfo } // update DatasetState
+    submitDatasetProofWithCarIds: { params: BasicParamsInfo } // update DatasetState
+    completeEscrow: { params: BasicParamsInfo } // update DatasetState
     submitDatasetProofCompleted: { params: BasicParamsInfo } // update DatasetState
-    appendDatasetFunds: { params: BasicParamsInfo } // update DatasetState
     pauseMatching: { params: BasicParamsInfo } // update MatchingState
     resumeMatching: { params: BasicParamsInfo } // update MatchingState
     publishMatching: { params: BasicParamsInfo } // update MatchingState

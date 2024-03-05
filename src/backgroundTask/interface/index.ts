@@ -43,6 +43,7 @@ import {
     DatasetMetadataMongoDatastore,
     DatasetRequirementMongoDatastore,
     DatasetProofMetadataMongoDatastore,
+    DatasetsBasicStatisticsMongoDatastore,
     CarMongoDatastore,
     CarstoreEvm,
     MatchingMetadataMongoDatastore,
@@ -66,6 +67,7 @@ export interface ChainContext {
     service: ChainService
     startHeight: number
     notRunSynctask: boolean
+    network: string
 }
 
 /**
@@ -96,6 +98,7 @@ export interface DatastoreContext {
     tipset: TipsetMongoDatastore
     dataswapMessage: DataswapMessageMongoDatastore
     datasetMetadata: DatasetMetadataMongoDatastore
+    datasetBasicStatistics: DatasetsBasicStatisticsMongoDatastore
     datasetRequirement: DatasetRequirementMongoDatastore
     datasetProofMetadata: DatasetProofMetadataMongoDatastore
     datasetChallenge: DatasetChallengeMongoDatastore
@@ -217,7 +220,8 @@ export interface IStorager {
      * Stores an array of selected data storage parameters.
      */
     storeSelectedDataStorageParams(
-        selectedParams: Array<SelectedDataStorageParams>
+        selectedParams: Array<SelectedDataStorageParams>,
+        currentHeight: number
     ): Promise<void>
 
     /**

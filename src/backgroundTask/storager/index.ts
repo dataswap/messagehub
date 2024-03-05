@@ -29,6 +29,7 @@ import {
     DatasetMetadata,
     DatasetProofMetadata,
     DatasetProofs,
+    DatasetProofsWithhCarIds,
     DatasetRequirements,
     DataswapMessage,
     MatchingMetadata,
@@ -138,7 +139,8 @@ export class Storager implements IStorager {
      * Stores an array of selected data storage parameters.
      */
     async storeSelectedDataStorageParams(
-        selectedParams: Array<SelectedDataStorageParams>
+        selectedParams: Array<SelectedDataStorageParams>,
+        height: number
     ): Promise<void> {
         try {
             const doStores: Promise<Result<any>>[] = []
@@ -147,11 +149,24 @@ export class Storager implements IStorager {
                 switch (selected.method) {
                     case "submitDatasetMetadata":
                         doStores.push(
-                            this.context.datastore.datasetMetadata.CreateOrupdateByUniqueIndexes(
-                                selected.params as DatasetMetadata
+                            this.context.datastore.datasetMetadata.storeDatasetMetadata(
+                                {
+                                    datasetMetadataEvm:
+                                        this.context.evm.datasetMetadata,
+                                    datasetMetadata:
+                                        selected.params as DatasetMetadata,
+                                    datasetId: selected.params.datasetId,
+                                }
                             )
                         )
-
+                        doStores.push(
+                            this.context.datastore.datasetBasicStatistics.updateBasicStatisticss(
+                                {
+                                    datasets: this.context.evm.datasetMetadata,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
                         doStores.push(
                             this.context.datastore.member.createOrUpdateMember(
                                 new Member({
@@ -174,6 +189,17 @@ export class Storager implements IStorager {
                                         }),
                                     ],
                                 })
+                            )
+                        )
+                        break
+                    case "updateDatasetTimeoutParameters":
+                        doStores.push(
+                            this.context.datastore.datasetMetadata.updateDatasetTimeoutParameters(
+                                {
+                                    datasetMetadataEvm:
+                                        this.context.evm.datasetMetadata,
+                                    datasetId: selected.params.datasetId,
+                                }
                             )
                         )
 
@@ -234,6 +260,32 @@ export class Storager implements IStorager {
                                 proofs: selected.params as DatasetProofs,
                             })
                         )
+                        doStores.push(
+                            this.context.datastore.datasetBasicStatistics.updateBasicStatisticss(
+                                {
+                                    datasets: this.context.evm.datasetMetadata,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
+                        break
+                    case "submitDatasetProofWithCarIds":
+                        doStores.push(
+                            this.context.datastore.car.storeCarsWithCarIds({
+                                carstoreEvm: this.context.evm.carstore,
+                                requirementEvm:
+                                    this.context.evm.datasetRequirement,
+                                proofs: selected.params as DatasetProofsWithhCarIds,
+                            })
+                        )
+                        doStores.push(
+                            this.context.datastore.datasetBasicStatistics.updateBasicStatisticss(
+                                {
+                                    datasets: this.context.evm.datasetMetadata,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
                         break
                     case "submitDatasetProofCompleted":
                         doStores.push(
@@ -246,6 +298,14 @@ export class Storager implements IStorager {
                             )
                         )
 
+                        doStores.push(
+                            this.context.datastore.datasetBasicStatistics.updateBasicStatisticss(
+                                {
+                                    datasets: this.context.evm.datasetMetadata,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
                         break
                     case "submitDatasetChallengeProofs":
                         doStores.push(
@@ -279,6 +339,28 @@ export class Storager implements IStorager {
                             )
                         )
 
+                        doStores.push(
+                            this.context.datastore.datasetMetadata.updateDatasetChallengeCommissionPrice(
+                                {
+                                    financeEvm: this.context.evm.finance,
+                                    datasetMetadataEvm:
+                                        this.context.evm.datasetMetadata,
+                                    datasetChallengeEvm:
+                                        this.context.evm.datasetChallenge,
+                                    datasetId: selected.params.datasetId,
+                                    token: FIL,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
+                        doStores.push(
+                            this.context.datastore.datasetBasicStatistics.updateBasicStatisticss(
+                                {
+                                    datasets: this.context.evm.datasetMetadata,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
                         break
                     case "createMatching":
                         doStores.push(
@@ -508,15 +590,10 @@ export class Storager implements IStorager {
 
             selectedParams.map(async (selected) => {
                 switch (selected.method) {
-                    case "approveDataset":
-                    case "approveDataset":
-                    case "approveDatasetMetadata":
-                    case "rejectDataset":
-                    case "rejectDatasetMetadata":
                     case "submitDatasetReplicaRequirements":
                     case "submitDatasetProof":
+                    case "completeEscrow":
                     case "submitDatasetProofCompleted":
-                    case "appendDatasetFunds":
                         const param = selected.params as BasicParamsInfo
                         doStores.push(
                             this.context.datastore.datasetMetadata.updateDatasetMetadataState(

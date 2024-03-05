@@ -31,7 +31,6 @@ import {
     selectedStateEventMethods,
 } from "../interface/config"
 import { getFilecoinAddress } from "../../shared/address"
-
 /**
  * Represents a connection to a Filecoin network.
  */
@@ -53,7 +52,10 @@ export class Decoder implements IDecoder {
             const res: DataswapMessage[] = []
             pendingChainInfo.messages.forEach((msg) => {
                 switch (msg.Msg.To) {
-                    case getFilecoinAddress(this.context.evm.datasetMetadata):
+                    case getFilecoinAddress(
+                        this.context.evm.datasetMetadata,
+                        this.context.chain.network
+                    ):
                         const datasetMetadata =
                             this.context.evm.datasetMetadata.decodeMessage(
                                 msg
@@ -71,7 +73,8 @@ export class Decoder implements IDecoder {
                         break
 
                     case getFilecoinAddress(
-                        this.context.evm.datasetRequirement
+                        this.context.evm.datasetRequirement,
+                        this.context.chain.network
                     ):
                         const datasetRequirement =
                             this.context.evm.datasetRequirement.decodeMessage(
@@ -89,7 +92,10 @@ export class Decoder implements IDecoder {
                         }
                         break
 
-                    case getFilecoinAddress(this.context.evm.datasetProof):
+                    case getFilecoinAddress(
+                        this.context.evm.datasetProof,
+                        this.context.chain.network
+                    ):
                         const datasetProof =
                             this.context.evm.datasetProof.decodeMessage(
                                 msg
@@ -106,7 +112,10 @@ export class Decoder implements IDecoder {
                         }
                         break
 
-                    case getFilecoinAddress(this.context.evm.datasetChallenge):
+                    case getFilecoinAddress(
+                        this.context.evm.datasetChallenge,
+                        this.context.chain.network
+                    ):
                         const datasetChallenge =
                             this.context.evm.datasetChallenge.decodeMessage(
                                 msg
@@ -123,7 +132,10 @@ export class Decoder implements IDecoder {
                         }
                         break
 
-                    case getFilecoinAddress(this.context.evm.matchingMetadata):
+                    case getFilecoinAddress(
+                        this.context.evm.matchingMetadata,
+                        this.context.chain.network
+                    ):
                         const matchingMetadata =
                             this.context.evm.matchingMetadata.decodeMessage(
                                 msg
@@ -140,7 +152,10 @@ export class Decoder implements IDecoder {
                         }
                         break
 
-                    case getFilecoinAddress(this.context.evm.matchingTarget):
+                    case getFilecoinAddress(
+                        this.context.evm.matchingTarget,
+                        this.context.chain.network
+                    ):
                         const matchingTarget =
                             this.context.evm.matchingTarget.decodeMessage(
                                 msg
@@ -157,7 +172,10 @@ export class Decoder implements IDecoder {
                         }
                         break
 
-                    case getFilecoinAddress(this.context.evm.matchingBids):
+                    case getFilecoinAddress(
+                        this.context.evm.matchingBids,
+                        this.context.chain.network
+                    ):
                         const matchingBids =
                             this.context.evm.matchingBids.decodeMessage(
                                 msg
@@ -174,7 +192,10 @@ export class Decoder implements IDecoder {
                         }
                         break
 
-                    case getFilecoinAddress(this.context.evm.storages):
+                    case getFilecoinAddress(
+                        this.context.evm.storages,
+                        this.context.chain.network
+                    ):
                         const storages =
                             this.context.evm.storages.decodeMessage(msg).data
                         if (storages) {
@@ -187,7 +208,10 @@ export class Decoder implements IDecoder {
                         }
                         break
 
-                    case getFilecoinAddress(this.context.evm.roles):
+                    case getFilecoinAddress(
+                        this.context.evm.roles,
+                        this.context.chain.network
+                    ):
                         const roles =
                             this.context.evm.roles.decodeMessage(msg).data
                         if (roles) {
@@ -198,7 +222,10 @@ export class Decoder implements IDecoder {
                         }
                         break
 
-                    case getFilecoinAddress(this.context.evm.filplus):
+                    case getFilecoinAddress(
+                        this.context.evm.filplus,
+                        this.context.chain.network
+                    ):
                         const filplus =
                             this.context.evm.filplus.decodeMessage(msg).data
                         if (filplus) {
@@ -209,7 +236,10 @@ export class Decoder implements IDecoder {
                         }
                         break
 
-                    case getFilecoinAddress(this.context.evm.finance):
+                    case getFilecoinAddress(
+                        this.context.evm.finance,
+                        this.context.chain.network
+                    ):
                         const finance =
                             this.context.evm.finance.decodeMessage(msg).data
                         if (finance) {
