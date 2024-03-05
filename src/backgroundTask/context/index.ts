@@ -44,6 +44,7 @@ import {
     MatchingBidMongoDatastore,
     CarReplicaMongoDatastore,
     MemberMongoDatastore,
+    DatasetsBasicStatisticsMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import { getFilecoinAddress } from "../../shared/address"
 import { DatabaseConnection } from "@unipackage/datastore"
@@ -58,6 +59,7 @@ export interface Config {
     startHeight: number
     evm: EvmContext
     notRunSynctask: boolean
+    network: string
 }
 
 /**
@@ -73,6 +75,7 @@ export class Context implements IContext {
      * @param config - The network configuration.
      */
     constructor(config: Config) {
+        this.chain.network = config.network
         this.chain.startHeight = config.startHeight
         this.chain.notRunSynctask = config.notRunSynctask
         this.chain.rpc = new ChainFilecoinRPC({
@@ -112,6 +115,10 @@ export class Context implements IContext {
         this.datastore.member = new MemberMongoDatastore(
             this.datastore.baseConnection
         )
+        this.datastore.datasetBasicStatistics =
+            new DatasetsBasicStatisticsMongoDatastore(
+                this.datastore.baseConnection
+            )
         this.datastore.matchingMetadata = new MatchingMetadataMongoDatastore(
             this.datastore.baseConnection
         )
@@ -141,17 +148,32 @@ export class Context implements IContext {
             replayStrategyOptions: {
                 replay: true,
                 replayStrategy: new AddressesFilterReplayStrategy([
-                    getFilecoinAddress(config.evm.datasetMetadata),
-                    getFilecoinAddress(config.evm.datasetRequirement),
-                    getFilecoinAddress(config.evm.datasetProof),
-                    getFilecoinAddress(config.evm.datasetChallenge),
-                    getFilecoinAddress(config.evm.matchingMetadata),
-                    getFilecoinAddress(config.evm.matchingTarget),
-                    getFilecoinAddress(config.evm.matchingBids),
-                    getFilecoinAddress(config.evm.storages),
-                    getFilecoinAddress(config.evm.finance),
-                    getFilecoinAddress(config.evm.roles),
-                    getFilecoinAddress(config.evm.filplus),
+                    getFilecoinAddress(
+                        config.evm.datasetMetadata,
+                        config.network
+                    ),
+                    getFilecoinAddress(
+                        config.evm.datasetRequirement,
+                        config.network
+                    ),
+                    getFilecoinAddress(config.evm.datasetProof, config.network),
+                    getFilecoinAddress(
+                        config.evm.datasetChallenge,
+                        config.network
+                    ),
+                    getFilecoinAddress(
+                        config.evm.matchingMetadata,
+                        config.network
+                    ),
+                    getFilecoinAddress(
+                        config.evm.matchingTarget,
+                        config.network
+                    ),
+                    getFilecoinAddress(config.evm.matchingBids, config.network),
+                    getFilecoinAddress(config.evm.storages, config.network),
+                    getFilecoinAddress(config.evm.finance, config.network),
+                    getFilecoinAddress(config.evm.roles, config.network),
+                    getFilecoinAddress(config.evm.filplus, config.network),
                 ]),
             },
         })

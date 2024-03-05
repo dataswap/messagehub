@@ -102,7 +102,8 @@ export class BackgroundTask implements IBackgroundTask {
 
                             //step 3.1 store data to datastore from selectedDataStorageParams
                             await this.storager.storeSelectedDataStorageParams(
-                                selectedDataStorageParams
+                                selectedDataStorageParams,
+                                this.syncHeight
                             )
 
                             //step 3.2 process state event from selectedStateEventParams
