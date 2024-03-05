@@ -26,8 +26,6 @@ import { Storager } from "../backgroundTask/storager"
 import {
     carstoreEvm_Calibration,
     carstoreEvm_Main,
-    datacapsEvm_Calibration,
-    datacapsEvm_Main,
     datasetChallengeEvm_Calibration,
     datasetChallengeEvm_Main,
     datasetMetadataEvm_Calibration,
@@ -36,8 +34,6 @@ import {
     datasetProofEvm_Main,
     datasetRequirementEvm_Calibration,
     datasetRequirementEvm_Main,
-    escrowEvm_Calibration,
-    escrowEvm_Main,
     filplusEvm_Calibraion,
     filplusEvm_Main,
     matchingBidsEvm_Calibration,
@@ -75,10 +71,8 @@ export const calibrationConfig: Config = {
         matchingTarget: matchingTargetEvm_Calibration,
         matchingBids: matchingBidsEvm_Calibration,
         storages: storagesEvm_Calibration,
-        datacaps: datacapsEvm_Calibration,
         roles: rolesEvm_Calibration,
         filplus: filplusEvm_Calibraion,
-        escrow: escrowEvm_Calibration,
     },
     notRunSynctask:
         process.env.CALIBRATION_NOT_RUN_SYNCTASK &&
@@ -107,10 +101,8 @@ export const mainConfig: Config = {
         matchingTarget: matchingTargetEvm_Main,
         matchingBids: matchingBidsEvm_Main,
         storages: storagesEvm_Main,
-        datacaps: datacapsEvm_Main,
         roles: rolesEvm_Main,
         filplus: filplusEvm_Main,
-        escrow: escrowEvm_Main,
     },
     notRunSynctask:
         process.env.MAIN_NOT_RUN_SYNCTASK &&

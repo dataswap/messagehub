@@ -187,19 +187,6 @@ export class Decoder implements IDecoder {
                         }
                         break
 
-                    case getFilecoinAddress(this.context.evm.datacaps):
-                        const datacaps =
-                            this.context.evm.datacaps.decodeMessage(msg).data
-                        if (datacaps) {
-                            res.push(datacaps)
-                        } else {
-                            console.error(`Decode datacaps error,:${datacaps}`)
-                            throw new Error(
-                                `Decode datacaps error,:${datacaps}`
-                            )
-                        }
-                        break
-
                     case getFilecoinAddress(this.context.evm.roles):
                         const roles =
                             this.context.evm.roles.decodeMessage(msg).data
@@ -219,17 +206,6 @@ export class Decoder implements IDecoder {
                         } else {
                             console.error(`Decode filplus error,:${filplus}`)
                             throw new Error(`Decode filplus error,:${filplus}`)
-                        }
-                        break
-
-                    case getFilecoinAddress(this.context.evm.escrow):
-                        const escrow =
-                            this.context.evm.escrow.decodeMessage(msg).data
-                        if (escrow) {
-                            res.push(escrow)
-                        } else {
-                            console.error(`Decode escrow error,:${escrow}`)
-                            throw new Error(`Decode escrow error,:${escrow}`)
                         }
                         break
 
