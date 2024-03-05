@@ -35,6 +35,7 @@ import {
     MatchingMetadataEvm,
     MatchingTargetEvm,
     StoragesEvm,
+    FinanceEvm,
     RolesEvm,
     FilplusEvm,
     DataswapMessage,
@@ -71,6 +72,7 @@ export interface ChainContext {
  */
 export interface EvmContext {
     carstore: CarstoreEvm
+    finance: FinanceEvm
     filplus: FilplusEvm
     roles: RolesEvm
     datasetMetadata: DatasetMetadataEvm

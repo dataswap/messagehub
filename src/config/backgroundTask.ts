@@ -34,7 +34,9 @@ import {
     datasetProofEvm_Main,
     datasetRequirementEvm_Calibration,
     datasetRequirementEvm_Main,
-    filplusEvm_Calibraion,
+    financeEvm_Calibration,
+    financeEvm_Main,
+    filplusEvm_Calibration,
     filplusEvm_Main,
     matchingBidsEvm_Calibration,
     matchingBidsEvm_Main,
@@ -72,7 +74,8 @@ export const calibrationConfig: Config = {
         matchingBids: matchingBidsEvm_Calibration,
         storages: storagesEvm_Calibration,
         roles: rolesEvm_Calibration,
-        filplus: filplusEvm_Calibraion,
+        filplus: filplusEvm_Calibration,
+        finance: financeEvm_Calibration,
     },
     notRunSynctask:
         process.env.CALIBRATION_NOT_RUN_SYNCTASK &&
@@ -103,6 +106,7 @@ export const mainConfig: Config = {
         storages: storagesEvm_Main,
         roles: rolesEvm_Main,
         filplus: filplusEvm_Main,
+        finance: financeEvm_Main,
     },
     notRunSynctask:
         process.env.MAIN_NOT_RUN_SYNCTASK &&
