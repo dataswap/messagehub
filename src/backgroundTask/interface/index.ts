@@ -35,8 +35,6 @@ import {
     MatchingMetadataEvm,
     MatchingTargetEvm,
     StoragesEvm,
-    DatacapsEvm,
-    EscrowEvm,
     RolesEvm,
     FilplusEvm,
     DataswapMessage,
@@ -73,7 +71,6 @@ export interface ChainContext {
  */
 export interface EvmContext {
     carstore: CarstoreEvm
-    escrow: EscrowEvm
     filplus: FilplusEvm
     roles: RolesEvm
     datasetMetadata: DatasetMetadataEvm
@@ -84,7 +81,6 @@ export interface EvmContext {
     matchingMetadata: MatchingMetadataEvm
     matchingBids: MatchingBidsEvm
     storages: StoragesEvm
-    datacaps: DatacapsEvm
 }
 
 /**

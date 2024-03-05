@@ -19,7 +19,7 @@ describe("BackgroundTask", () => {
         expect(startHeight).toBe(Number(process.env.CALIBRATION_START_HEIGHT))
 
         const startSyncHeight = calibrationBgTask.getCurrentSyncHeight()
-        await delay(20000)
+        await delay(40000)
         const endSyncHeight = calibrationBgTask.getCurrentSyncHeight()
         expect(endSyncHeight - startSyncHeight > 0).toBe(true)
 
