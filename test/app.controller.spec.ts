@@ -49,6 +49,8 @@ import { SyncController } from "../src/api/sync/sync.controller"
 import { SyncService } from "../src/api/sync/sync.service"
 import { DatasetChallengeController } from "../src/api/datasetChallenge/datasetChallenge.controller"
 import { DatasetChallengeService } from "../src/api/datasetChallenge/datasetChallenge.service"
+import { DatasetsBasicStatisticsController } from "../src/api/datasetsBasicStatistics/datasetsBasicStatistics.controller"
+import { DatasetBasicStatisticsService } from "../src/api/datasetsBasicStatistics/datasetsBasicStatistics.service"
 
 describe("AppController Test", () => {
     let tipsetController: TipsetController
@@ -65,6 +67,7 @@ describe("AppController Test", () => {
     let matchingBidsController: MatchingBidsController
     let syncController: SyncController
     let datasetChallengeController: DatasetChallengeController
+    let datasetsBasicStatisticsController: DatasetsBasicStatisticsController
 
     beforeAll(async () => {
         calibrationBgTask.start()
@@ -92,6 +95,7 @@ describe("AppController Test", () => {
                 MatchingBidsController,
                 SyncController,
                 DatasetChallengeController,
+                DatasetsBasicStatisticsController,
             ],
             providers: [
                 TipsetService,
@@ -108,6 +112,7 @@ describe("AppController Test", () => {
                 MatchingBidsService,
                 SyncService,
                 DatasetChallengeService,
+                DatasetBasicStatisticsService,
             ],
         }).compile()
 
@@ -143,6 +148,10 @@ describe("AppController Test", () => {
         datasetChallengeController = root.get<DatasetChallengeController>(
             DatasetChallengeController
         )
+        datasetsBasicStatisticsController =
+            root.get<DatasetsBasicStatisticsController>(
+                DatasetsBasicStatisticsController
+            )
     })
 
     describe("tipset query", () => {
@@ -244,6 +253,24 @@ describe("AppController Test", () => {
                 network: "calibration",
                 queryFilter: {
                     conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
+    describe("datasetsbasicstatistics query", () => {
+        it("should ok", async () => {
+            const res = await datasetsBasicStatisticsController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [
+                        {
+                            height: {
+                                $gt: BigInt(1409464),
+                                $lt: BigInt(1409470),
+                            },
+                        },
+                    ],
                 },
             })
             expect(res.ok).toBe(true)

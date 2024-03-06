@@ -153,6 +153,24 @@ describe("AppController (e2e)", () => {
             })
             .expect(201)
     }, 30000)
+    it("/datasetsbasicstatistics/query (POST)", async () => {
+        return request(app.getHttpServer())
+            .post("/datasetsbasicstatistics/query")
+            .send({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [
+                        {
+                            height: {
+                                $gt: 1409464,
+                                $lt: 1409470,
+                            },
+                        },
+                    ],
+                },
+            })
+            .expect(201)
+    }, 30000)
     it("/matchingmetadata/query (POST)", async () => {
         return request(app.getHttpServer())
             .post("/matchingmetadata/query")
