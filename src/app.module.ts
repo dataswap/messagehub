@@ -54,6 +54,10 @@ import { DatasetChallengeController } from "./api/datasetChallenge/datasetChalle
 import { DatasetChallengeService } from "./api/datasetChallenge/datasetChallenge.service"
 import { DatasetsBasicStatisticsController } from "./api/datasetsBasicStatistics/datasetsBasicStatistics.controller"
 import { DatasetBasicStatisticsService } from "./api/datasetsBasicStatistics/datasetsBasicStatistics.service"
+import { MatchingStorageStatisticsInfoController } from "./api/statistics/matchingStorageStatisticsInfo.controller"
+import { MatchingStorageStatisticsInfoService } from "./api/statistics/matchingStorageStatisticsInfo.service"
+import { StoragesBasicStatisticsController } from "./api/statistics/storagesBasicStatistics.controller"
+import { StoragesBasicStatisticsService } from "./api/statistics/storagesBasicStatistics.service"
 
 import { MatchingsBasicStatisticsController } from "./api/matchingsBasicStatistics/matchingsBasicStatistics.controller"
 import { MatchingsBasicStatisticsService } from "./api/matchingsBasicStatistics/matchingsBasicStatistics.service"
@@ -81,6 +85,8 @@ import { MatchingsBasicStatisticsService } from "./api/matchingsBasicStatistics/
         DatasetChallengeController,
         DatasetsBasicStatisticsController,
         MatchingsBasicStatisticsController,
+        MatchingStorageStatisticsInfoController,
+        StoragesBasicStatisticsController,
     ],
     providers: [
         VersionService,
@@ -102,6 +108,8 @@ import { MatchingsBasicStatisticsService } from "./api/matchingsBasicStatistics/
         DatasetChallengeService,
         DatasetBasicStatisticsService,
         MatchingsBasicStatisticsService,
+        MatchingStorageStatisticsInfoService,
+        StoragesBasicStatisticsService,
     ],
 })
 export class AppModule {}
