@@ -37,6 +37,9 @@ import {
     convertToRequirementArray,
     BasicParamsInfo,
     DatasetChallenge,
+    Member,
+    FinanceAccount,
+    FIL,
 } from "@dataswapjs/dataswapjs"
 import { Result } from "@unipackage/utils"
 
@@ -148,8 +151,33 @@ export class Storager implements IStorager {
                                 selected.params as DatasetMetadata
                             )
                         )
-                        break
 
+                        doStores.push(
+                            this.context.datastore.member.createOrUpdateMember(
+                                new Member({
+                                    address: selected.params.submitter,
+                                    totalDatasetsSubmitted: 1,
+                                    totalProofSubmitted: 0,
+                                    totalChallengeSubmitted: 0,
+                                    totalMatchingSubmitted: 0,
+                                    totalDisputeSubmitted: 0,
+                                    storageClient: true,
+                                    storageProvider: false,
+                                    datasetPreparer: false,
+                                    datasetAuditer: false,
+                                    financeAccounts: [
+                                        new FinanceAccount({
+                                            datasetId:
+                                                selected.params.datasetId,
+                                            matchingId: 0,
+                                            token: FIL,
+                                        }),
+                                    ],
+                                })
+                            )
+                        )
+
+                        break
                     case "submitDatasetReplicaRequirements":
                         const requirements = convertToRequirementArray(
                             selected.params as DatasetRequirements
@@ -169,6 +197,32 @@ export class Storager implements IStorager {
                                 selected.params as DatasetProofMetadata
                             )
                         )
+
+                        doStores.push(
+                            this.context.datastore.member.createOrUpdateMember(
+                                new Member({
+                                    address: selected.params.submitter,
+                                    totalDatasetsSubmitted: 0,
+                                    totalProofSubmitted: 1,
+                                    totalChallengeSubmitted: 0,
+                                    totalMatchingSubmitted: 0,
+                                    totalDisputeSubmitted: 0,
+                                    storageClient: false,
+                                    storageProvider: false,
+                                    datasetPreparer: true,
+                                    datasetAuditer: false,
+                                    financeAccounts: [
+                                        new FinanceAccount({
+                                            datasetId:
+                                                selected.params.datasetId,
+                                            matchingId: 0,
+                                            token: FIL,
+                                        }),
+                                    ],
+                                })
+                            )
+                        )
+
                         break
 
                     case "submitDatasetProof":
@@ -191,6 +245,7 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
+
                         break
                     case "submitDatasetChallengeProofs":
                         doStores.push(
@@ -198,6 +253,32 @@ export class Storager implements IStorager {
                                 selected.params as DatasetChallenge
                             )
                         )
+
+                        doStores.push(
+                            this.context.datastore.member.createOrUpdateMember(
+                                new Member({
+                                    address: selected.params.auditor,
+                                    totalDatasetsSubmitted: 0,
+                                    totalProofSubmitted: 0,
+                                    totalChallengeSubmitted: 1,
+                                    totalMatchingSubmitted: 0,
+                                    totalDisputeSubmitted: 0,
+                                    storageClient: false,
+                                    storageProvider: false,
+                                    datasetPreparer: false,
+                                    datasetAuditer: true,
+                                    financeAccounts: [
+                                        new FinanceAccount({
+                                            datasetId:
+                                                selected.params.datasetId,
+                                            matchingId: 0,
+                                            token: FIL,
+                                        }),
+                                    ],
+                                })
+                            )
+                        )
+
                         break
                     case "createMatching":
                         doStores.push(
@@ -211,6 +292,32 @@ export class Storager implements IStorager {
                                         selected.params as MatchingMetadata,
                                     matchingId: selected.params.matchingId,
                                 }
+                            )
+                        )
+
+                        doStores.push(
+                            this.context.datastore.member.createOrUpdateMember(
+                                new Member({
+                                    address: selected.params.initiator,
+                                    totalDatasetsSubmitted: 0,
+                                    totalProofSubmitted: 0,
+                                    totalChallengeSubmitted: 0,
+                                    totalMatchingSubmitted: 1,
+                                    totalDisputeSubmitted: 0,
+                                    storageClient: false,
+                                    storageProvider: false,
+                                    datasetPreparer: true,
+                                    datasetAuditer: false,
+                                    financeAccounts: [
+                                        new FinanceAccount({
+                                            datasetId:
+                                                selected.params.datasetId,
+                                            matchingId:
+                                                selected.params.matchingId,
+                                            token: FIL,
+                                        }),
+                                    ],
+                                })
                             )
                         )
 
@@ -310,6 +417,32 @@ export class Storager implements IStorager {
                                         .matchingId,
                                 }
                             )
+                        )
+
+                        doStores.push(
+                            this.context.datastore.member.createOrUpdateMember({
+                                matchingTarget: this.context.evm.matchingTarget,
+                                update: new Member({
+                                    address: selected.params.bidder,
+                                    totalDatasetsSubmitted: 0,
+                                    totalProofSubmitted: 0,
+                                    totalChallengeSubmitted: 0,
+                                    totalMatchingSubmitted: 0,
+                                    totalDisputeSubmitted: 0,
+                                    storageClient: true,
+                                    storageProvider: false,
+                                    datasetPreparer: false,
+                                    datasetAuditer: false,
+                                    financeAccounts: [
+                                        new FinanceAccount({
+                                            datasetId: 0,
+                                            matchingId:
+                                                selected.params.matchingId,
+                                            token: FIL,
+                                        }),
+                                    ],
+                                }),
+                            })
                         )
                     case "pauseMatching":
                     case "resumeMatching":
