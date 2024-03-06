@@ -49,6 +49,7 @@ import {
     MatchingMetadataMongoDatastore,
     MatchingTargetMongoDatastore,
     MatchingBidMongoDatastore,
+    MatchingsBasicStatisticsMongoDatastore,
     CarReplicaMongoDatastore,
     DatasetChallengeMongoDatastore,
     MemberMongoDatastore,
@@ -105,6 +106,7 @@ export interface DatastoreContext {
     matchingMetadata: MatchingMetadataMongoDatastore
     matchingTarget: MatchingTargetMongoDatastore
     matchingBids: MatchingBidMongoDatastore
+    matchingsBasicStatistics: MatchingsBasicStatisticsMongoDatastore
     car: CarMongoDatastore
     carReplica: CarReplicaMongoDatastore
     member: MemberMongoDatastore

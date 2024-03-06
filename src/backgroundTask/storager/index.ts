@@ -402,7 +402,15 @@ export class Storager implements IStorager {
                                 })
                             )
                         )
-
+                        doStores.push(
+                            this.context.datastore.matchingsBasicStatistics.updateBasicStatisticss(
+                                {
+                                    matchings:
+                                        this.context.evm.matchingMetadata,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
                         break
 
                     case "createTarget":
@@ -470,6 +478,16 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
+                        doStores.push(
+                            this.context.datastore.matchingsBasicStatistics.updateBasicStatisticss(
+                                {
+                                    matchings:
+                                        this.context.evm.matchingMetadata,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
+
                         break
                     case "bidding":
                         doStores.push(
@@ -526,6 +544,16 @@ export class Storager implements IStorager {
                                 }),
                             })
                         )
+                        doStores.push(
+                            this.context.datastore.matchingsBasicStatistics.updateBasicStatisticss(
+                                {
+                                    matchings:
+                                        this.context.evm.matchingMetadata,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
+
                     case "pauseMatching":
                     case "resumeMatching":
                         doStores.push(
@@ -562,6 +590,16 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
+                        doStores.push(
+                            this.context.datastore.matchingsBasicStatistics.updateBasicStatisticss(
+                                {
+                                    matchings:
+                                        this.context.evm.matchingMetadata,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
+
                         break
                     default:
                         throw new Error(

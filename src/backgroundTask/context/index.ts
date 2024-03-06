@@ -45,6 +45,7 @@ import {
     CarReplicaMongoDatastore,
     MemberMongoDatastore,
     DatasetsBasicStatisticsMongoDatastore,
+    MatchingsBasicStatisticsMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import { getFilecoinAddress } from "../../shared/address"
 import { DatabaseConnection } from "@unipackage/datastore"
@@ -128,6 +129,10 @@ export class Context implements IContext {
         this.datastore.matchingBids = new MatchingBidMongoDatastore(
             this.datastore.baseConnection
         )
+        this.datastore.matchingsBasicStatistics =
+            new MatchingsBasicStatisticsMongoDatastore(
+                this.datastore.baseConnection
+            )
         this.datastore.carReplica = new CarReplicaMongoDatastore(
             this.datastore.baseConnection
         )
