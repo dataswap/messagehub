@@ -520,6 +520,27 @@ export class Storager implements IStorager {
                         )
 
                         doStores.push(
+                            this.context.datastore.matchingStorageStatisticsInfo.updateMatchingStorageStatisticsInfos(
+                                {
+                                    matchingTarget:
+                                        this.context.evm.matchingTarget,
+                                    storages: this.context.evm.storages,
+                                    matchingId: (selected.params as MatchingBid)
+                                        .matchingId,
+                                }
+                            )
+                        )
+
+                        doStores.push(
+                            this.context.datastore.storagesBasicStatistics.updateBasicStatisticss(
+                                {
+                                    storages: this.context.evm.storages,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
+
+                        doStores.push(
                             this.context.datastore.member.createOrUpdateMember({
                                 matchingTarget: this.context.evm.matchingTarget,
                                 update: new Member({
@@ -579,6 +600,29 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
+
+                        doStores.push(
+                            this.context.datastore.matchingStorageStatisticsInfo.updateMatchingStorageStatisticsInfos(
+                                {
+                                    matchingTarget:
+                                        this.context.evm.matchingTarget,
+                                    storages: this.context.evm.storages,
+                                    matchingId: (
+                                        selected.params as BasicParamsInfo
+                                    ).matchingId,
+                                }
+                            )
+                        )
+
+                        doStores.push(
+                            this.context.datastore.storagesBasicStatistics.updateBasicStatisticss(
+                                {
+                                    storages: this.context.evm.storages,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
+
                     case "cancelMatching":
                         doStores.push(
                             this.context.datastore.datasetRequirement.updateMatching(
@@ -596,6 +640,30 @@ export class Storager implements IStorager {
                                     matchings:
                                         this.context.evm.matchingMetadata,
                                     height: BigInt(height),
+                                }
+                            )
+                        )
+
+                        break
+                    case "submitStorageClaimIds":
+                        doStores.push(
+                            this.context.datastore.storagesBasicStatistics.updateBasicStatisticss(
+                                {
+                                    storages: this.context.evm.storages,
+                                    height: BigInt(height),
+                                }
+                            )
+                        )
+                    case "requestAllocateDatacap":
+                        doStores.push(
+                            this.context.datastore.matchingStorageStatisticsInfo.updateMatchingStorageStatisticsInfos(
+                                {
+                                    matchingTarget:
+                                        this.context.evm.matchingTarget,
+                                    storages: this.context.evm.storages,
+                                    matchingId: (
+                                        selected.params as BasicParamsInfo
+                                    ).matchingId,
                                 }
                             )
                         )

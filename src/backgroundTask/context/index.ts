@@ -46,6 +46,8 @@ import {
     MemberMongoDatastore,
     DatasetsBasicStatisticsMongoDatastore,
     MatchingsBasicStatisticsMongoDatastore,
+    MatchingStorageStatisticsInfoMongoDatastore,
+    StoragesBasicStatisticsMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import { getFilecoinAddress } from "../../shared/address"
 import { DatabaseConnection } from "@unipackage/datastore"
@@ -133,6 +135,15 @@ export class Context implements IContext {
             new MatchingsBasicStatisticsMongoDatastore(
                 this.datastore.baseConnection
             )
+        this.datastore.matchingStorageStatisticsInfo =
+            new MatchingStorageStatisticsInfoMongoDatastore(
+                this.datastore.baseConnection
+            )
+        this.datastore.storagesBasicStatistics =
+            new StoragesBasicStatisticsMongoDatastore(
+                this.datastore.baseConnection
+            )
+
         this.datastore.carReplica = new CarReplicaMongoDatastore(
             this.datastore.baseConnection
         )

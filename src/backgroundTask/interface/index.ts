@@ -46,6 +46,8 @@ import {
     DatasetsBasicStatisticsMongoDatastore,
     CarMongoDatastore,
     CarstoreEvm,
+    MatchingStorageStatisticsInfoMongoDatastore,
+    StoragesBasicStatisticsMongoDatastore,
     MatchingMetadataMongoDatastore,
     MatchingTargetMongoDatastore,
     MatchingBidMongoDatastore,
@@ -103,6 +105,8 @@ export interface DatastoreContext {
     datasetRequirement: DatasetRequirementMongoDatastore
     datasetProofMetadata: DatasetProofMetadataMongoDatastore
     datasetChallenge: DatasetChallengeMongoDatastore
+    matchingStorageStatisticsInfo: MatchingStorageStatisticsInfoMongoDatastore
+    storagesBasicStatistics: StoragesBasicStatisticsMongoDatastore
     matchingMetadata: MatchingMetadataMongoDatastore
     matchingTarget: MatchingTargetMongoDatastore
     matchingBids: MatchingBidMongoDatastore
