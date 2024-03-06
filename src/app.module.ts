@@ -45,6 +45,8 @@ import { MatchingMetadataController } from "./api/matchingMetadata/matchingMetad
 import { MatchingMetadataService } from "./api/matchingMetadata/matchingMetadata.service"
 import { MatchingTargetController } from "./api/matchingTarget/matchingTarget.controller"
 import { MatchingTargetService } from "./api/matchingTarget/matchingTarget.service"
+import { MemberController } from "./api/member/member.controller"
+import { MemberService } from "./api/member/member.service"
 import { MatchingBidsController } from "./api/matchingBids/matchingBids.controller"
 import { MatchingBidsService } from "./api/matchingBids/matchingBids.service"
 import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.service"
@@ -70,6 +72,7 @@ import { DatasetChallengeService } from "./api/datasetChallenge/datasetChallenge
         DatasetProofMetadataController,
         MatchingMetadataController,
         MatchingTargetController,
+        MemberController,
         MatchingBidsController,
         DatasetChallengeController,
     ],
@@ -88,6 +91,7 @@ import { DatasetChallengeService } from "./api/datasetChallenge/datasetChallenge
         DatasetProofMetadataService,
         MatchingMetadataService,
         MatchingTargetService,
+        MemberService,
         MatchingBidsService,
         DatasetChallengeService,
     ],

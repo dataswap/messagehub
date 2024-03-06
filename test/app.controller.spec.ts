@@ -43,6 +43,8 @@ import { MatchingMetadataController } from "../src/api/matchingMetadata/matching
 import { MatchingMetadataService } from "../src/api/matchingMetadata/matchingMetadata.service"
 import { MatchingTargetController } from "../src/api/matchingTarget/matchingTarget.controller"
 import { MatchingTargetService } from "../src/api/matchingTarget/matchingTarget.service"
+import { MemberController } from "../src/api/member/member.controller"
+import { MemberService } from "../src/api/member/member.service"
 import { MatchingBidsController } from "../src/api/matchingBids/matchingBids.controller"
 import { MatchingBidsService } from "../src/api/matchingBids/matchingBids.service"
 import { SyncController } from "../src/api/sync/sync.controller"
@@ -62,6 +64,7 @@ describe("AppController Test", () => {
     let datasetProofMetadataController: DatasetProofMetadataController
     let matchingMetadataController: MatchingMetadataController
     let matchingTargetController: MatchingTargetController
+    let memberController: MemberController
     let matchingBidsController: MatchingBidsController
     let syncController: SyncController
     let datasetChallengeController: DatasetChallengeController
@@ -89,6 +92,7 @@ describe("AppController Test", () => {
                 DatasetProofMetadataController,
                 MatchingMetadataController,
                 MatchingTargetController,
+                MemberController,
                 MatchingBidsController,
                 SyncController,
                 DatasetChallengeController,
@@ -105,6 +109,7 @@ describe("AppController Test", () => {
                 DatasetProofMetadataService,
                 MatchingMetadataService,
                 MatchingTargetService,
+                MemberService,
                 MatchingBidsService,
                 SyncService,
                 DatasetChallengeService,
@@ -136,6 +141,7 @@ describe("AppController Test", () => {
         matchingTargetController = root.get<MatchingTargetController>(
             MatchingTargetController
         )
+        memberController = root.get<MemberController>(MemberController)
         matchingBidsController = root.get<MatchingBidsController>(
             MatchingBidsController
         )
@@ -266,6 +272,19 @@ describe("AppController Test", () => {
                 network: "calibration",
                 queryFilter: {
                     conditions: [{ matchingId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
+    describe("member query", () => {
+        it("should ok", async () => {
+            const res = await memberController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [
+                        { totalDatasetsSubmitted: { $gt: 0, $lt: 3 } },
+                    ],
                 },
             })
             expect(res.ok).toBe(true)
