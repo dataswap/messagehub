@@ -58,6 +58,14 @@ describe("BackgroundTask", () => {
             await calibrationBgTask.context.datastore.datasetBasicStatistics.find(
                 {}
             )
+        const matchingStorageStatisticsInfo =
+            await calibrationBgTask.context.datastore.matchingStorageStatisticsInfo.find(
+                {}
+            )
+        const storagesBasicStatistics =
+            await calibrationBgTask.context.datastore.storagesBasicStatistics.find(
+                {}
+            )
 
         const matchingsBasicStatistics =
             await calibrationBgTask.context.datastore.matchingsBasicStatistics.find(
@@ -79,5 +87,7 @@ describe("BackgroundTask", () => {
         expect(datasetChallenge.data.length >= 0).toBe(true)
         expect(datasetBasicStatistics.data.length >= 0).toBe(true)
         expect(matchingsBasicStatistics.data.length >= 0).toBe(true)
+        expect(matchingStorageStatisticsInfo.data.length >= 0).toBe(true)
+        expect(storagesBasicStatistics.data.length >= 0).toBe(true)
     }, 100000)
 })

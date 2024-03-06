@@ -55,6 +55,10 @@ import { DatasetsBasicStatisticsController } from "../src/api/datasetsBasicStati
 import { DatasetBasicStatisticsService } from "../src/api/datasetsBasicStatistics/datasetsBasicStatistics.service"
 import { MatchingsBasicStatisticsController } from "../src/api/matchingsBasicStatistics/matchingsBasicStatistics.controller"
 import { MatchingsBasicStatisticsService } from "../src/api/matchingsBasicStatistics/matchingsBasicStatistics.service"
+import { MatchingStorageStatisticsInfoController } from "../src/api/statistics/matchingStorageStatisticsInfo.controller"
+import { MatchingStorageStatisticsInfoService } from "../src/api/statistics/matchingStorageStatisticsInfo.service"
+import { StoragesBasicStatisticsController } from "../src/api/statistics/storagesBasicStatistics.controller"
+import { StoragesBasicStatisticsService } from "../src/api/statistics/storagesBasicStatistics.service"
 
 describe("AppController Test", () => {
     let tipsetController: TipsetController
@@ -74,6 +78,8 @@ describe("AppController Test", () => {
     let datasetChallengeController: DatasetChallengeController
     let datasetsBasicStatisticsController: DatasetsBasicStatisticsController
     let matchingsBasicStatisticsController: MatchingsBasicStatisticsController
+    let matchingStorageStatisticsInfoController: MatchingStorageStatisticsInfoController
+    let storagesBasicStatisticsController: StoragesBasicStatisticsController
 
     beforeAll(async () => {
         calibrationBgTask.start()
@@ -104,6 +110,8 @@ describe("AppController Test", () => {
                 DatasetChallengeController,
                 DatasetsBasicStatisticsController,
                 MatchingsBasicStatisticsController,
+                StoragesBasicStatisticsController,
+                MatchingStorageStatisticsInfoController,
             ],
             providers: [
                 TipsetService,
@@ -123,6 +131,8 @@ describe("AppController Test", () => {
                 DatasetChallengeService,
                 DatasetBasicStatisticsService,
                 MatchingsBasicStatisticsService,
+                StoragesBasicStatisticsService,
+                MatchingStorageStatisticsInfoService,
             ],
         }).compile()
 
@@ -166,6 +176,14 @@ describe("AppController Test", () => {
         matchingsBasicStatisticsController =
             root.get<MatchingsBasicStatisticsController>(
                 MatchingsBasicStatisticsController
+            )
+        storagesBasicStatisticsController =
+            root.get<StoragesBasicStatisticsController>(
+                StoragesBasicStatisticsController
+            )
+        matchingStorageStatisticsInfoController =
+            root.get<MatchingStorageStatisticsInfoController>(
+                MatchingStorageStatisticsInfoController
             )
     })
 
@@ -370,6 +388,30 @@ describe("AppController Test", () => {
                 network: "calibration",
                 queryFilter: {
                     conditions: [{ datasetId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
+
+    describe("matchingStorageStatisticsInfo query", () => {
+        it("should ok", async () => {
+            const res = await matchingStorageStatisticsInfoController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ matchingId: { $gt: 0, $lt: 3 } }],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
+
+    describe("storagesBasicStatistics query", () => {
+        it("should ok", async () => {
+            const res = await storagesBasicStatisticsController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [{ totalCounts: { $gt: 0, $lt: 3 } }],
                 },
             })
             expect(res.ok).toBe(true)
