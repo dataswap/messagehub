@@ -51,6 +51,8 @@ import { DatasetChallengeController } from "../src/api/datasetChallenge/datasetC
 import { DatasetChallengeService } from "../src/api/datasetChallenge/datasetChallenge.service"
 import { DatasetsBasicStatisticsController } from "../src/api/datasetsBasicStatistics/datasetsBasicStatistics.controller"
 import { DatasetBasicStatisticsService } from "../src/api/datasetsBasicStatistics/datasetsBasicStatistics.service"
+import { MatchingsBasicStatisticsController } from "../src/api/matchingsBasicStatistics/matchingsBasicStatistics.controller"
+import { MatchingsBasicStatisticsService } from "../src/api/matchingsBasicStatistics/matchingsBasicStatistics.service"
 
 describe("AppController Test", () => {
     let tipsetController: TipsetController
@@ -68,6 +70,7 @@ describe("AppController Test", () => {
     let syncController: SyncController
     let datasetChallengeController: DatasetChallengeController
     let datasetsBasicStatisticsController: DatasetsBasicStatisticsController
+    let matchingsBasicStatisticsController: MatchingsBasicStatisticsController
 
     beforeAll(async () => {
         calibrationBgTask.start()
@@ -96,6 +99,7 @@ describe("AppController Test", () => {
                 SyncController,
                 DatasetChallengeController,
                 DatasetsBasicStatisticsController,
+                MatchingsBasicStatisticsController,
             ],
             providers: [
                 TipsetService,
@@ -113,6 +117,7 @@ describe("AppController Test", () => {
                 SyncService,
                 DatasetChallengeService,
                 DatasetBasicStatisticsService,
+                MatchingsBasicStatisticsService,
             ],
         }).compile()
 
@@ -151,6 +156,10 @@ describe("AppController Test", () => {
         datasetsBasicStatisticsController =
             root.get<DatasetsBasicStatisticsController>(
                 DatasetsBasicStatisticsController
+            )
+        matchingsBasicStatisticsController =
+            root.get<MatchingsBasicStatisticsController>(
+                MatchingsBasicStatisticsController
             )
     })
 
@@ -309,7 +318,24 @@ describe("AppController Test", () => {
             expect(res.ok).toBe(true)
         }, 300000)
     })
-
+    describe("matchingsbasicstatistics query", () => {
+        it("should ok", async () => {
+            const res = await matchingsBasicStatisticsController.find({
+                network: "calibration",
+                queryFilter: {
+                    conditions: [
+                        {
+                            height: {
+                                $gt: BigInt(1409460),
+                                $lt: BigInt(1409470),
+                            },
+                        },
+                    ],
+                },
+            })
+            expect(res.ok).toBe(true)
+        }, 300000)
+    })
     describe("syncstatus query", () => {
         it("should ok", async () => {
             const res = await syncController.getSyncStatus({
