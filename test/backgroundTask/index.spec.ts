@@ -58,6 +58,10 @@ describe("BackgroundTask", () => {
                 {}
             )
 
+        const matchingsBasicStatistics =
+            await calibrationBgTask.context.datastore.matchingsBasicStatistics.find(
+                {}
+            )
         expect(tipsets.data.length > 0).toBe(true)
         expect(blocks.data.length > 0).toBe(true)
         expect(messages.data.length > 0).toBe(true)
@@ -72,5 +76,6 @@ describe("BackgroundTask", () => {
         expect(matchingBids.data.length >= 0).toBe(true)
         expect(datasetChallenge.data.length >= 0).toBe(true)
         expect(datasetBasicStatistics.data.length >= 0).toBe(true)
+        expect(matchingsBasicStatistics.data.length >= 0).toBe(true)
     }, 100000)
 })

@@ -53,6 +53,8 @@ import { DatasetChallengeService } from "./api/datasetChallenge/datasetChallenge
 import { DatasetsBasicStatisticsController } from "./api/datasetsBasicStatistics/datasetsBasicStatistics.controller"
 import { DatasetBasicStatisticsService } from "./api/datasetsBasicStatistics/datasetsBasicStatistics.service"
 
+import { MatchingsBasicStatisticsController } from "./api/matchingsBasicStatistics/matchingsBasicStatistics.controller"
+import { MatchingsBasicStatisticsService } from "./api/matchingsBasicStatistics/matchingsBasicStatistics.service"
 /**
  * Root module for the application.
  */
@@ -75,6 +77,7 @@ import { DatasetBasicStatisticsService } from "./api/datasetsBasicStatistics/dat
         MatchingBidsController,
         DatasetChallengeController,
         DatasetsBasicStatisticsController,
+        MatchingsBasicStatisticsController,
     ],
     providers: [
         VersionService,
@@ -94,6 +97,7 @@ import { DatasetBasicStatisticsService } from "./api/datasetsBasicStatistics/dat
         MatchingBidsService,
         DatasetChallengeService,
         DatasetBasicStatisticsService,
+        MatchingsBasicStatisticsService,
     ],
 })
 export class AppModule {}
