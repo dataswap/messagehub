@@ -496,6 +496,7 @@ export class Storager implements IStorager {
                                     matchingBids: this.context.evm.matchingBids,
                                     origionMatchingBid:
                                         selected.params as MatchingBid,
+                                    network: this.context.chain.network,
                                 }
                             )
                         )
