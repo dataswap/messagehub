@@ -52,15 +52,14 @@ import { MatchingBidsService } from "./api/matchingBids/matchingBids.service"
 import { BackgroundTaskService } from "./backgroundTask/provider/backgroundTask.service"
 import { DatasetChallengeController } from "./api/datasetChallenge/datasetChallenge.controller"
 import { DatasetChallengeService } from "./api/datasetChallenge/datasetChallenge.service"
-import { DatasetsBasicStatisticsController } from "./api/datasetsBasicStatistics/datasetsBasicStatistics.controller"
-import { DatasetBasicStatisticsService } from "./api/datasetsBasicStatistics/datasetsBasicStatistics.service"
+import { DatasetsStatisticsController } from "./api/statistics/datasetsStatistics.controller"
+import { DatasetsStatisticsService } from "./api/statistics/datasetsStatistics.service"
 import { MatchingStorageStatisticsInfoController } from "./api/statistics/matchingStorageStatisticsInfo.controller"
 import { MatchingStorageStatisticsInfoService } from "./api/statistics/matchingStorageStatisticsInfo.service"
-import { StoragesBasicStatisticsController } from "./api/statistics/storagesBasicStatistics.controller"
-import { StoragesBasicStatisticsService } from "./api/statistics/storagesBasicStatistics.service"
-
-import { MatchingsBasicStatisticsController } from "./api/matchingsBasicStatistics/matchingsBasicStatistics.controller"
-import { MatchingsBasicStatisticsService } from "./api/matchingsBasicStatistics/matchingsBasicStatistics.service"
+import { StoragesStatisticsController } from "./api/statistics/storagesStatistics.controller"
+import { StoragesStatisticsService } from "./api/statistics/storagesStatistics.service"
+import { MatchingsStatisticsController } from "./api/statistics/matchingsStatistics.controller"
+import { MatchingsStatisticsService } from "./api/statistics/matchingsStatistics.service"
 /**
  * Root module for the application.
  */
@@ -83,10 +82,10 @@ import { MatchingsBasicStatisticsService } from "./api/matchingsBasicStatistics/
         MemberController,
         MatchingBidsController,
         DatasetChallengeController,
-        DatasetsBasicStatisticsController,
-        MatchingsBasicStatisticsController,
+        DatasetsStatisticsController,
+        MatchingsStatisticsController,
         MatchingStorageStatisticsInfoController,
-        StoragesBasicStatisticsController,
+        StoragesStatisticsController,
     ],
     providers: [
         VersionService,
@@ -106,10 +105,10 @@ import { MatchingsBasicStatisticsService } from "./api/matchingsBasicStatistics/
         MemberService,
         MatchingBidsService,
         DatasetChallengeService,
-        DatasetBasicStatisticsService,
-        MatchingsBasicStatisticsService,
+        DatasetsStatisticsService,
+        MatchingsStatisticsService,
         MatchingStorageStatisticsInfoService,
-        StoragesBasicStatisticsService,
+        StoragesStatisticsService,
     ],
 })
 export class AppModule {}

@@ -160,10 +160,11 @@ export class Storager implements IStorager {
                             )
                         )
                         doStores.push(
-                            this.context.datastore.datasetBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.datasetStatistics.updateStatisticss(
                                 {
-                                    datasets: this.context.evm.datasetMetadata,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.datasetMetadata,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )
@@ -261,10 +262,11 @@ export class Storager implements IStorager {
                             })
                         )
                         doStores.push(
-                            this.context.datastore.datasetBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.datasetStatistics.updateStatisticss(
                                 {
-                                    datasets: this.context.evm.datasetMetadata,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.datasetProof,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )
@@ -279,10 +281,11 @@ export class Storager implements IStorager {
                             })
                         )
                         doStores.push(
-                            this.context.datastore.datasetBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.datasetStatistics.updateStatisticss(
                                 {
-                                    datasets: this.context.evm.datasetMetadata,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.datasetProof,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )
@@ -299,10 +302,11 @@ export class Storager implements IStorager {
                         )
 
                         doStores.push(
-                            this.context.datastore.datasetBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.datasetStatistics.updateStatisticss(
                                 {
-                                    datasets: this.context.evm.datasetMetadata,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.datasetProof,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )
@@ -354,10 +358,11 @@ export class Storager implements IStorager {
                             )
                         )
                         doStores.push(
-                            this.context.datastore.datasetBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.datasetStatistics.updateStatisticss(
                                 {
-                                    datasets: this.context.evm.datasetMetadata,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.datasetChallenge,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )
@@ -403,11 +408,11 @@ export class Storager implements IStorager {
                             )
                         )
                         doStores.push(
-                            this.context.datastore.matchingsBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.matchingsStatistics.updateStatisticss(
                                 {
-                                    matchings:
-                                        this.context.evm.matchingMetadata,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.matchingMetadata,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )
@@ -481,11 +486,11 @@ export class Storager implements IStorager {
                             )
                         )
                         doStores.push(
-                            this.context.datastore.matchingsBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.matchingsStatistics.updateStatisticss(
                                 {
-                                    matchings:
-                                        this.context.evm.matchingMetadata,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.matchingTarget,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )
@@ -520,7 +525,6 @@ export class Storager implements IStorager {
                                 }
                             )
                         )
-
                         doStores.push(
                             this.context.datastore.matchingStorageStatisticsInfo.updateMatchingStorageStatisticsInfos(
                                 {
@@ -534,10 +538,11 @@ export class Storager implements IStorager {
                         )
 
                         doStores.push(
-                            this.context.datastore.storagesBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.storagesStatistics.updateStatisticss(
                                 {
-                                    storages: this.context.evm.storages,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.matchingBids,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )
@@ -568,11 +573,11 @@ export class Storager implements IStorager {
                             })
                         )
                         doStores.push(
-                            this.context.datastore.matchingsBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.matchingsStatistics.updateStatisticss(
                                 {
-                                    matchings:
-                                        this.context.evm.matchingMetadata,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.matchingBids,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )
@@ -617,10 +622,11 @@ export class Storager implements IStorager {
                         )
 
                         doStores.push(
-                            this.context.datastore.storagesBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.storagesStatistics.updateStatisticss(
                                 {
-                                    storages: this.context.evm.storages,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.matchingBids,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )
@@ -637,11 +643,11 @@ export class Storager implements IStorager {
                             )
                         )
                         doStores.push(
-                            this.context.datastore.matchingsBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.matchingsStatistics.updateStatisticss(
                                 {
-                                    matchings:
-                                        this.context.evm.matchingMetadata,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.matchingBids,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )
@@ -649,10 +655,11 @@ export class Storager implements IStorager {
                         break
                     case "submitStorageClaimIds":
                         doStores.push(
-                            this.context.datastore.storagesBasicStatistics.updateBasicStatisticss(
+                            this.context.datastore.storagesStatistics.updateStatisticss(
                                 {
-                                    storages: this.context.evm.storages,
-                                    height: BigInt(height),
+                                    evm: this.context.evm.storages,
+                                    chainFilecoinRPC: this.context.chain.rpc,
+                                    msgCid: selected.cid,
                                 }
                             )
                         )

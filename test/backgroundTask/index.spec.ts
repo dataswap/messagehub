@@ -54,21 +54,19 @@ describe("BackgroundTask", () => {
             await calibrationBgTask.context.datastore.matchingBids.find({})
         const datasetChallenge =
             await calibrationBgTask.context.datastore.datasetChallenge.find({})
-        const datasetBasicStatistics =
-            await calibrationBgTask.context.datastore.datasetBasicStatistics.find(
-                {}
-            )
+        const datasetStatistics =
+            await calibrationBgTask.context.datastore.datasetStatistics.find({})
         const matchingStorageStatisticsInfo =
             await calibrationBgTask.context.datastore.matchingStorageStatisticsInfo.find(
                 {}
             )
-        const storagesBasicStatistics =
-            await calibrationBgTask.context.datastore.storagesBasicStatistics.find(
+        const storagesStatistics =
+            await calibrationBgTask.context.datastore.storagesStatistics.find(
                 {}
             )
 
-        const matchingsBasicStatistics =
-            await calibrationBgTask.context.datastore.matchingsBasicStatistics.find(
+        const matchingsStatistics =
+            await calibrationBgTask.context.datastore.matchingsStatistics.find(
                 {}
             )
         expect(tipsets.data.length > 0).toBe(true)
@@ -85,9 +83,9 @@ describe("BackgroundTask", () => {
         expect(member.data.length >= 0).toBe(true)
         expect(matchingBids.data.length >= 0).toBe(true)
         expect(datasetChallenge.data.length >= 0).toBe(true)
-        expect(datasetBasicStatistics.data.length >= 0).toBe(true)
-        expect(matchingsBasicStatistics.data.length >= 0).toBe(true)
+        expect(datasetStatistics.data.length >= 0).toBe(true)
+        expect(matchingsStatistics.data.length >= 0).toBe(true)
         expect(matchingStorageStatisticsInfo.data.length >= 0).toBe(true)
-        expect(storagesBasicStatistics.data.length >= 0).toBe(true)
+        expect(storagesStatistics.data.length >= 0).toBe(true)
     }, 100000)
 })

@@ -44,10 +44,10 @@ import {
     MatchingBidMongoDatastore,
     CarReplicaMongoDatastore,
     MemberMongoDatastore,
-    DatasetsBasicStatisticsMongoDatastore,
-    MatchingsBasicStatisticsMongoDatastore,
+    DatasetsStatisticsMongoDatastore,
+    MatchingsStatisticsMongoDatastore,
     MatchingStorageStatisticsInfoMongoDatastore,
-    StoragesBasicStatisticsMongoDatastore,
+    StoragesStatisticsMongoDatastore,
 } from "@dataswapjs/dataswapjs"
 import { getFilecoinAddress } from "../../shared/address"
 import { DatabaseConnection } from "@unipackage/datastore"
@@ -118,10 +118,9 @@ export class Context implements IContext {
         this.datastore.member = new MemberMongoDatastore(
             this.datastore.baseConnection
         )
-        this.datastore.datasetBasicStatistics =
-            new DatasetsBasicStatisticsMongoDatastore(
-                this.datastore.baseConnection
-            )
+        this.datastore.datasetStatistics = new DatasetsStatisticsMongoDatastore(
+            this.datastore.baseConnection
+        )
         this.datastore.matchingMetadata = new MatchingMetadataMongoDatastore(
             this.datastore.baseConnection
         )
@@ -131,18 +130,14 @@ export class Context implements IContext {
         this.datastore.matchingBids = new MatchingBidMongoDatastore(
             this.datastore.baseConnection
         )
-        this.datastore.matchingsBasicStatistics =
-            new MatchingsBasicStatisticsMongoDatastore(
-                this.datastore.baseConnection
-            )
+        this.datastore.matchingsStatistics =
+            new MatchingsStatisticsMongoDatastore(this.datastore.baseConnection)
         this.datastore.matchingStorageStatisticsInfo =
             new MatchingStorageStatisticsInfoMongoDatastore(
                 this.datastore.baseConnection
             )
-        this.datastore.storagesBasicStatistics =
-            new StoragesBasicStatisticsMongoDatastore(
-                this.datastore.baseConnection
-            )
+        this.datastore.storagesStatistics =
+            new StoragesStatisticsMongoDatastore(this.datastore.baseConnection)
 
         this.datastore.carReplica = new CarReplicaMongoDatastore(
             this.datastore.baseConnection

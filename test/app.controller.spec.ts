@@ -51,14 +51,14 @@ import { SyncController } from "../src/api/sync/sync.controller"
 import { SyncService } from "../src/api/sync/sync.service"
 import { DatasetChallengeController } from "../src/api/datasetChallenge/datasetChallenge.controller"
 import { DatasetChallengeService } from "../src/api/datasetChallenge/datasetChallenge.service"
-import { DatasetsBasicStatisticsController } from "../src/api/datasetsBasicStatistics/datasetsBasicStatistics.controller"
-import { DatasetBasicStatisticsService } from "../src/api/datasetsBasicStatistics/datasetsBasicStatistics.service"
-import { MatchingsBasicStatisticsController } from "../src/api/matchingsBasicStatistics/matchingsBasicStatistics.controller"
-import { MatchingsBasicStatisticsService } from "../src/api/matchingsBasicStatistics/matchingsBasicStatistics.service"
+import { DatasetsStatisticsController } from "../src/api/statistics/datasetsStatistics.controller"
+import { DatasetsStatisticsService } from "../src/api/statistics/datasetsStatistics.service"
+import { MatchingsStatisticsController } from "../src/api/statistics/matchingsStatistics.controller"
+import { MatchingsStatisticsService } from "../src/api/statistics/matchingsStatistics.service"
 import { MatchingStorageStatisticsInfoController } from "../src/api/statistics/matchingStorageStatisticsInfo.controller"
 import { MatchingStorageStatisticsInfoService } from "../src/api/statistics/matchingStorageStatisticsInfo.service"
-import { StoragesBasicStatisticsController } from "../src/api/statistics/storagesBasicStatistics.controller"
-import { StoragesBasicStatisticsService } from "../src/api/statistics/storagesBasicStatistics.service"
+import { StoragesStatisticsController } from "../src/api/statistics/storagesStatistics.controller"
+import { StoragesStatisticsService } from "../src/api/statistics/storagesStatistics.service"
 
 describe("AppController Test", () => {
     let tipsetController: TipsetController
@@ -76,10 +76,10 @@ describe("AppController Test", () => {
     let matchingBidsController: MatchingBidsController
     let syncController: SyncController
     let datasetChallengeController: DatasetChallengeController
-    let datasetsBasicStatisticsController: DatasetsBasicStatisticsController
-    let matchingsBasicStatisticsController: MatchingsBasicStatisticsController
+    let datasetsStatisticsController: DatasetsStatisticsController
+    let matchingsStatisticsController: MatchingsStatisticsController
     let matchingStorageStatisticsInfoController: MatchingStorageStatisticsInfoController
-    let storagesBasicStatisticsController: StoragesBasicStatisticsController
+    let storagesStatisticsController: StoragesStatisticsController
 
     beforeAll(async () => {
         calibrationBgTask.start()
@@ -108,9 +108,9 @@ describe("AppController Test", () => {
                 MatchingBidsController,
                 SyncController,
                 DatasetChallengeController,
-                DatasetsBasicStatisticsController,
-                MatchingsBasicStatisticsController,
-                StoragesBasicStatisticsController,
+                DatasetsStatisticsController,
+                MatchingsStatisticsController,
+                StoragesStatisticsController,
                 MatchingStorageStatisticsInfoController,
             ],
             providers: [
@@ -129,9 +129,9 @@ describe("AppController Test", () => {
                 MatchingBidsService,
                 SyncService,
                 DatasetChallengeService,
-                DatasetBasicStatisticsService,
-                MatchingsBasicStatisticsService,
-                StoragesBasicStatisticsService,
+                DatasetsStatisticsService,
+                MatchingsStatisticsService,
+                StoragesStatisticsService,
                 MatchingStorageStatisticsInfoService,
             ],
         }).compile()
@@ -169,18 +169,15 @@ describe("AppController Test", () => {
         datasetChallengeController = root.get<DatasetChallengeController>(
             DatasetChallengeController
         )
-        datasetsBasicStatisticsController =
-            root.get<DatasetsBasicStatisticsController>(
-                DatasetsBasicStatisticsController
-            )
-        matchingsBasicStatisticsController =
-            root.get<MatchingsBasicStatisticsController>(
-                MatchingsBasicStatisticsController
-            )
-        storagesBasicStatisticsController =
-            root.get<StoragesBasicStatisticsController>(
-                StoragesBasicStatisticsController
-            )
+        datasetsStatisticsController = root.get<DatasetsStatisticsController>(
+            DatasetsStatisticsController
+        )
+        matchingsStatisticsController = root.get<MatchingsStatisticsController>(
+            MatchingsStatisticsController
+        )
+        storagesStatisticsController = root.get<StoragesStatisticsController>(
+            StoragesStatisticsController
+        )
         matchingStorageStatisticsInfoController =
             root.get<MatchingStorageStatisticsInfoController>(
                 MatchingStorageStatisticsInfoController
@@ -291,9 +288,9 @@ describe("AppController Test", () => {
             expect(res.ok).toBe(true)
         }, 300000)
     })
-    describe("datasetsbasicstatistics query", () => {
+    describe("datasetsstatistics query", () => {
         it("should ok", async () => {
-            const res = await datasetsBasicStatisticsController.find({
+            const res = await datasetsStatisticsController.find({
                 network: "calibration",
                 queryFilter: {
                     conditions: [
@@ -355,9 +352,9 @@ describe("AppController Test", () => {
             expect(res.ok).toBe(true)
         }, 300000)
     })
-    describe("matchingsbasicstatistics query", () => {
+    describe("matchingsstatistics query", () => {
         it("should ok", async () => {
-            const res = await matchingsBasicStatisticsController.find({
+            const res = await matchingsStatisticsController.find({
                 network: "calibration",
                 queryFilter: {
                     conditions: [
@@ -406,9 +403,9 @@ describe("AppController Test", () => {
         }, 300000)
     })
 
-    describe("storagesBasicStatistics query", () => {
+    describe("storagesStatistics query", () => {
         it("should ok", async () => {
-            const res = await storagesBasicStatisticsController.find({
+            const res = await storagesStatisticsController.find({
                 network: "calibration",
                 queryFilter: {
                     conditions: [{ totalCounts: { $gt: 0, $lt: 3 } }],

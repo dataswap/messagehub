@@ -29,7 +29,7 @@ import { QueryParam } from "src/shared/queryParams"
  * Service responsible for providing root-level functionality.
  */
 @Injectable()
-export class MatchingsBasicStatisticsService {
+export class DatasetsStatisticsService {
     /**
      * Gets a greeting message.
      * @returns A string representing a greeting message.
@@ -43,7 +43,7 @@ export class MatchingsBasicStatisticsService {
         } else {
             bgTask = mainBgTask
         }
-        return await bgTask.context.datastore.matchingsBasicStatistics.find(
+        return await bgTask.context.datastore.datasetStatistics.find(
             queryParam.queryFilter
         )
     }
@@ -61,7 +61,7 @@ export class MatchingsBasicStatisticsService {
         } else {
             bgTask = mainBgTask
         }
-        return await bgTask.context.datastore.matchingsBasicStatistics.total(
+        return await bgTask.context.datastore.datasetStatistics.total(
             queryParam.queryFilter
         )
     }

@@ -118,12 +118,12 @@ export class BackgroundTask implements IBackgroundTask {
                         }
                         //step 3.4 store chainInfo
                         await this.storager.storeChainInfo(chainInfo)
-                    } else if (this.syncHeight < chainHeadHeight) {
+                    } else if (this.syncHeight + 6 < chainHeadHeight) {
                         this.syncHeight++
                     } else {
                         await delay(3000)
                     }
-                } else if (this.syncHeight < chainHeadHeight) {
+                } else if (this.syncHeight + 6 < chainHeadHeight) {
                     this.syncHeight++
                 } else {
                     await delay(3000)

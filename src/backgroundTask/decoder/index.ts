@@ -275,6 +275,7 @@ export class Decoder implements IDecoder {
                 return {
                     method: msg.method,
                     params: msg.params,
+                    cid: msg.cid,
                 } as SelectedDataStorageParams
             })
 
@@ -299,6 +300,7 @@ export class Decoder implements IDecoder {
                 return {
                     method: msg.method,
                     params: msg.params,
+                    cid: msg.cid,
                 } as SelectedStateEventParams
             })
 
