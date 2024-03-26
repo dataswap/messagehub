@@ -72,6 +72,7 @@ export interface ChainContext {
     startHeight: number
     notRunSynctask: boolean
     network: string
+    confidenceInterval: number
 }
 
 /**
