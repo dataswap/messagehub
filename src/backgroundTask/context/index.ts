@@ -63,6 +63,7 @@ export interface Config {
     evm: EvmContext
     notRunSynctask: boolean
     network: string
+    confidenceInterval: number
 }
 
 /**
@@ -78,6 +79,7 @@ export class Context implements IContext {
      * @param config - The network configuration.
      */
     constructor(config: Config) {
+        this.chain.confidenceInterval = config.confidenceInterval
         this.chain.network = config.network
         this.chain.startHeight = config.startHeight
         this.chain.notRunSynctask = config.notRunSynctask
