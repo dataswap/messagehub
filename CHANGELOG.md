@@ -1,5 +1,31 @@
 
 
+# [0.14.0](https://github.com/dataswap/messagehub/compare/0.13.0...0.14.0) (2024-03-26)
+
+
+### Bug Fixes
+
+* 🐛 Revise inappropriate naming conventions for statistical ([2cc0f76](https://github.com/dataswap/messagehub/commit/2cc0f76f366b60ff60c48c0633aa6bd77af185b8)), closes [#162](https://github.com/dataswap/messagehub/issues/162)
+* 🐛 update dataswapjs version to 0.24.2 ([a2ce7be](https://github.com/dataswap/messagehub/commit/a2ce7beaadaf84ba638d16184349c7a73666807d))
+
+
+### Features
+
+* 🎸 Add api management directory ([34eab45](https://github.com/dataswap/messagehub/commit/34eab4572cde14d6d448a117c720628767032342)), closes [#145](https://github.com/dataswap/messagehub/issues/145)
+* 🎸 Collection and storage of Dataset statistical ([4cdfc05](https://github.com/dataswap/messagehub/commit/4cdfc05cdcd001252ab855faf945643cd429c115)), closes [#125](https://github.com/dataswap/messagehub/issues/125)
+* 🎸 Collection and storage of Matching statistical ([7e18309](https://github.com/dataswap/messagehub/commit/7e18309323eebbc6ad1c6c8b9bba6b6678c83e58)), closes [#126](https://github.com/dataswap/messagehub/issues/126)
+* 🎸 Collection and storage of members statistical ([b8ea8fa](https://github.com/dataswap/messagehub/commit/b8ea8fae233cb4eaf6480b618ef2054c3a354a81)), closes [#128](https://github.com/dataswap/messagehub/issues/128)
+* 🎸 Collection and storage of Storages statistical ([993337e](https://github.com/dataswap/messagehub/commit/993337e7b913c07dc41e9fe333d28bb071039b70)), closes [#127](https://github.com/dataswap/messagehub/issues/127)
+* 🎸 Implementation of APIs related to Datasets statistics ([3a00c73](https://github.com/dataswap/messagehub/commit/3a00c73adac93f47d3e7bca698c87774199a7e04)), closes [#131](https://github.com/dataswap/messagehub/issues/131)
+* 🎸 Implementation of APIs related to Matchings statistics ([908ae09](https://github.com/dataswap/messagehub/commit/908ae09b09ac468153e8af30ad9bcbf43a037b03)), closes [#132](https://github.com/dataswap/messagehub/issues/132)
+* 🎸 Implementation of APIs related to Member statistics ([2aaecd3](https://github.com/dataswap/messagehub/commit/2aaecd3ecade103d10d511c0194e5601b5ea6980)), closes [#130](https://github.com/dataswap/messagehub/issues/130)
+* 🎸 Implementation of APIs related to Storages statistics ([036d4ec](https://github.com/dataswap/messagehub/commit/036d4eceb58e8b72c95df02c203f2a28928878fd)), closes [#133](https://github.com/dataswap/messagehub/issues/133)
+* 🎸 Replace escrow to finance contract ([20fd17b](https://github.com/dataswap/messagehub/commit/20fd17bd50339d26a1b2c4da753816b9e5e4c006)), closes [#139](https://github.com/dataswap/messagehub/issues/139)
+* 🎸 update dataswapjs version to 0.22.0 ([3bc41a1](https://github.com/dataswap/messagehub/commit/3bc41a100bbb66d923a8dcf7a24e29e032c2e1d6)), closes [#142](https://github.com/dataswap/messagehub/issues/142)
+* 🎸 update dataswapjs version to 0.23.0 ([3daa75a](https://github.com/dataswap/messagehub/commit/3daa75a11dd0fb7495dcd4a78e19995462b4ea98)), closes [#155](https://github.com/dataswap/messagehub/issues/155)
+* 🎸 update dataswapjs version to 0.23.1 ([9fe79ec](https://github.com/dataswap/messagehub/commit/9fe79ecdae2313fd101422fdbdcb41fb106c96c6)), closes [#157](https://github.com/dataswap/messagehub/issues/157)
+* 🎸 update dataswapjs version to 0.24.1 ([43d642e](https://github.com/dataswap/messagehub/commit/43d642e2d5ca8b200d640c313101e5d10cf68699))
+
 # [0.13.0](https://github.com/dataswap/messagehub/compare/0.12.0...0.13.0) (2024-01-18)
 
 
