@@ -82,6 +82,7 @@ export const calibrationConfig: Config = {
         (process.env.CALIBRATION_NOT_RUN_SYNCTASK as string).toLowerCase() ===
             "yes",
     network: "calibration",
+    confidenceInterval: 6,
 }
 
 /**
@@ -113,6 +114,7 @@ export const mainConfig: Config = {
         process.env.MAIN_NOT_RUN_SYNCTASK &&
         (process.env.MAIN_NOT_RUN_SYNCTASK as string).toLowerCase() === "yes",
     network: "main",
+    confidenceInterval: 6,
 }
 
 /**
