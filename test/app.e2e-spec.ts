@@ -153,9 +153,9 @@ describe("AppController (e2e)", () => {
             })
             .expect(201)
     }, 30000)
-    it("/datasetsbasicstatistics/query (POST)", async () => {
+    it("/datasetsstatistics/query (POST)", async () => {
         return request(app.getHttpServer())
-            .post("/datasetsbasicstatistics/query")
+            .post("/datasetsstatistics/query")
             .send({
                 network: "calibration",
                 queryFilter: {
@@ -217,9 +217,9 @@ describe("AppController (e2e)", () => {
             })
             .expect(201)
     }, 30000)
-    it("/matchingsbasicstatistics/query (POST)", async () => {
+    it("/matchingsstatistics/query (POST)", async () => {
         return request(app.getHttpServer())
-            .post("/matchingsbasicstatistics/query")
+            .post("/matchingsstatistics/query")
             .send({
                 network: "calibration",
                 queryFilter: {
@@ -260,9 +260,9 @@ describe("AppController (e2e)", () => {
             .expect(201)
     }, 30000)
 
-    it("/storagesBasicStatistics/query (POST)", async () => {
+    it("/storagesStatistics/query (POST)", async () => {
         return request(app.getHttpServer())
-            .post("/storagesBasicStatistics/query")
+            .post("/storagesstatistics/query")
             .send({
                 network: "calibration",
                 queryFilter: {

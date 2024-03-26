@@ -25,6 +25,7 @@ import {
     Chain,
     ChainService,
     ChainFilecoinRPC,
+    CidProperty,
 } from "@unipackage/filecoin"
 import {
     DatasetMetadataEvm,
@@ -43,15 +44,15 @@ import {
     DatasetMetadataMongoDatastore,
     DatasetRequirementMongoDatastore,
     DatasetProofMetadataMongoDatastore,
-    DatasetsBasicStatisticsMongoDatastore,
+    DatasetsStatisticsMongoDatastore,
     CarMongoDatastore,
     CarstoreEvm,
     MatchingStorageStatisticsInfoMongoDatastore,
-    StoragesBasicStatisticsMongoDatastore,
+    StoragesStatisticsMongoDatastore,
     MatchingMetadataMongoDatastore,
     MatchingTargetMongoDatastore,
     MatchingBidMongoDatastore,
-    MatchingsBasicStatisticsMongoDatastore,
+    MatchingsStatisticsMongoDatastore,
     CarReplicaMongoDatastore,
     DatasetChallengeMongoDatastore,
     MemberMongoDatastore,
@@ -101,16 +102,16 @@ export interface DatastoreContext {
     tipset: TipsetMongoDatastore
     dataswapMessage: DataswapMessageMongoDatastore
     datasetMetadata: DatasetMetadataMongoDatastore
-    datasetBasicStatistics: DatasetsBasicStatisticsMongoDatastore
+    datasetStatistics: DatasetsStatisticsMongoDatastore
     datasetRequirement: DatasetRequirementMongoDatastore
     datasetProofMetadata: DatasetProofMetadataMongoDatastore
     datasetChallenge: DatasetChallengeMongoDatastore
     matchingStorageStatisticsInfo: MatchingStorageStatisticsInfoMongoDatastore
-    storagesBasicStatistics: StoragesBasicStatisticsMongoDatastore
+    storagesStatistics: StoragesStatisticsMongoDatastore
     matchingMetadata: MatchingMetadataMongoDatastore
     matchingTarget: MatchingTargetMongoDatastore
     matchingBids: MatchingBidMongoDatastore
-    matchingsBasicStatistics: MatchingsBasicStatisticsMongoDatastore
+    matchingsStatistics: MatchingsStatisticsMongoDatastore
     car: CarMongoDatastore
     carReplica: CarReplicaMongoDatastore
     member: MemberMongoDatastore
@@ -138,6 +139,7 @@ export type SelectedDataStorageParams = {
     [K in InternalSelectedDataStorageMethod]: {
         method: K
         params: InternalSelectedDataStorageParamsMap[K]["params"]
+        cid: CidProperty
     }
 }[InternalSelectedDataStorageMethod]
 
@@ -154,6 +156,7 @@ export type SelectedStateEventParams = {
     [K in InternalSelectedStateEventMethod]: {
         method: K
         params: InternalSelectedStateEventMethodsMap[K]["params"]
+        cid: CidProperty
     }
 }[InternalSelectedStateEventMethod]
 

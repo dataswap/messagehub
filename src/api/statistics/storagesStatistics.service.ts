@@ -18,55 +18,51 @@
  *  limitations under the respective licenses.
  ********************************************************************************/
 
-import { Controller, Post, Body, UseInterceptors } from "@nestjs/common"
-import { DatasetBasicStatisticsService } from "./datasetsBasicStatistics.service"
+import { Injectable } from "@nestjs/common"
 import { BasicStatistics } from "@dataswapjs/dataswapjs"
 import { ValueFields, Result } from "@unipackage/utils"
-import { BigIntToStringInterceptor } from "../../shared/bigIntToStringInterceptor"
+import { calibrationBgTask, mainBgTask } from "../../config/backgroundTask"
+import { BackgroundTask } from "src/backgroundTask"
 import { QueryParam } from "src/shared/queryParams"
 
 /**
- * Controller responsible for handling root-level requests.
+ * Service responsible for providing root-level functionality.
  */
-@UseInterceptors(BigIntToStringInterceptor)
-@Controller("datasetsbasicstatistics")
-export class DatasetsBasicStatisticsController {
+@Injectable()
+export class StoragesStatisticsService {
     /**
-     * Creates an instance of RootController.
-     * @param rootService - The RootService instance.
+     * Gets a greeting message.
+     * @returns A string representing a greeting message.
      */
-    constructor(
-        private readonly datasetBasicStatisticsService: DatasetBasicStatisticsService
-    ) {}
-
-    /**
-     * Handles GET requests for root-level resources with an identifier.
-     * @param queryFilter - Request parameters.
-     * @returns A string representing the response.
-     * @example
-     * {
-     * "conditions": [
-     *   {
-     *    "datasetId": { "$gt": 0, "$lt": 3}
-     *   }
-     *  ]
-     * }
-     */
-    @Post("query")
     async find(
-        @Body() queryParam: QueryParam<BasicStatistics>
+        queryParam: QueryParam<BasicStatistics>
     ): Promise<Result<ValueFields<BasicStatistics>[]>> {
-        return await this.datasetBasicStatisticsService.find(queryParam)
+        let bgTask: BackgroundTask
+        if (queryParam.network === "calibration") {
+            bgTask = calibrationBgTask
+        } else {
+            bgTask = mainBgTask
+        }
+        return await bgTask.context.datastore.storagesStatistics.find(
+            queryParam.queryFilter
+        )
     }
 
     /**
      * Gets a total count.
      * @returns A number representing a total count by query param.
      */
-    @Post("total")
     async total(
-        @Body() queryParam: QueryParam<BasicStatistics>
+        queryParam: QueryParam<BasicStatistics>
     ): Promise<Result<number>> {
-        return await this.datasetBasicStatisticsService.total(queryParam)
+        let bgTask: BackgroundTask
+        if (queryParam.network === "calibration") {
+            bgTask = calibrationBgTask
+        } else {
+            bgTask = mainBgTask
+        }
+        return await bgTask.context.datastore.storagesStatistics.total(
+            queryParam.queryFilter
+        )
     }
 }

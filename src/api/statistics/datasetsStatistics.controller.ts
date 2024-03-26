@@ -19,7 +19,7 @@
  ********************************************************************************/
 
 import { Controller, Post, Body, UseInterceptors } from "@nestjs/common"
-import { StoragesBasicStatisticsService } from "./storagesBasicStatistics.service"
+import { DatasetsStatisticsService } from "./datasetsStatistics.service"
 import { BasicStatistics } from "@dataswapjs/dataswapjs"
 import { ValueFields, Result } from "@unipackage/utils"
 import { BigIntToStringInterceptor } from "../../shared/bigIntToStringInterceptor"
@@ -29,14 +29,14 @@ import { QueryParam } from "src/shared/queryParams"
  * Controller responsible for handling root-level requests.
  */
 @UseInterceptors(BigIntToStringInterceptor)
-@Controller("storagesBasicStatistics")
-export class StoragesBasicStatisticsController {
+@Controller("datasetsstatistics")
+export class DatasetsStatisticsController {
     /**
      * Creates an instance of RootController.
      * @param rootService - The RootService instance.
      */
     constructor(
-        private readonly storagesBasicStatisticsService: StoragesBasicStatisticsService
+        private readonly datasetsStatisticsService: DatasetsStatisticsService
     ) {}
 
     /**
@@ -47,7 +47,7 @@ export class StoragesBasicStatisticsController {
      * {
      * "conditions": [
      *   {
-     *    "matchingId": { "$gt": 0, "$lt": 3}
+     *    "datasetId": { "$gt": 0, "$lt": 3}
      *   }
      *  ]
      * }
@@ -56,7 +56,7 @@ export class StoragesBasicStatisticsController {
     async find(
         @Body() queryParam: QueryParam<BasicStatistics>
     ): Promise<Result<ValueFields<BasicStatistics>[]>> {
-        return await this.storagesBasicStatisticsService.find(queryParam)
+        return await this.datasetsStatisticsService.find(queryParam)
     }
 
     /**
@@ -67,6 +67,6 @@ export class StoragesBasicStatisticsController {
     async total(
         @Body() queryParam: QueryParam<BasicStatistics>
     ): Promise<Result<number>> {
-        return await this.storagesBasicStatisticsService.total(queryParam)
+        return await this.datasetsStatisticsService.total(queryParam)
     }
 }
