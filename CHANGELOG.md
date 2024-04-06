@@ -1,5 +1,14 @@
 
 
+## [0.14.1](https://github.com/dataswap/messagehub/compare/0.14.0...0.14.1) (2024-04-06)
+
+
+### Bug Fixes
+
+* 🐛 Synchronize with a confidence of 6 blocks ([e8d6153](https://github.com/dataswap/messagehub/commit/e8d6153384446c1e1e9a55684267fefc90f26f9b)), closes [#161](https://github.com/dataswap/messagehub/issues/161)
+* 🐛 update dataswapjs version to 0.25.7 ([0e761f9](https://github.com/dataswap/messagehub/commit/0e761f9b5daa8ac4a651c1d35289d10277f5445d)), closes [#168](https://github.com/dataswap/messagehub/issues/168)
+* 🐛 update dataswawpjs version to 0.25.6 ([d7956dc](https://github.com/dataswap/messagehub/commit/d7956dc5d5b6907927431a56a5b960a5ae3f81a9)), closes [#166](https://github.com/dataswap/messagehub/issues/166)
+
 # [0.14.0](https://github.com/dataswap/messagehub/compare/0.13.0...0.14.0) (2024-03-26)
 
 
